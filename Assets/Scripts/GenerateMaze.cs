@@ -15,6 +15,15 @@ public class GenerateMaze : MonoBehaviour
     [SerializeField] private GameObject _startPoint;
     public int collectibleCount = 3;
     public List<MazePiece> longestPath;
+    public Material redMaterial;
+
+    
+
+    public bool IsOuterWall(int x, int z, int mazeWidth, int mazeHeight)
+    {
+        return x == 0 || z == 0 || x == mazeWidth - 1 || z == mazeHeight - 1;
+    }
+
     void Start()
     {
         var currLongestPath = new List<MazePiece>();
@@ -26,6 +35,7 @@ public class GenerateMaze : MonoBehaviour
         GenerateStartAndEndPoint();
         GenerateCollectibles();
         GenerateObstacles();
+        ColorRandomWalls();
     }
 
     private void InstantiateMazePieces()
@@ -289,6 +299,57 @@ public class GenerateMaze : MonoBehaviour
         foreach(var piece in pathList)
         {
             Debug.Log(piece.transform.position.ToString());
+        }
+    }
+
+    private List<GameObject> GetInternalWalls()
+    {
+        List<GameObject> internalWalls = new List<GameObject>();
+
+        for (int x = 1; x < mazeWidth - 1; x++) // Skip outer walls
+        {
+            for (int z = 1; z < mazeHeight - 1; z++)
+            {
+                MazePiece currentPiece = _maze[x, z];
+
+                // Add inner walls (walls between cells, not at the boundary)
+                if (currentPiece.CheckNorthWallActive()) internalWalls.Add(currentPiece.GetNorthWall());
+                if (currentPiece.CheckSouthWallActive()) internalWalls.Add(currentPiece.GetSouthWall());
+                if (currentPiece.CheckEastWallActive()) internalWalls.Add(currentPiece.GetEastWall());
+                if (currentPiece.CheckWestWallActive()) internalWalls.Add(currentPiece.GetWestWall());
+            }
+        }
+        
+        return internalWalls;
+    }
+
+    private void ColorRandomWalls()
+    {
+
+        List<GameObject> internalWalls = GetInternalWalls();
+
+        if (internalWalls.Count < 5)
+        {
+            Debug.LogWarning("Not enough walls to color.");
+            return;
+        }
+
+        // Shuffle the list to randomly select walls
+        internalWalls = internalWalls.OrderBy(wall => Random.value).ToList();
+
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject selectedWall = internalWalls[i];
+            Debug.Log(redMaterial);
+            // Change the wall's material color to red
+            Renderer wallRenderer = selectedWall.GetComponentInChildren<MeshRenderer>();
+            Debug.Log($"wallRenderer: {wallRenderer.material}");
+            if (wallRenderer != null)
+            {
+                wallRenderer.material = redMaterial; 
+                Debug.Log($"wallRenderer after: {wallRenderer.material}");
+                Debug.Log($"Wall at position {selectedWall.transform.position} turned red.");
+            }
         }
     }
 }
