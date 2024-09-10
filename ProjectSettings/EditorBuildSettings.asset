@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Beatrice.unity
+    guid: f7346240d9b2e49e9aa0468edac1e928
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 45171ad4f3176044996691b4b4fab1b3
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 216f146a9619aef46b088c0841041c67,
       type: 2}
