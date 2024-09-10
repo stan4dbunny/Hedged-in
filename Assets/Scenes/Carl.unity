@@ -257,9 +257,27 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &334809219 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5252780470948951768, guid: 57c09716ed9ee9b4c91568098f9fa871,
+    type: 3}
+  m_PrefabInstance: {fileID: 8125960899925050373}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &334809222 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2303448147032632178, guid: 57c09716ed9ee9b4c91568098f9fa871,
+    type: 3}
+  m_PrefabInstance: {fileID: 8125960899925050373}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &385162462 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 7476817701619339076, guid: 634e2e253cfaca54496d8f8eff75f906,
+    type: 3}
+  m_PrefabInstance: {fileID: 2726524647577122871}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &495561751 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2820344830816390221, guid: 634e2e253cfaca54496d8f8eff75f906,
     type: 3}
   m_PrefabInstance: {fileID: 2726524647577122871}
   m_PrefabAsset: {fileID: 0}
@@ -748,6 +766,79 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f395c1f7563a13442a20f6f89de9db3e, type: 3}
+--- !u!1001 &8125960899925050373
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 731408167084476855, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 731408167084476855, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 731408167084476855, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 731408167084476855, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 731408167084476855, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 731408167084476855, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 731408167084476855, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 731408167084476855, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 731408167084476855, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 731408167084476855, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712921130421527039, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: m_Name
+      value: nonVRCameraHolder
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725976934188121431, guid: 57c09716ed9ee9b4c91568098f9fa871,
+        type: 3}
+      propertyPath: cameraPosition
+      value: 
+      objectReference: {fileID: 9714661}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57c09716ed9ee9b4c91568098f9fa871, type: 3}
 --- !u!1001 &8848071731367185557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -776,6 +867,21 @@ PrefabInstance:
       propertyPath: mazeInfo
       value: 
       objectReference: {fileID: 1787781444}
+    - target: {fileID: 3919009727752236550, guid: b6765c6054b63794c96781284937f8a9,
+        type: 3}
+      propertyPath: vRCamObj
+      value: 
+      objectReference: {fileID: 495561751}
+    - target: {fileID: 3919009727752236550, guid: b6765c6054b63794c96781284937f8a9,
+        type: 3}
+      propertyPath: nonVREditorTestCamera
+      value: 
+      objectReference: {fileID: 334809222}
+    - target: {fileID: 3919009727752236550, guid: b6765c6054b63794c96781284937f8a9,
+        type: 3}
+      propertyPath: nonVREditorTestCameraObj
+      value: 
+      objectReference: {fileID: 334809219}
     - target: {fileID: 4963407053626481094, guid: b6765c6054b63794c96781284937f8a9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -847,6 +953,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 2949408638057359518}
   - {fileID: 2726524647577122871}
+  - {fileID: 8125960899925050373}
   - {fileID: 8848071731367185557}
   - {fileID: 302588832}
   - {fileID: 1472422383}
