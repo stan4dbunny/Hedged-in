@@ -15,7 +15,7 @@ public class GenerateMaze : MonoBehaviour
     [SerializeField] private GameObject _startPoint;
     public int collectibleCount = 3;
     public List<MazePiece> longestPath;
-    public Material redMaterial;
+    public Material moveableWallMaterial;
 
     
 
@@ -340,15 +340,13 @@ public class GenerateMaze : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             GameObject selectedWall = internalWalls[i];
-            Debug.Log(redMaterial);
-            // Change the wall's material color to red
-            Renderer wallRenderer = selectedWall.GetComponentInChildren<MeshRenderer>();
-            Debug.Log($"wallRenderer: {wallRenderer.material}");
+
+            Renderer wallRenderer = selectedWall.GetComponentInChildren<Renderer>();
+    
             if (wallRenderer != null)
             {
-                wallRenderer.material = redMaterial; 
-                Debug.Log($"wallRenderer after: {wallRenderer.material}");
-                Debug.Log($"Wall at position {selectedWall.transform.position} turned red.");
+                wallRenderer.sharedMaterial = moveableWallMaterial; 
+                Debug.Log($"changed wall: {wallRenderer.sharedMaterial}");
             }
         }
     }
