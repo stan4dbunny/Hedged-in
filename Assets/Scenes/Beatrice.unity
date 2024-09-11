@@ -156,7 +156,8 @@ MonoBehaviour:
   mazeHeight: 10
   _mazePiece: {fileID: 8032588434237407153, guid: 81b56d81b3146244490d722c52b7f840,
     type: 3}
-  _collectible: {fileID: 0}
+  _collectible: {fileID: 2516521160115090937, guid: 694798edb9779864e9fbf826dcfe406d,
+    type: 3}
   _door: {fileID: 3460646777897969568, guid: e0aba46469d569e48ab377cb26fa5ed9, type: 3}
   _endPoint: {fileID: 1398917910275966604, guid: 81978042bf331b342ad24b0358e7be76,
     type: 3}
@@ -944,6 +945,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5357260474938799212, guid: 3ed9a5bf44501d04198e95fdff721395,
+        type: 3}
+      propertyPath: collectableClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 91fed63d64a8c4d4aa6934bc330db8df, type: 3}
     - target: {fileID: 5721952495824784551, guid: 3ed9a5bf44501d04198e95fdff721395,
         type: 3}
       propertyPath: m_Name
