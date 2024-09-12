@@ -2,8 +2,6 @@ Shader "Unlit/FurShader"
 {
     Properties
     {
-        _MainTex ("RandTexture", 2D) = "white" {}
-        _AlbedoTex ("Texture", 2D) = "white" {}
         _DroopStrength("DroopStrength", float) = 0.0
         _SpecularColor("SpecularColor", Color) = (0,0,0,0)
         _SpecularPower("SpecularPower", Range(0.0, 500.0)) = 0.0
@@ -43,7 +41,6 @@ Shader "Unlit/FurShader"
             };
 
             sampler2D _MainTex;
-            sampler2D _AlbedoTex;
             float4 _MainTex_ST;
 
             float _PrevHeight;
@@ -63,7 +60,8 @@ Shader "Unlit/FurShader"
             Interpolators vert (MeshData v)
             {
                 Interpolators o;
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex); //scaling, offsetting uv coordinates
+                //o.uv = TRANSFORM_TEX(v.uv, _MainTex); //scaling, offsetting uv coordinates
+                o.uv = v.uv;
                 float trnsl = _CurrHeight*(_Height/_Layers); //calculates translation of the vertex
                 o.height = trnsl;
                 
@@ -71,14 +69,16 @@ Shader "Unlit/FurShader"
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 o.worldNormal = UnityObjectToWorldNormal(v.normal);
 
-                o.worldPos = o.worldPos + float4(o.worldNormal,0)*trnsl;
+                o.worldPos += float4(o.worldNormal,0)*trnsl;
 
                 float droopStrength = (_CurrHeight/_Layers)*(_CurrHeight/_Layers)*_DroopStrength;
                 float3 droopAtRest = float3(0,-1,0)*droopStrength;
 
                 o.worldPos += float4(droopAtRest, 0);
                
+                //transform from model to clip space?
                 o.pos = mul(UNITY_MATRIX_VP, float4(o.worldPos, 1.0));
+                
                 return o;
             }
 
@@ -105,9 +105,6 @@ Shader "Unlit/FurShader"
                 //discard pixels outside cylinder, x and y
                 if (dist > _Thickness * (randFloat - _PrevHeight)) discard;
      
-               
-
-  
                 else
                 {
                     //float4 albedo = tex2D(_AlbedoTex, i.uv);

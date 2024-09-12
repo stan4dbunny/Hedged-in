@@ -222,6 +222,11 @@ PrefabInstance:
       propertyPath: resolution
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 7203350429127024073, guid: 81b56d81b3146244490d722c52b7f840,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: babd3c29fd0bddc448191f4fc86de49b, type: 2}
     - target: {fileID: 7954321124332946171, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}
       propertyPath: resolution

@@ -17,73 +17,47 @@ public class ShellTexturing : MonoBehaviour
 
     Renderer renderer;
 
-    struct MyInstanceData
-    {
-        public Matrix4x4 localToWorld;
-        public int resolution;
-        public float thickness;
-        public int layers;
-        public float height;
-        public float currHeight;
-        public float prevHeight;
-    }
+    GameObject[] shells;
 
     void Start()
     {
-
-        material.enableInstancing = true;
-        texture = new Texture2D(resolution, resolution, TextureFormat.RGBA32, false);
-        texture.name = "TEST";
-
-        //redundant
-        for (int y = 0; y < resolution; y++)
+        shells = new GameObject[layers];
+        for (int i = 0; i < layers; i++)
         {
-            for (int x = 0; x < resolution; x++)
-            {
-                float randVal = minimumHairLength + Random.value;
-                texture.SetPixel(x, y, new Color(randVal, randVal, randVal, randVal));
-            }
-        }
-        texture.Apply();
-        texture.filterMode = FilterMode.Point;
-        material.SetTexture("_MainTex", texture);
+            shells[i] = new GameObject("Shell" + 1);
+            shells[i].transform.SetParent(this.transform, false);
+            shells[i].AddComponent<MeshFilter>();
+            shells[i].AddComponent<MeshRenderer>();
+            shells[i].GetComponent<MeshFilter>().mesh = GetComponent<MeshFilter>().mesh;
+            shells[i].GetComponent<MeshRenderer>().material = material;
 
+
+            shells[i].GetComponent<MeshRenderer>().material.SetInt("_Resolution", resolution);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Thickness", thickness);
+            shells[i].GetComponent<MeshRenderer>().material.SetInt("_Layers", layers);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Height", height);
+        }
         //give the regular texture to the shader/GPU
         renderer = GetComponent<Renderer>();
         // Access the mainTexture of the material
         Texture mainTexture = renderer.material.mainTexture;
-        material.SetTexture("_AlbedoTex", mainTexture);  
+        material.SetTexture("_MainTex", mainTexture);
+        
     }
 
     private void Update()
     {
-        RenderParams renderParams = new RenderParams(material);
-        /*
-        renderParams.matProps = new MaterialPropertyBlock();
-        renderParams.matProps.SetTexture("_MainTex", texture);
-        renderParams.matProps.SetInt("_Resolution", resolution);
-        renderParams.matProps.SetFloat("_Thickness", thickness);
-        renderParams.matProps.SetInt("_Layers", layers);
-        renderParams.matProps.SetFloat("_Height", height);
-        */
-        //shadows
-        renderParams.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-        renderParams.worldBounds = renderer.bounds;
-
-        MyInstanceData[] instData = new MyInstanceData[layers];
         int prevHeight = 0;
         for (int i = 0; i < layers; i++)
         {
-            Matrix4x4 localToWorld = transform.localToWorldMatrix;
-            renderParams.matProps.SetFloat("_PrevHeight", prevHeight / (float)layers);
-            renderParams.matProps.SetFloat("_CurrHeight", i);
-            Graphics.RenderMesh(renderParams, GetComponent<MeshFilter>().mesh, 0, localToWorld);
-
-            instData[i].localToWorld = transform.localToWorldMatrix;
-
+            shells[i].GetComponent<MeshRenderer>().material.SetInt("_Resolution", resolution);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Thickness", thickness);
+            shells[i].GetComponent<MeshRenderer>().material.SetInt("_Layers", layers);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Height", height);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_PrevHeight", prevHeight / (float)layers);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_CurrHeight", i);
+            
             prevHeight = i;
         }
-
-        Graphics.RenderMeshInstanced(renderParams, GetComponent<MeshFilter>().mesh, 0, )
     }
 }
