@@ -299,7 +299,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.85
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
@@ -388,11 +388,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213ce2fc3efe428418c1d3ffd8f33cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 100
+  resolution: 185
   layers: 20
-  height: 0.08
-  thickness: 1.46
-  minimumHairLength: 0
+  height: 0.12
+  thickness: 2.74
+  minimumHairLength: 0.7
   material: {fileID: 2100000, guid: e182dce726c11c84dba687bd51649651, type: 2}
 --- !u!4 &6668398151866864654 stripped
 Transform:
@@ -426,7 +426,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.85
+      value: -0.17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
@@ -521,11 +521,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213ce2fc3efe428418c1d3ffd8f33cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 100
+  resolution: 185
   layers: 20
-  height: 0.08
-  thickness: 2.16
-  minimumHairLength: 0
+  height: 0.12
+  thickness: 2.74
+  minimumHairLength: 0.7
   material: {fileID: 2100000, guid: e182dce726c11c84dba687bd51649651, type: 2}
 --- !u!1001 &7759978427471243980
 PrefabInstance:
@@ -553,7 +553,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.81
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
@@ -563,7 +563,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
@@ -642,11 +642,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213ce2fc3efe428418c1d3ffd8f33cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 100
+  resolution: 185
   layers: 20
-  height: 0.08
-  thickness: 1.46
-  minimumHairLength: 0
+  height: 0.12
+  thickness: 2.74
+  minimumHairLength: 0.7
   material: {fileID: 2100000, guid: e182dce726c11c84dba687bd51649651, type: 2}
 --- !u!4 &7798618519417081127 stripped
 Transform:
@@ -680,7 +680,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.74
+      value: -0.17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
@@ -775,9 +775,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213ce2fc3efe428418c1d3ffd8f33cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 100
+  resolution: 185
   layers: 20
-  height: 0.08
-  thickness: 1.46
-  minimumHairLength: 0
+  height: 0.12
+  thickness: 2.74
+  minimumHairLength: 0.7
   material: {fileID: 2100000, guid: e182dce726c11c84dba687bd51649651, type: 2}

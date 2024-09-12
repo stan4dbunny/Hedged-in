@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: 971290250766807174, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}
       propertyPath: height
-      value: 0.08
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 971290250766807174, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}
@@ -145,17 +145,17 @@ PrefabInstance:
     - target: {fileID: 971290250766807174, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}
       propertyPath: thickness
-      value: 1.46
+      value: 2.74
       objectReference: {fileID: 0}
     - target: {fileID: 971290250766807174, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}
       propertyPath: resolution
-      value: 100
+      value: 185
       objectReference: {fileID: 0}
     - target: {fileID: 971290250766807174, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}
       propertyPath: minimumHairLength
-      value: 0
+      value: 1.23
       objectReference: {fileID: 0}
     - target: {fileID: 1052087017647188193, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}
