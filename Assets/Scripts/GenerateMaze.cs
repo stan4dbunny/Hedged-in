@@ -302,52 +302,81 @@ public class GenerateMaze : MonoBehaviour
         }
     }
 
-    private List<GameObject> GetInternalWalls()
+    private List<MazePiece> GetInternalCells()
     {
-        List<GameObject> internalWalls = new List<GameObject>();
+        List<MazePiece> internalCells = new List<MazePiece>();
 
         for (int x = 1; x < mazeWidth - 1; x++) // Skip outer walls
         {
             for (int z = 1; z < mazeHeight - 1; z++)
             {
-                MazePiece currentPiece = _maze[x, z];
-
-                // Add inner walls (walls between cells, not at the boundary)
-                if (currentPiece.CheckNorthWallActive()) internalWalls.Add(currentPiece.GetNorthWall());
-                if (currentPiece.CheckSouthWallActive()) internalWalls.Add(currentPiece.GetSouthWall());
-                if (currentPiece.CheckEastWallActive()) internalWalls.Add(currentPiece.GetEastWall());
-                if (currentPiece.CheckWestWallActive()) internalWalls.Add(currentPiece.GetWestWall());
+                internalCells.Add(_maze[x,z]);
             }
         }
         
-        return internalWalls;
+        return internalCells;
     }
 
     private void ColorRandomWalls()
     {
 
-        List<GameObject> internalWalls = GetInternalWalls();
+        List<MazePiece> internalCells = GetInternalCells();
+        List<(MazePiece, GameObject, string)> selectableWalls = new List<(MazePiece, GameObject, string)>();
 
-        if (internalWalls.Count < 5)
+        foreach (var cell in internalCells)
         {
-            Debug.LogWarning("Not enough walls to color.");
-            return;
+            if (cell.CheckNorthWallActive())
+                selectableWalls.Add((cell, cell.GetNorthWall(), "North"));
+            if (cell.CheckSouthWallActive())
+                selectableWalls.Add((cell, cell.GetSouthWall(), "South"));
+            if (cell.CheckEastWallActive())
+                selectableWalls.Add((cell, cell.GetEastWall(), "East"));
+            if (cell.CheckWestWallActive())
+                selectableWalls.Add((cell, cell.GetWestWall(), "West"));
         }
 
-        // Shuffle the list to randomly select walls
-        internalWalls = internalWalls.OrderBy(wall => Random.value).ToList();
+        // Shuffle the list and randomly select 5 walls
+        var randomWalls = selectableWalls.OrderBy(_ => Random.value).Take(5).ToList();
 
-        for (int i = 0; i < 5; i++)
+        foreach (var wallData in randomWalls)
         {
-            GameObject selectedWall = internalWalls[i];
+            MazePiece currentCell = wallData.Item1;
+            GameObject wall = wallData.Item2;
+            string direction = wallData.Item3;
 
-            Renderer wallRenderer = selectedWall.GetComponentInChildren<Renderer>();
-    
-            if (wallRenderer != null)
-            {
-                wallRenderer.sharedMaterial = moveableWallMaterial; 
-                Debug.Log($"changed wall: {wallRenderer.sharedMaterial}");
-            }
+            Debug.Log($"Wall: {wall}");
+            wall.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
+            wall.AddComponent<WallController>();
+
+            ClearNeighboringWall(currentCell, direction);
+        }
+       
+    }
+
+    private void ClearNeighboringWall(MazePiece currentCell, string direction)
+    {
+        Vector3 currentPos = currentCell.transform.position;
+        int x = (int)currentPos.x;
+        int z = (int)currentPos.z;
+
+        switch (direction)
+        {
+            case "North":
+                if (z + 1 < mazeHeight)
+                    _maze[x, z + 1].ClearSouthWall();
+                break;
+            case "South":
+                if (z - 1 >= 0)
+                    _maze[x, z - 1].ClearNorthWall();
+                break;
+            case "East":
+                if (x + 1 < mazeWidth)
+                    _maze[x + 1, z].ClearWestWall();
+                break;
+            case "West":
+                if (x - 1 >= 0)
+                    _maze[x - 1, z].ClearEastWall();
+                break;
         }
     }
 }
