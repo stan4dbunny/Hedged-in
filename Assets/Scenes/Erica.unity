@@ -140,7 +140,7 @@ PrefabInstance:
     - target: {fileID: 971290250766807174, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}
       propertyPath: layers
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 971290250766807174, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}
@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 971290250766807174, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}
       propertyPath: minimumHairLength
-      value: 0.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1052087017647188193, guid: 81b56d81b3146244490d722c52b7f840,
         type: 3}

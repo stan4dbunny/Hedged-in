@@ -40,7 +40,6 @@ Shader "Unlit/FurShader"
                 float4 pos : SV_POSITION;
             };
 
-            sampler2D _MainTex;
             float4 _MainTex_ST;
 
             float _PrevHeight;
@@ -49,6 +48,7 @@ Shader "Unlit/FurShader"
             float _CurrHeight;
             float _Height;
             int _Layers;
+            float _MinHeight;
            
             float _DroopStrength;
 
@@ -60,7 +60,6 @@ Shader "Unlit/FurShader"
             Interpolators vert (MeshData v)
             {
                 Interpolators o;
-                //o.uv = TRANSFORM_TEX(v.uv, _MainTex); //scaling, offsetting uv coordinates
                 o.uv = v.uv;
                 float trnsl = _CurrHeight*(_Height/_Layers); //calculates translation of the vertex
                 o.height = trnsl;
@@ -84,23 +83,15 @@ Shader "Unlit/FurShader"
 
             fixed4 frag (Interpolators i) : SV_Target
             {
-               
-                // sample the texture
-                //float4 rand = tex2D(_MainTex, i.uv);   
-                //float randVal = rand.x;
-
-                float randFloat = frac(sin(dot(i.uv*_Resolution, float2(12.9898, 78.233))) * 43758.5453);
+                float randFloat = frac(sin(dot(trunc(i.uv*_Resolution), float2(12.9898, 78.233))) * 43758.5453); //trunc gets the int part
 
                 float4 pixelColor = float4(randFloat, randFloat, randFloat, randFloat);
-                //return pixelColor;
-
+               
                 float2 cntrdPixlCoord = frac(_Resolution * i.uv) * 2.0 - 1.0;
                 float dist = length(cntrdPixlCoord);
-                //if (i.height < 0.001) discard;
 
                  //discard pixels below height threshold, z
                 if (randFloat  < _PrevHeight) discard;
-                //return float4(0,1,0,0)*_PrevHeight;
      
                 //discard pixels outside cylinder, x and y
                 if (dist > _Thickness * (randFloat - _PrevHeight)) discard;

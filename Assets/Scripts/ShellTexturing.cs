@@ -36,6 +36,7 @@ public class ShellTexturing : MonoBehaviour
             shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Thickness", thickness);
             shells[i].GetComponent<MeshRenderer>().material.SetInt("_Layers", layers);
             shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Height", height);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_MinHeight", minimumHairLength);
         }
         //give the regular texture to the shader/GPU
         renderer = GetComponent<Renderer>();
