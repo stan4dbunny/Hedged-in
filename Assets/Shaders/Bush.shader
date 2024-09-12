@@ -86,18 +86,27 @@ Shader "Unlit/FurShader"
             {
                
                 // sample the texture
-                float4 rand = tex2D(_MainTex, i.uv);   
-                float randVal = rand.x;
+                //float4 rand = tex2D(_MainTex, i.uv);   
+                //float randVal = rand.x;
+
+                float randFloat = frac(sin(dot(i.uv*_Resolution, float2(12.9898, 78.233))) * 43758.5453);
+
+                float4 pixelColor = float4(randFloat, randFloat, randFloat, randFloat);
+                //return pixelColor;
+
                 float2 cntrdPixlCoord = frac(_Resolution * i.uv) * 2.0 - 1.0;
                 float dist = length(cntrdPixlCoord);
-                float4 pixelColor = rand;
                 //if (i.height < 0.001) discard;
+
+                 //discard pixels below height threshold, z
+                if (randFloat  < _PrevHeight) discard;
+                //return float4(0,1,0,0)*_PrevHeight;
      
                 //discard pixels outside cylinder, x and y
-                if (dist > _Thickness * (randVal - _PrevHeight)) discard;
+                if (dist > _Thickness * (randFloat - _PrevHeight)) discard;
      
-                //discard pixels below height threshold, z
-                if (randVal  < _PrevHeight) discard; 
+               
+
   
                 else
                 {

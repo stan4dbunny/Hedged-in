@@ -10,25 +10,37 @@ public class ShellTexturing : MonoBehaviour
     public float height;
     public float thickness;
     public float minimumHairLength;
-   
+
     //public Texture2D blackAndWhiteTexture;
 
     public Material material;
 
-
     Renderer renderer;
 
+    struct MyInstanceData
+    {
+        public Matrix4x4 localToWorld;
+        public int resolution;
+        public float thickness;
+        public int layers;
+        public float height;
+        public float currHeight;
+        public float prevHeight;
+    }
 
     void Start()
     {
+
+        material.enableInstancing = true;
         texture = new Texture2D(resolution, resolution, TextureFormat.RGBA32, false);
         texture.name = "TEST";
+
+        //redundant
         for (int y = 0; y < resolution; y++)
         {
             for (int x = 0; x < resolution; x++)
             {
                 float randVal = minimumHairLength + Random.value;
-                print(randVal);
                 texture.SetPixel(x, y, new Color(randVal, randVal, randVal, randVal));
             }
         }
@@ -46,17 +58,19 @@ public class ShellTexturing : MonoBehaviour
     private void Update()
     {
         RenderParams renderParams = new RenderParams(material);
-
+        /*
         renderParams.matProps = new MaterialPropertyBlock();
         renderParams.matProps.SetTexture("_MainTex", texture);
         renderParams.matProps.SetInt("_Resolution", resolution);
         renderParams.matProps.SetFloat("_Thickness", thickness);
         renderParams.matProps.SetInt("_Layers", layers);
         renderParams.matProps.SetFloat("_Height", height);
+        */
         //shadows
         renderParams.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         renderParams.worldBounds = renderer.bounds;
-        
+
+        MyInstanceData[] instData = new MyInstanceData[layers];
         int prevHeight = 0;
         for (int i = 0; i < layers; i++)
         {
@@ -65,7 +79,11 @@ public class ShellTexturing : MonoBehaviour
             renderParams.matProps.SetFloat("_CurrHeight", i);
             Graphics.RenderMesh(renderParams, GetComponent<MeshFilter>().mesh, 0, localToWorld);
 
+            instData[i].localToWorld = transform.localToWorldMatrix;
+
             prevHeight = i;
         }
+
+        Graphics.RenderMeshInstanced(renderParams, GetComponent<MeshFilter>().mesh, 0, )
     }
 }
