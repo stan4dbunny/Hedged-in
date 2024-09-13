@@ -20,13 +20,16 @@ Shader "Unlit/FurShader"
         Tags { "LightMode"="UniversalForward"}
         Pass
         {
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_instancing
 
-            #include "UnityCG.cginc"
-            #include "UnityLightingCommon.cginc"
+            //#include "UnityCG.cginc"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            //#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            //#include "UnityLightingCommon.cginc"
            
 
             struct MeshData
@@ -34,6 +37,7 @@ Shader "Unlit/FurShader"
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
                 float3 normal : NORMAL;
+                float4 tangent : TANGENT;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
@@ -78,12 +82,15 @@ Shader "Unlit/FurShader"
                 float trnsl = currLayerIndex*(_Height/_Layers); //calculates translation of the vertex
                 o.height = trnsl;
                 
+                VertexPositionInputs posInfo = GetVertexPositionInputs(v.vertex.xyz);
+
                 //set interpolator stuff used for lighting
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+                //o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                o.worldPos = posInfo.positionWS;
+                o.worldNormal = GetVertexNormalInputs(v.normal, v.tangent).normalWS;
 
                 //translate 
-                o.worldPos += float4(o.worldNormal,0)*trnsl;
+                o.worldPos += o.worldNormal * trnsl;
 
                 float droopStrength = (currLayerIndex/_Layers)*(currLayerIndex/_Layers)*_DroopStrength;
                 float3 droopAtRest = float3(0,-1,0)*droopStrength;
@@ -91,18 +98,18 @@ Shader "Unlit/FurShader"
                 o.worldPos += float4(droopAtRest, 0);
                
                 //transform from model to clip space?
-                o.pos = mul(UNITY_MATRIX_VP, float4(o.worldPos, 1.0));
+                //o.pos = mul(UNITY_MATRIX_VP, float4(o.worldPos, 1.0));
+                o.pos = TransformWorldToHClip(o.worldPos);
                 return o;
             }
 
-            fixed4 frag (Interpolators i) : SV_Target
+            float4 frag (Interpolators i) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(i);
                 float currLayerIndex = UNITY_ACCESS_INSTANCED_PROP(PerInstance, _CurrLayerIndex);
                 //return float4(currLayerIndex, currLayerIndex, currLayerIndex, currLayerIndex);
                 //generates random nr 0-1  
                 float randFloat = frac(sin(dot(trunc(i.uv*_Resolution), float2(12.9898, 78.233))) * 43758.5453); //trunc gets the int part which groups the pixels together to one strand
-
                 float4 pixelColor = float4(0,1,0,0);
 
                 //centered pixel coordinates
@@ -117,26 +124,26 @@ Shader "Unlit/FurShader"
 
                 //discard pixels outside cylinder, x and y
                 if (dist > _Thickness * (randFloat - (currLayerIndex/_Layers))) discard; //the higher we get in the layers the thinner the strand should be
-                
                 else
                 {
                     //float4 albedo = tex2D(_AlbedoTex, i.uv);
-                    float4 albedo = float4(0,1,0,0);
+                    float4 albedo = float4(0.1,0.9,0.1,0);
                     //_WorldSpaceLightPos0 built in variable, is a direction if directional light
-                    float3 viewAngleDir = WorldSpaceViewDir(float4(i.worldPos,0));
-                    float3 halfAngleDir = normalize(normalize(_WorldSpaceLightPos0) + normalize(viewAngleDir));
+                    float3 viewAngleDir = GetWorldSpaceNormalizeViewDir(i.worldPos);
+                    float3 lightDir = GetMainLight().direction;
+                    float4 lightColor = float4(GetMainLight().color, 0.0);
+                    float3 halfAngleDir = normalize(normalize(lightDir) + normalize(viewAngleDir));
 
                     //no negative
                     float cosAngle = max(0.0, dot(halfAngleDir, i.worldNormal));
-                    float4 specular = _LightColor0 * _SpecularColor * pow(cosAngle, _SpecularPower)*_SpecularStrength;
-                    //float4 ambient = albedo * _AmbientColor;
-                    float4 ambient = float4(ShadeSH9(float4(i.worldNormal,1)),0);
-                    float4 diffuse = albedo * _LightColor0 * dot(i.worldNormal, _WorldSpaceLightPos0);
-                    pixelColor = specular  + diffuse;
+                    float4 specular = lightColor * _SpecularColor * pow(cosAngle, _SpecularPower)*_SpecularStrength;
+                    float4 diffuse = albedo * lightColor * max(dot(i.worldNormal, lightDir), 0);
+                    float4 ambient = albedo * float4(SampleSH(i.worldNormal),0);
+                    pixelColor = specular + ambient + diffuse;
                 }
                 return pixelColor * (currLayerIndex/_Layers);
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }
