@@ -13,7 +13,8 @@ public class MazePiece : MonoBehaviour
     public bool forkHasBeenBacktracked = false;
     public bool suitableForObstacle = false;
     public bool isOccupied = false;
-    public List<MazePiece> connectedPieces;
+    public List<MazePiece> nextPieces;
+    public List<MazePiece> previousPieces;
 
     //helper methods
     public void VisitPiece()
@@ -21,9 +22,14 @@ public class MazePiece : MonoBehaviour
         visited = true;
     }
 
-    public void AddConnectedPiece(MazePiece neighbour)
+    public void AddNextPiece(MazePiece next)
     {
-        connectedPieces.Add(neighbour);
+        nextPieces.Add(next);
+    }
+
+    public void AddPreviousPiece(MazePiece previous)
+    {
+        previousPieces.Add(previous);
     }
 
     public void ClearWestWall()

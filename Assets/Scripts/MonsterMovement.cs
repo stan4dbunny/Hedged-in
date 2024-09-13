@@ -11,7 +11,6 @@ public class MonsterMovement : MonoBehaviour
     public float speed;
     public float distanceBetween;
     private float distance;
-
     // Update is called once per frame
     void Update()
     {
