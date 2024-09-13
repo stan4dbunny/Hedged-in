@@ -344,7 +344,6 @@ public class GenerateMaze : MonoBehaviour
             GameObject wall = wallData.Item2;
             string direction = wallData.Item3;
 
-            Debug.Log($"Wall: {wall}");
             wall.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
             wall.AddComponent<WallController>();
 

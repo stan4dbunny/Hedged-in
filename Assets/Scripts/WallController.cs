@@ -14,7 +14,6 @@ public class WallController : MonoBehaviour
         if (isRotating)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
             if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
             {
                 isRotating = false;
