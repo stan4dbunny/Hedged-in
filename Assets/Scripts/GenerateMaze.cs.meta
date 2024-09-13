@@ -3,7 +3,16 @@ guid: 44c397503a5d70942b74b644d8661cda
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _mazePiece: {fileID: 8032588434237407153, guid: 81b56d81b3146244490d722c52b7f840,
+      type: 3}
+  - _collectible: {fileID: 2516521160115090937, guid: 694798edb9779864e9fbf826dcfe406d,
+      type: 3}
+  - _door: {fileID: 3460646777897969568, guid: e0aba46469d569e48ab377cb26fa5ed9, type: 3}
+  - _endPoint: {fileID: 1398917910275966604, guid: 81978042bf331b342ad24b0358e7be76,
+      type: 3}
+  - _startPoint: {fileID: 1398917910275966604, guid: f05b1a5056453404b816ec3b655ee137,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
