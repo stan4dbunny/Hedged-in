@@ -15,7 +15,8 @@ public class GenerateMaze : MonoBehaviour
     [SerializeField] private GameObject _startPoint;
     public int collectibleCount = 3;
     public List<MazePiece> longestPath;
-    void Start()
+
+    void Awake()
     {
         var currLongestPath = new List<MazePiece>();
         
@@ -27,7 +28,6 @@ public class GenerateMaze : MonoBehaviour
         GenerateCollectibles();
         GenerateObstacles();
     }
-
     private void InstantiateMazePieces()
     {
         _maze = new MazePiece[mazeWidth, mazeHeight];
@@ -290,5 +290,18 @@ public class GenerateMaze : MonoBehaviour
         {
             Debug.Log(piece.transform.position.ToString());
         }
+    }
+
+    //Used for setting initial rotation or VR-player, so they dont look directly into a wall
+    public float GetInitialRotationOfPlayerFromStartBlock()
+    {
+        MazePiece startPiece = _maze[0, 0];
+
+        if(startPiece.CheckNorthWallActive() && startPiece.CheckSouthWallActive())
+        {
+            return 90;
+        }
+
+        return 0;
     }
 }
