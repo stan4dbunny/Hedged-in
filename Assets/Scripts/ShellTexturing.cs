@@ -4,17 +4,8 @@ using UnityEngine;
 
 public class ShellTexturing : MonoBehaviour
 {
-    Texture2D texture;
-    public int resolution;
     public int layers;
-    public float height;
-    public float thickness;
-    public float minimumHairLength;
-
     public Material material;
-
-    Renderer renderer;
-
     GameObject[] shells;
 
     void Start()
