@@ -15,6 +15,14 @@ public class GenerateMaze : MonoBehaviour
     [SerializeField] private GameObject _startPoint;
     public int collectibleCount = 3;
     public List<MazePiece> longestPath;
+    public Material moveableWallMaterial;
+
+    
+
+    public bool IsOuterWall(int x, int z, int mazeWidth, int mazeHeight)
+    {
+        return x == 0 || z == 0 || x == mazeWidth - 1 || z == mazeHeight - 1;
+    }
 
     void Awake()
     {
@@ -27,6 +35,8 @@ public class GenerateMaze : MonoBehaviour
         GenerateStartAndEndPoint();
         GenerateCollectibles();
         //GenerateObstacles();
+        ColorRandomWalls();
+        
     }
     private void InstantiateMazePieces()
     {
@@ -292,6 +302,82 @@ public class GenerateMaze : MonoBehaviour
             Debug.Log(piece.transform.position.ToString());
         }
     }
+
+    private List<MazePiece> GetInternalCells()
+    {
+        List<MazePiece> internalCells = new List<MazePiece>();
+
+        for (int x = 1; x < mazeWidth - 1; x++) // Skip outer walls
+        {
+            for (int z = 1; z < mazeHeight - 1; z++)
+            {
+                internalCells.Add(_maze[x,z]);
+            }
+        }
+        
+        return internalCells;
+    }
+
+    private void ColorRandomWalls()
+    {
+
+        List<MazePiece> internalCells = GetInternalCells();
+        List<(MazePiece, GameObject, string)> selectableWalls = new List<(MazePiece, GameObject, string)>();
+
+        foreach (var cell in internalCells)
+        {
+            if (cell.CheckNorthWallActive())
+                selectableWalls.Add((cell, cell.GetNorthWall(), "North"));
+            if (cell.CheckSouthWallActive())
+                selectableWalls.Add((cell, cell.GetSouthWall(), "South"));
+            if (cell.CheckEastWallActive())
+                selectableWalls.Add((cell, cell.GetEastWall(), "East"));
+            if (cell.CheckWestWallActive())
+                selectableWalls.Add((cell, cell.GetWestWall(), "West"));
+        }
+
+        // Shuffle the list and randomly select 5 walls
+        var randomWalls = selectableWalls.OrderBy(_ => Random.value).Take(5).ToList();
+
+        foreach (var wallData in randomWalls)
+        {
+            MazePiece currentCell = wallData.Item1;
+            GameObject wall = wallData.Item2;
+            string direction = wallData.Item3;
+
+            wall.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
+            wall.AddComponent<WallController>();
+
+            ClearNeighboringWall(currentCell, direction);
+        }
+       
+    }
+
+    private void ClearNeighboringWall(MazePiece currentCell, string direction)
+    {
+        Vector3 currentPos = currentCell.transform.position;
+        int x = (int)currentPos.x;
+        int z = (int)currentPos.z;
+
+        switch (direction)
+        {
+            case "North":
+                if (z + 1 < mazeHeight)
+                    _maze[x, z + 1].ClearSouthWall();
+                break;
+            case "South":
+                if (z - 1 >= 0)
+                    _maze[x, z - 1].ClearNorthWall();
+                break;
+            case "East":
+                if (x + 1 < mazeWidth)
+                    _maze[x + 1, z].ClearWestWall();
+                break;
+            case "West":
+                if (x - 1 >= 0)
+                    _maze[x - 1, z].ClearEastWall();
+                break;
+        }
 
     //Used for setting initial rotation or VR-player, so they dont look directly into a wall
     public float GetInitialRotationOfPlayerFromStartBlock()
