@@ -16,6 +16,12 @@ public class MazePiece : MonoBehaviour
     public List<MazePiece> nextPieces;
     public List<MazePiece> previousPieces;
 
+    // Getter methods to access the private walls
+    public GameObject GetNorthWall() { return _northWall; }
+    public GameObject GetSouthWall() { return _southWall; }
+    public GameObject GetEastWall() { return _eastWall; }
+    public GameObject GetWestWall() { return _westWall; }
+
     //helper methods
     public void VisitPiece()
     {
