@@ -24,7 +24,7 @@ public class GenerateMaze : MonoBehaviour
         return x == 0 || z == 0 || x == mazeWidth - 1 || z == mazeHeight - 1;
     }
 
-    void Start()
+    void Awake()
     {
         var currLongestPath = new List<MazePiece>();
         
@@ -34,10 +34,10 @@ public class GenerateMaze : MonoBehaviour
         GetLongestPath(_maze[0, 0], currLongestPath);
         GenerateStartAndEndPoint();
         GenerateCollectibles();
-        GenerateObstacles();
+        //GenerateObstacles();
         ColorRandomWalls();
+        
     }
-
     private void InstantiateMazePieces()
     {
         _maze = new MazePiece[mazeWidth, mazeHeight];
@@ -58,9 +58,11 @@ public class GenerateMaze : MonoBehaviour
 
         if(previous != null)
         {
-            previous.AddConnectedPiece(current);
+            previous.AddNextPiece(current);
             //PrintConnectedPieces(previous);
         }
+        
+        current.AddPreviousPiece(previous);
 
         MazePiece next;
 
@@ -189,7 +191,7 @@ public class GenerateMaze : MonoBehaviour
         Instantiate(_startPoint, new Vector3(0, 0, 0), Quaternion.identity);
     }
 
-    private void GenerateCollectibles() //add logic so collectibles wont spawn on eachother, on the door and directly at the start.
+    private void GenerateCollectibles()
     {
         int currCollectibles = 0;
         do
@@ -211,7 +213,7 @@ public class GenerateMaze : MonoBehaviour
         int lenPath = longestPath.Count;
         int spawnObstacleTries = 10;
 
-        for(int i = 0; i < spawnObstacleTries; i++) //try to spawn meaningful obstacle a set number of times, can have a bool that states if generation succeeded or not?
+        for(int i = 0; i < spawnObstacleTries; i++)
         {
             int randIndex = Random.Range(10, lenPath - 1);
             Vector3 obstaclePos = longestPath[randIndex].transform.position;
@@ -240,12 +242,12 @@ public class GenerateMaze : MonoBehaviour
         return rot;
     }
 
-    private void GetLongestPath(MazePiece mazePiece, List<MazePiece> currentLongestPathList)//need logic for when we find a longer path on the maze
+    private void GetLongestPath(MazePiece mazePiece, List<MazePiece> currentLongestPathList)
     {
         currentLongestPathList.Add(mazePiece);
 
         //we are at an endpoint in the maze
-        if(mazePiece.connectedPieces.Count == 0) //dead end
+        if(mazePiece.nextPieces.Count == 0) //dead end
         {
             if(currentLongestPathList.Count > longestPath.Count)
             {
@@ -256,41 +258,40 @@ public class GenerateMaze : MonoBehaviour
         }
         else
         {
-            foreach(var connected in mazePiece.connectedPieces)
+            foreach(var next in mazePiece.nextPieces)
             {
-                GetLongestPath(connected, currentLongestPathList);
+                GetLongestPath(next, currentLongestPathList);
             }
         }
 
     }
 
-    //does not work if we have a fork that leads into another fork down the line.
     private void RemovePiecesUntilFork(List<MazePiece> currentLongestPathList)
     {
         for(int i = currentLongestPathList.Count - 1; i >= 0; i--)
         {
-            if(currentLongestPathList[i].connectedPieces.Count != 2 ) //if piece is a corridor, remove it
+            if(currentLongestPathList[i].nextPieces.Count != 2 ) //if piece is a corridor, remove it
             {
                 currentLongestPathList.RemoveAt(i);
             }
-            else if(currentLongestPathList[i].connectedPieces.Count == 2 && currentLongestPathList[i].forkHasBeenBacktracked == true) //if piece is a fork that has been backtracked before, remove it
+            else if(currentLongestPathList[i].nextPieces.Count == 2 && currentLongestPathList[i].forkHasBeenBacktracked == true) //if piece is a fork that has been backtracked before, remove it
             {
                 currentLongestPathList.RemoveAt(i);
             }
             else //if piece is a fork where we have not traversed both paths, stop removing
             {
-                currentLongestPathList[i].forkHasBeenBacktracked = true; //I think this works?
+                currentLongestPathList[i].forkHasBeenBacktracked = true;
                 break;
             }
         }
     }
 
-    private void PrintConnectedPieces(MazePiece mazePiece) //function for printing stuff for debug purposes
+    private void PrintnextPieces(MazePiece mazePiece) //function for printing stuff for debug purposes
     {
         Debug.Log("Connected for : " + mazePiece.transform.position.ToString());
-        foreach(var connected in mazePiece.connectedPieces)
+        foreach(var next in mazePiece.nextPieces)
         {
-            Debug.Log(connected.transform.position.ToString());
+            Debug.Log(next.transform.position.ToString());
         }
     }
 
@@ -377,5 +378,17 @@ public class GenerateMaze : MonoBehaviour
                     _maze[x - 1, z].ClearEastWall();
                 break;
         }
+
+    //Used for setting initial rotation or VR-player, so they dont look directly into a wall
+    public float GetInitialRotationOfPlayerFromStartBlock()
+    {
+        MazePiece startPiece = _maze[0, 0];
+
+        if(startPiece.CheckNorthWallActive() && startPiece.CheckSouthWallActive())
+        {
+            return 90;
+        }
+
+        return 0;
     }
 }
