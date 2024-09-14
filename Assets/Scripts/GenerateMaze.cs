@@ -378,7 +378,7 @@ public class GenerateMaze : MonoBehaviour
                     _maze[x - 1, z].ClearEastWall();
                 break;
         }
-
+    }
     //Used for setting initial rotation or VR-player, so they dont look directly into a wall
     public float GetInitialRotationOfPlayerFromStartBlock()
     {
