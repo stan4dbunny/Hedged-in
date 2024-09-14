@@ -111,7 +111,8 @@ MonoBehaviour:
   forkHasBeenBacktracked: 0
   suitableForObstacle: 0
   isOccupied: 0
-  connectedPieces: []
+  nextPieces: []
+  previousPieces: []
 --- !u!1 &1708271784918607281
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5975141819272339668
 Transform:
   m_ObjectHideFlags: 0
@@ -267,7 +268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7478835492159692863
 Transform:
   m_ObjectHideFlags: 0
@@ -350,7 +351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7545380611949562361
 Transform:
   m_ObjectHideFlags: 0
@@ -543,7 +544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5888603920883078424
 Transform:
   m_ObjectHideFlags: 0
@@ -700,7 +701,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -828,7 +829,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -956,7 +957,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1084,7 +1085,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1790198ccc287bc4eb696fc8c01104b1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

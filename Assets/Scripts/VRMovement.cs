@@ -112,7 +112,7 @@ public class VRMovement : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hit, 20) /*&& hit.transform.CompareTag("Wall")*/)
         {
-            if(hit.distance /*can tweak this to avoid phasing through walls*/ < moveChange.magnitude) //collisison detection
+            if(hit.distance/*can tweak this to avoid phasing through walls*/ < moveChange.magnitude) //collisison detection
             {
                 return;
             }
@@ -132,7 +132,7 @@ public class VRMovement : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hit, 20) /*&& hit.transform.CompareTag("Wall")*/)
         {
-            if(hit.distance /*can tweak this to avoid phasing through walls*/< (transform.forward * _moveSpeed).magnitude)
+            if(hit.distance / 2 /*can tweak this to avoid phasing through walls*/< (transform.forward * _moveSpeed).magnitude)
             {
                 return;
             }
