@@ -13,6 +13,8 @@ MonoImporter:
       type: 3}
   - _startPoint: {fileID: 1398917910275966604, guid: f05b1a5056453404b816ec3b655ee137,
       type: 3}
+  - moveableWallMaterial: {fileID: 2100000, guid: fa96dddf0abe2ae4c8eec3487e62fe49,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
