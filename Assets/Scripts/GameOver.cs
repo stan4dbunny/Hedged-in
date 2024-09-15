@@ -12,6 +12,6 @@ public class GameOver : MonoBehaviour
     }
    public void RestartButton()
     {
-        SceneManager.LoadScene("Carl"); 
+        SceneManager.LoadScene("Maritina"); 
     }
 }

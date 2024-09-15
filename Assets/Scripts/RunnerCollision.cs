@@ -20,6 +20,9 @@ public class RunnerCollision : MonoBehaviour
     // The Slider component from the HealthBar
     private Slider lifeSlider;
 
+    public GameObject gameOverCanvas;
+    public GameObject gameplayCanvas;
+
     private void Start()
     {
         // Initialize the AudioSource component
@@ -93,9 +96,13 @@ public class RunnerCollision : MonoBehaviour
     // Handle the game over logic
     private void GameOver()
     {
-        // MARITINA here you can display a Game Over UI
+        gameplayCanvas.SetActive(false);
+        // Display the Game Over UI
         Debug.Log("Game Over!");
-        SceneManager.LoadScene("GameOver");
+        if (gameOverCanvas != null)
+        {
+            gameOverCanvas.SetActive(true); // Show the Game Over Canvas
+        }
     }
 
     private void GameWon()
@@ -111,5 +118,12 @@ public class RunnerCollision : MonoBehaviour
         {
             lifeSlider.value = count;
         }
+    }
+
+    // This function will be called when the restart button is clicked
+    public void RestartGame()
+    {
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

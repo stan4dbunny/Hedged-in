@@ -7,13 +7,16 @@ using UnityEngine.SceneManagement; // For scene management (Game Over)
 public class CountdownTimer : MonoBehaviour
 {
     // Time in minutes 
-    public float timeInMinutes = 2f;
+    public float timeInMinutes;
 
     // Internal variable to store time in seconds
     private float timer;
 
     // Reference to the TextMesh component that displays the countdown
     public TMP_Text countdownText;
+
+    public GameObject gameOverCanvas;
+    public GameObject gameplayCanvas;
 
     private void Start()
     {
@@ -44,7 +47,19 @@ public class CountdownTimer : MonoBehaviour
     // Trigger Game Over
     private void GameOver()
     {
+        gameplayCanvas.SetActive(false);
+        // Display the Game Over UI
         Debug.Log("Game Over!");
-        SceneManager.LoadScene("GameOver"); // Loads the Game Over scene
+        if (gameOverCanvas != null)
+        {
+            gameOverCanvas.SetActive(true); // Show the Game Over Canvas
+        }
+    }
+
+    // This function will be called when the restart button is clicked
+    public void RestartGame()
+    {
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
