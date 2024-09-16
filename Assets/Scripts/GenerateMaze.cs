@@ -337,7 +337,7 @@ public class GenerateMaze : MonoBehaviour
         }
 
         // Shuffle the list and randomly select 5 walls
-        var randomWalls = selectableWalls.OrderBy(_ => Random.value).Take(5).ToList();
+        var randomWalls = selectableWalls.OrderBy(_ => Random.value).Take(20).ToList();
 
         foreach (var wallData in randomWalls)
         {
