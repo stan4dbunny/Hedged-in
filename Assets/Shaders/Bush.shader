@@ -49,6 +49,7 @@ Shader "Unlit/FurShader"
                 float3 worldNormal : TEXCOORD3;
                 float4 pos : SV_POSITION;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             UNITY_INSTANCING_BUFFER_START(PerInstance)
@@ -74,7 +75,9 @@ Shader "Unlit/FurShader"
             {
                 Interpolators o;
 
-                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_SETUP_INSTANCE_ID(v); 
+                ZERO_INITIALIZE(Interpolators, o); 
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o); 
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
 
                 float currLayerIndex = UNITY_ACCESS_INSTANCED_PROP(PerInstance, _CurrLayerIndex);
