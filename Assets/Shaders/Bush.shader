@@ -82,7 +82,7 @@ Shader "Unlit/FurShader"
 
                 float currLayerIndex = UNITY_ACCESS_INSTANCED_PROP(PerInstance, _CurrLayerIndex);
                 o.uv = v.uv;
-                float trnsl = currLayerIndex*(_Height/_Layers); //calculates translation of the vertex
+                float trnsl = _Height*(currLayerIndex/_Layers); //calculates translation of the vertex
                 o.height = trnsl;
                 
                 VertexPositionInputs posInfo = GetVertexPositionInputs(v.vertex.xyz);
@@ -111,20 +111,21 @@ Shader "Unlit/FurShader"
                 //return float4(currLayerIndex, currLayerIndex, currLayerIndex, currLayerIndex);
                 //generates random nr 0-1  
                 float randFloat = frac(sin(dot(trunc(i.uv*_Resolution), float2(12.9898, 78.233))) * 43758.5453); //trunc gets the int part which groups the pixels together to one strand
-                float4 pixelColor = float4(0,1,0,0);
+                float randHeight = lerp(_MinHeight, _Height, randFloat);
+                float4 pixelColor = float4(1,0,0,0);
 
                 //centered pixel coordinates
                 float2 cntrdPixlCoord = frac(_Resolution * i.uv) * 2.0 - 1.0;
                 //distance to center of pixel
                 float dist = length(cntrdPixlCoord);
 
-               if (randFloat < _MinHeight) randFloat = lerp(_MinHeight, _Height, randFloat);
+                float currLayerHeight = lerp(_MinHeight, _Height, currLayerIndex/_Layers);
                 
                 //discard pixels below height threshold, z
-                if (randFloat  < (currLayerIndex/_Layers)) discard;
+                if (randHeight  < currLayerHeight) discard;
 
                 //discard pixels outside cylinder, x and y
-                if (dist > _Thickness * (randFloat - (currLayerIndex/_Layers))) discard; //the higher we get in the layers the thinner the strand should be
+                if (dist > _Thickness * (randHeight - currLayerHeight)) discard; //the higher we get in the layers the thinner the strand should be
                 else
                 {
                     //float4 albedo = tex2D(_AlbedoTex, i.uv);
@@ -142,7 +143,7 @@ Shader "Unlit/FurShader"
                     float4 ambient = albedo * float4(SampleSH(i.worldNormal),0);
                     pixelColor = specular + ambient + diffuse;
                 }
-                return pixelColor * (currLayerIndex/_Layers);
+                return pixelColor * lerp(0.2, 1.0, (currLayerIndex/_Layers));
             }
             ENDHLSL
         }
