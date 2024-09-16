@@ -88,7 +88,6 @@ Shader "Unlit/FurShader"
                 VertexPositionInputs posInfo = GetVertexPositionInputs(v.vertex.xyz);
 
                 //set interpolator stuff used for lighting
-                //o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 o.worldPos = posInfo.positionWS;
                 o.worldNormal = GetVertexNormalInputs(v.normal, v.tangent).normalWS;
 
@@ -99,9 +98,7 @@ Shader "Unlit/FurShader"
                 float3 droopAtRest = float3(0,-1,0)*droopStrength;
 
                 o.worldPos += float4(droopAtRest, 0);
-               
-                //transform from model to clip space?
-                //o.pos = mul(UNITY_MATRIX_VP, float4(o.worldPos, 1.0));
+
                 o.pos = TransformWorldToHClip(o.worldPos);
                 return o;
             }
@@ -109,6 +106,7 @@ Shader "Unlit/FurShader"
             float4 frag (Interpolators i) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(i);
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
                 float currLayerIndex = UNITY_ACCESS_INSTANCED_PROP(PerInstance, _CurrLayerIndex);
                 //return float4(currLayerIndex, currLayerIndex, currLayerIndex, currLayerIndex);
                 //generates random nr 0-1  
