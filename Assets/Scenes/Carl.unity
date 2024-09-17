@@ -1717,6 +1717,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MazeGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 7973310174041070661, guid: b447b71095068cf438ed9b868715159e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

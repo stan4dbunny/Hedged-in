@@ -11,13 +11,10 @@ public class SetPlayerMode : NetworkBehaviour
     private GameObject topDownCam;
     public int netId;
     private bool playerModeSet = false;
-    // Start is called before the first frame update
-
-    // Update is called once per frame
+    
     void Update()
     {
-        if(!IsOwner) return;
-        
+
         if(netId == 0)
         {
             ulong netObjId = GetComponent<NetworkObject>().NetworkObjectId;
@@ -26,15 +23,22 @@ public class SetPlayerMode : NetworkBehaviour
 
         if(!playerModeSet)
         {
-            if(netId == 1)
+            if(IsOwner && netId == 1)
             {
                 vRCam = GameObject.Find("VRCameraHolder");
                 playerModeSet = true;
 
-                vRCam.transform.GetChild(0).gameObject.SetActive(true);
+                vRCam.transform.GetChild(0).gameObject.SetActive(true); //PlayerCamera
                 playerVR.SetActive(true);
             }
-            else
+            else if(!IsOwner && netId == 1)
+            {
+                playerVR.GetComponent<VRMovement>().transform.gameObject.SetActive(false);
+                playerVR.transform.GetChild(0).GetChild(0).gameObject.SetActive(false); //XR Origin(XR Rig)
+                playerVR.transform.GetChild(0).GetChild(1).gameObject.SetActive(false); //PlayerInputs
+                playerVR.SetActive(true);   
+            }
+            else if(IsOwner)
             {
                 if(GameObject.Find("NetworkCanvas"))
                 {
@@ -44,7 +48,7 @@ public class SetPlayerMode : NetworkBehaviour
                 topDownCam = GameObject.Find("TopViewCamHolder");
                 playerModeSet = true;
 
-                topDownCam.transform.GetChild(0).gameObject.SetActive(true);
+                topDownCam.transform.GetChild(0).gameObject.SetActive(true); //TopViewCam
                 playerTopDown.SetActive(true);
             }
         }

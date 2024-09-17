@@ -43,9 +43,7 @@ public class VRMovement : MonoBehaviour
 
     void Update() //only here so you can test the game in play-mode in the editor
     {
-        //if(!IsOwner) return;
-
-        if(Application.platform == RuntimePlatform.WindowsEditor && Input.GetKeyDown(KeyCode.Tab) && !_nonVRMode)
+        if(/*Application.platform == RuntimePlatform.WindowsEditor && */Input.GetKeyDown(KeyCode.Tab) && !_nonVRMode)
         {
             SwapCameras();
         }
@@ -71,8 +69,6 @@ public class VRMovement : MonoBehaviour
 
     void FixedUpdate() //we do these things in FixedUpdate so they're not Fps-dependent.
     {
-        //if(!IsOwner) return;
-
         if(!_nonVRMode)
         {
             //get hand controller positions in worldspace
@@ -111,8 +107,7 @@ public class VRMovement : MonoBehaviour
             {
                 MovePlayerNonVR();
             }
-        }
-        
+        } 
     }
 
     private void MovePlayerVR()
@@ -161,12 +156,12 @@ public class VRMovement : MonoBehaviour
     {
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
-        if(GameObject.Find("nonVRPlayerCam"))
+        if(GameObject.Find("nonVRCameraHolder"))
         {
-            nonVREditorTestCamera = GameObject.Find("nonVRPlayerCam").GetComponent<Camera>();
-            nonVREditorTestCameraObj = GameObject.Find("nonVRPlayerCam").gameObject;
+            nonVREditorTestCameraObj = GameObject.Find("nonVRCameraHolder").transform.GetChild(0).gameObject; //nonVRPlayerCam
+            nonVREditorTestCamera = nonVREditorTestCameraObj.GetComponent<Camera>();
         }
-        
+
         if(GameObject.Find("NetworkCanvas"))
         {
             GameObject.Find("NetworkCanvas").SetActive(false);
