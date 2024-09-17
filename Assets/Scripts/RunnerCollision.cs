@@ -22,6 +22,7 @@ public class RunnerCollision : MonoBehaviour
 
     public GameObject gameOverCanvas;
     public GameObject gameplayCanvas;
+    public GameObject winCanvas;
 
     private void Start()
     {
@@ -47,6 +48,15 @@ public class RunnerCollision : MonoBehaviour
         {
             Debug.LogError("HealthBar GameObject is not assigned.");
         }
+        // Ensure the Win UI Canvas is hidden at the start
+        if (winCanvas != null)
+        {
+            winCanvas.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Win Canvas GameObject is not assigned.");
+        }
     }
 
     // This function is called when the Runner collides with another collider
@@ -71,8 +81,8 @@ public class RunnerCollision : MonoBehaviour
         // Check if the object collides with is tagged as "EndPoint"
         if (collision.gameObject.CompareTag("EndPoint"))
         {
-            // Call the GameWon function
-            GameWon();
+            WinGame(); // Call the WinGame function
+
         }
 
         // Check if the object collides with is tagged as "Collectable"
@@ -103,6 +113,25 @@ public class RunnerCollision : MonoBehaviour
         {
             gameOverCanvas.SetActive(true); // Show the Game Over Canvas
         }
+    }
+
+    // Handle the win logic
+    private void WinGame()
+    {
+        // Show the Win UI Canvas and hide the main UI
+        if (winCanvas != null)
+        {
+            winCanvas.SetActive(true);
+        }
+
+        // Hide other UI elements 
+        if (healthBar != null)
+        {
+            healthBar.SetActive(false);
+        }
+
+        // Stop game logic
+        Time.timeScale = 0; // Pause the game
     }
 
     private void GameWon()
