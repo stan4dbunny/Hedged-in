@@ -27,7 +27,8 @@ public class GenerateMaze : MonoBehaviour
     void Awake()
     {
         var currLongestPath = new List<MazePiece>();
-        
+        Random.InitState(42); //randomize this as networkvariable, generates same maze for every unity instance (Or Maybe dont generate a maze for every player)
+
         InstantiateMazePieces();
         Generate(null, _maze[0, 0]);
         SetMazePieceAttributes();

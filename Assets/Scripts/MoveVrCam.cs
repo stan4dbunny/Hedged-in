@@ -8,6 +8,10 @@ public class MoveVrCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = cameraPosition.position;
+        if(GameObject.Find("PlayerNetwork(Clone)") && GameObject.Find("PlayerNetwork(Clone)").GetComponent<SetPlayerMode>().netId == 1)
+        {
+            cameraPosition = GameObject.Find("PlayerNetwork(Clone)").transform.GetChild(0).GetChild(0).GetChild(0);
+            transform.position = cameraPosition.position;
+        }
     }
 }

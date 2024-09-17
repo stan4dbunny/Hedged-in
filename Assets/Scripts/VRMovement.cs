@@ -24,15 +24,27 @@ public class VRMovement : MonoBehaviour
 
     void Start()
     {
+        if(GameObject.Find("PlayerCamera"))
+        {
+            vRCam = GameObject.Find("PlayerCamera").GetComponent<Camera>();
+            vRCamObj = GameObject.Find("PlayerCamera").gameObject;
+        }
+
+        if(GameObject.Find("MazeGenerator"))
+        {
+            mazeInfo = GameObject.Find("MazeGenerator").gameObject;
+        }
+
         //This is here to set the initial rotation of the player, so they don't stare into a wall at the start.
         GenerateMaze mazeGenerator = mazeInfo.GetComponent<GenerateMaze>();
         float initialPlayerRot = mazeGenerator.GetInitialRotationOfPlayerFromStartBlock();
         vRCamObj.transform.eulerAngles = new Vector3(0, initialPlayerRot, 0);
-        nonVREditorTestCameraObj.transform.eulerAngles = new Vector3(0, initialPlayerRot, 0);
     }
 
     void Update() //only here so you can test the game in play-mode in the editor
     {
+        //if(!IsOwner) return;
+
         if(Application.platform == RuntimePlatform.WindowsEditor && Input.GetKeyDown(KeyCode.Tab) && !_nonVRMode)
         {
             SwapCameras();
@@ -59,6 +71,8 @@ public class VRMovement : MonoBehaviour
 
     void FixedUpdate() //we do these things in FixedUpdate so they're not Fps-dependent.
     {
+        //if(!IsOwner) return;
+
         if(!_nonVRMode)
         {
             //get hand controller positions in worldspace
@@ -147,6 +161,17 @@ public class VRMovement : MonoBehaviour
     {
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
+        if(GameObject.Find("nonVRPlayerCam"))
+        {
+            nonVREditorTestCamera = GameObject.Find("nonVRPlayerCam").GetComponent<Camera>();
+            nonVREditorTestCameraObj = GameObject.Find("nonVRPlayerCam").gameObject;
+        }
+        
+        if(GameObject.Find("NetworkCanvas"))
+        {
+            GameObject.Find("NetworkCanvas").SetActive(false);
+        }
+
         _nonVRMode = true;
         vRCamObj.SetActive(false);
         nonVREditorTestCameraObj.SetActive(true);
