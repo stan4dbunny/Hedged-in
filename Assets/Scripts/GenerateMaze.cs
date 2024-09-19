@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using Unity.AI.Navigation;
 
 public class GenerateMaze : MonoBehaviour
 {
     [SerializeField] public int mazeWidth = 10;
     [SerializeField] public int mazeHeight = 10;
     [SerializeField] private MazePiece _mazePiece;
-    private MazePiece[,] _maze; 
+    public MazePiece[,] _maze; 
     [SerializeField] private GameObject _collectible;
     [SerializeField] private GameObject _door;
     [SerializeField] private GameObject _endPoint;
-    [SerializeField] private GameObject _startPoint;
-    public int collectibleCount = 3;
+    [SerializeField] public int collectibleCount = 5;
+
+    [SerializeField] public int movableDoorsCount = 10;
     public List<MazePiece> longestPath;
     public Material moveableWallMaterial;
 
@@ -37,6 +39,8 @@ public class GenerateMaze : MonoBehaviour
         GenerateCollectibles();
         //GenerateObstacles();
         ColorRandomWalls();
+
+        GetComponent<NavMeshSurface>().BuildNavMesh();
         
     }
     private void InstantiateMazePieces()
@@ -189,7 +193,6 @@ public class GenerateMaze : MonoBehaviour
     {
         Vector3 Endposition = longestPath[longestPath.Count - 1].transform.position;
         Instantiate(_endPoint, Endposition, Quaternion.identity);
-        Instantiate(_startPoint, new Vector3(0, 0, 0), Quaternion.identity);
     }
 
     private void GenerateCollectibles()
@@ -338,7 +341,7 @@ public class GenerateMaze : MonoBehaviour
         }
 
         // Shuffle the list and randomly select walls
-        var randomWalls = selectableWalls.OrderBy(_ => Random.value).Take(20).ToList();
+        var randomWalls = selectableWalls.OrderBy(_ => Random.value).Take(movableDoorsCount).ToList();
 
         foreach (var wallData in randomWalls)
         {

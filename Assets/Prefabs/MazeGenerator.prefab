@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 301822994580874794}
   - component: {fileID: 4678151957257815495}
+  - component: {fileID: 6049193988872911773}
   m_Layer: 0
   m_Name: MazeGenerator
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7973310174041070661}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5261841, y: 4.456437, z: -0.69872665}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c397503a5d70942b74b644d8661cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeWidth: 20
-  mazeHeight: 20
+  mazeWidth: 10
+  mazeHeight: 10
   _mazePiece: {fileID: 8032588434237407153, guid: 81b56d81b3146244490d722c52b7f840,
     type: 3}
   _collectible: {fileID: 2516521160115090937, guid: 694798edb9779864e9fbf826dcfe406d,
@@ -53,7 +54,39 @@ MonoBehaviour:
   _door: {fileID: 3460646777897969568, guid: e0aba46469d569e48ab377cb26fa5ed9, type: 3}
   _endPoint: {fileID: 1398917910275966604, guid: 81978042bf331b342ad24b0358e7be76,
     type: 3}
-  _startPoint: {fileID: 1398917910275966604, guid: f05b1a5056453404b816ec3b655ee137,
-    type: 3}
-  collectibleCount: 3
+  collectibleCount: 50
+  movableDoorsCount: 10
   longestPath: []
+  moveableWallMaterial: {fileID: 2100000, guid: 37744667be56ffb46b32c93646e0420b,
+    type: 2}
+--- !u!114 &6049193988872911773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7973310174041070661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.06666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
