@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class GenerateMaze : MonoBehaviour
@@ -336,17 +337,21 @@ public class GenerateMaze : MonoBehaviour
                 selectableWalls.Add((cell, cell.GetWestWall(), "West"));
         }
 
-        // Shuffle the list and randomly select 5 walls
+        // Shuffle the list and randomly select walls
         var randomWalls = selectableWalls.OrderBy(_ => Random.value).Take(20).ToList();
 
         foreach (var wallData in randomWalls)
         {
             MazePiece currentCell = wallData.Item1;
-            GameObject wall = wallData.Item2;
+            GameObject wallOperator = wallData.Item2;
+            GameObject wallPlayer = Instantiate(wallData.Item2, wallData.Item2.transform.position, wallData.Item2.transform.rotation);
             string direction = wallData.Item3;
-
-            wall.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
-            wall.AddComponent<WallController>();
+            wallOperator.layer = LayerMask.NameToLayer("NotVR");
+            wallOperator.GetComponentInChildren<MeshRenderer>().gameObject.layer = LayerMask.NameToLayer("NotVR");
+            wallPlayer.layer = LayerMask.NameToLayer("OnlyVR");
+            wallPlayer.SetLayerRecursively(LayerMask.NameToLayer("OnlyVR"));
+            wallOperator.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
+            wallOperator.AddComponent<WallController>();
 
             ClearNeighboringWall(currentCell, direction);
         }
