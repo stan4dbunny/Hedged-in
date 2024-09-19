@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Monster
   - EndPoint
+  - Ground
+  - Collectable
+  - Wall
   layers:
   - Default
   - TransparentFX

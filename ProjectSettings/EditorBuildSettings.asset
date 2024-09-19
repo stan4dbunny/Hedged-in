@@ -8,10 +8,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Carl.unity
+    guid: aeec0248188314663b83bed819d2fed0
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 45171ad4f3176044996691b4b4fab1b3
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 216f146a9619aef46b088c0841041c67,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: b8394e226030d4743b0091dd3c8e308a,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 380e04a2186fa744e9b6f7516ed439e4,
+      type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 5326e34ddd37c4dc08ef9e76aa638848,
       type: 2}
