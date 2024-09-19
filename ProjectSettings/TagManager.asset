@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Collectable
   - Wall
+  - distraction
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - UI
   - NotVR
   - OnlyVR
-  - 
-  - 
+  - Collectible
+  - Monster
   - 
   - 
   - 
