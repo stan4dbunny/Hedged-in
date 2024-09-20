@@ -25,7 +25,7 @@ public class MonsterMovement : MonoBehaviour
     {
         if(!distractionDestroyed) //remove when better solution, only for test (or work with it when placing distractions at runtime idk)
         {
-            if(isInRange(distraction)) //prioritize is a distraction is close to the monster
+            if(isInRange(distraction)) //prioritize if a distraction is close to the monster
             {
                 pathTo(distraction);
                 return;
