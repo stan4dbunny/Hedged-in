@@ -9,56 +9,92 @@ public class PlaceDistraction : MonoBehaviour
     [SerializeField] public GameObject distraction;
     [SerializeField] public GameObject distractionIndicator;
     [SerializeField] public GameObject rangeIndicator;
-    private bool holdingDistraction = false;
     [SerializeField] TextMeshProUGUI distractionsLeftText;
-    public int distractionsAmount = 5;
-    private GameObject currDistraction;
+    private GameObject currDistractionIndicator;
     private GameObject currRangeIndicator;
-    //TODO: Cooldown for using distraction/limiting it to only one placed at a time (If we want to handle more, change MonsterMovement.cs is neccessary)
+    private Vector3 mousePos;
+    public int distractionsAmount = 5;
+    private bool holdingDistraction = false;
+    private bool clickedThisFrame = false;
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse1) && holdingDistraction)
-        {
-            Ray ray = topDownView.ScreenPointToRay(Input.mousePosition); //when we rightclick, shoot a ray from the topView-camera plane to where the user clicked
+        //Get mouse position and it's respective maze index.
+        mousePos = Input.mousePosition;
+        mousePos = topDownView.ScreenToWorldPoint(mousePos);
+        int x = Mathf.RoundToInt(mousePos.x);
+        int z = Mathf.RoundToInt(mousePos.z);
 
-            if(Physics.Raycast(ray, out RaycastHit hit, 100)) //place distraction object
+        if(Input.GetKeyDown(KeyCode.Mouse1) && holdingDistraction) //if we press right-click and holding the indicator
+        {
+            if(IsClickInBounds(x, z)) //if we click in bounds
             {
-                int x = Mathf.RoundToInt(hit.point.x);
-                int z = Mathf.RoundToInt(hit.point.z);
-                
-                if(x >= 0 && z >= 0 && x < 10 && z < 10) //in bounds of the maze, current boundaries hardcoded
-                {
-                    Instantiate(distraction, new Vector3(x, 0.2f, z), Quaternion.identity);
-                    Destroy(currDistraction);
-                    Destroy(currRangeIndicator);
-                    distractionsAmount -= 1;
-                    distractionsLeftText.text = "Distractions left: " + distractionsAmount;
-                    holdingDistraction = false;
-                }
+                holdingDistraction = false;
+                clickedThisFrame = true;
+
+                PlaceDistractionInMaze(x, z); //place monster distraction in maze
             }
+
+            if(!IsClickInBounds(x, z) && !clickedThisFrame) //click outside of maze bounds to get rid of potential distraction placement TODO: Bind to UI button click or something
+            {
+                holdingDistraction = false;
+                clickedThisFrame = true;
+
+                ClearHoldingObject();
+            }     
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse1) && !holdingDistraction && !GameObject.FindWithTag("distraction") && distractionsAmount > 0)
+        if(Input.GetKeyDown(KeyCode.Mouse1) && !holdingDistraction && !GameObject.FindWithTag("distraction") && distractionsAmount > 0 && !clickedThisFrame) //condition for potentially placing down more distractions
         {
             holdingDistraction = true;
-            Ray ray = topDownView.ScreenPointToRay(Input.mousePosition);
+            clickedThisFrame = true;
 
-            if(Physics.Raycast(ray, out RaycastHit hit, 100))
-            {
-                int x = Mathf.RoundToInt(hit.point.x);
-                int z = Mathf.RoundToInt(hit.point.z);
-
-                currDistraction = Instantiate(distractionIndicator, new Vector3(x, 0.2f, z), Quaternion.identity);
-                currRangeIndicator = Instantiate(rangeIndicator, new Vector3(x, 0f, z), Quaternion.identity);
-            }
+            SpawnIndicatorsOnMousePos();
         }
 
-        if(currDistraction && currRangeIndicator)
+        if(currDistractionIndicator && currRangeIndicator) //if these gameobjects exist, track them to the mouseposition.
         {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos = topDownView.ScreenToWorldPoint(mousePos);
-            currDistraction.transform.position = new Vector3(mousePos.x, 0.2f, mousePos.z);
-            currRangeIndicator.transform.position = new Vector3(mousePos.x, 0, mousePos.z);
+            TrackIndicatorsToMousePos();
         }
+
+        clickedThisFrame = false;
+    }
+
+    private bool IsClickInBounds(int x, int z)
+    {
+        if(x >= 0 && z >= 0 && x < 10 && z < 10){return true;}
+
+        return false;
+    }
+
+    private void PlaceDistractionInMaze(int x, int z)
+    {
+        Instantiate(distraction, new Vector3(x, 0.2f, z), Quaternion.identity);
+        ClearHoldingObject();
+        UpdateUIText();
+    }
+
+    private void UpdateUIText()
+    {
+        distractionsAmount -= 1;
+        distractionsLeftText.text = "Distractions left: " + distractionsAmount;
+    }
+
+    private void ClearHoldingObject()
+    {
+        Destroy(currDistractionIndicator);
+        Destroy(currRangeIndicator);
+    }
+
+    private void SpawnIndicatorsOnMousePos()
+    {
+        currDistractionIndicator = Instantiate(distractionIndicator, new Vector3(mousePos.x, 0.2f, mousePos.z), Quaternion.identity);
+        currRangeIndicator = Instantiate(rangeIndicator, new Vector3(mousePos.x, 0f, mousePos.z), Quaternion.identity);
+    }
+
+    private void TrackIndicatorsToMousePos()
+    {
+        currDistractionIndicator.transform.position = new Vector3(mousePos.x, 0.2f, mousePos.z);
+        currRangeIndicator.transform.position = new Vector3(mousePos.x, 0, mousePos.z);
     }
 }
