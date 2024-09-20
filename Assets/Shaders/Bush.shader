@@ -103,6 +103,13 @@ Shader "Unlit/FurShader"
                 return o;
             }
 
+            float hash12(float2 p)
+            {
+	            float3 p3  = frac(float3(p.xyx) * 0.1031);
+                p3 += dot(p3, p3.yzx + 33.33);
+                return frac((p3.x + p3.y) * p3.z);
+            }
+
             float4 frag (Interpolators i) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(i);
@@ -110,7 +117,10 @@ Shader "Unlit/FurShader"
                 float currLayerIndex = UNITY_ACCESS_INSTANCED_PROP(PerInstance, _CurrLayerIndex);
                 //return float4(currLayerIndex, currLayerIndex, currLayerIndex, currLayerIndex);
                 //generates random nr 0-1  
-                float randFloat = frac(sin(dot(trunc(i.uv*_Resolution), float2(12.9898, 78.233))) * 43758.5453); //trunc gets the int part which groups the pixels together to one strand
+                float PHI = 1.61803398874989484820459;
+                //float randFloat = frac(sin(dot(trunc(i.uv*_Resolution), float2(12.9898, 78.233))) * 43758.5453);
+                //float randFloat = frac(tan(distance(trunc(i.uv*_Resolution)*PHI, trunc(i.uv*_Resolution))*0.5)*trunc(i.uv.x*_Resolution));
+                float randFloat = hash12(trunc(i.uv*_Resolution));
                 float randHeight = lerp(_MinHeight, _Height, randFloat);
                 float4 pixelColor = float4(1,0,0,0);
 
