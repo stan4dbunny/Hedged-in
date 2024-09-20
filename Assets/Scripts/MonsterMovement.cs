@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class MonsterMovement : MonoBehaviour
 {
-    [SerializeField] public GameObject distraction; //object operator can use to distract the monster
+    public GameObject distraction; //object operator can use to distract the monster
     [SerializeField] public GameObject mazeInfo; //object that generates the maze
     [SerializeField] public GameObject player; //player object
     private GenerateMaze mazeGenerator; //used for accessing actual maze
@@ -14,7 +14,6 @@ public class MonsterMovement : MonoBehaviour
     private Vector3 currentDestination; //current world position monster is trying to path towards
     private bool hasDestination = false;
     private bool seesPlayer;
-    private bool distractionDestroyed = true; //remove when better solution, only for test (or work with it when placing distractions at runtime idk)
 
     void Start()
     {
@@ -23,8 +22,10 @@ public class MonsterMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if(!distractionDestroyed) //remove when better solution, only for test (or work with it when placing distractions at runtime idk)
+        //Debug.Log(currentDestination);
+        if(GameObject.FindWithTag("distraction")) //Currently only handles one active distraction-object. If wewant to handle more: https://docs.unity3d.com/ScriptReference/GameObject.FindGameObjectsWithTag.html
         {
+            distraction = GameObject.FindWithTag("distraction");
             if(isInRange(distraction)) //prioritize if a distraction is close to the monster
             {
                 pathTo(distraction);
@@ -59,7 +60,7 @@ public class MonsterMovement : MonoBehaviour
         navMeshAgent.destination = currentDestination;
         hasDestination = true;
 
-        if(Vector3.Distance(transform.position, currentDestination) < 0.3f) //if we're clsoe to our destination, we consider it as having reached it, enables new destination to be found.
+        if(Vector3.Distance(transform.position, currentDestination) < 0.3f) //if we're close to our destination, we consider it as having reached it, enables new destination to be found.
         {
             hasDestination = false;
         }
@@ -72,6 +73,7 @@ public class MonsterMovement : MonoBehaviour
 
         if(vecAngle < fov) //if in the monsters field of view
         {
+            /*this sometimes seesplayer through walls???*/
             if(Physics.Raycast(transform.position, vecBetweenMonsterAndPlayer, out RaycastHit hit)) //shoot a ray towards the player
             {
                 if(hit.collider.gameObject.tag == "Player") //if the ray collides with the player, return true. We have found the player
@@ -88,19 +90,19 @@ public class MonsterMovement : MonoBehaviour
     {
         if(!hasDestination)
         {
-            int xPos = Mathf.FloorToInt(transform.position.x);
-            int zPos = Mathf.FloorToInt(transform.position.z);
+            int xPos = Mathf.RoundToInt(transform.position.x);
+            int zPos = Mathf.RoundToInt(transform.position.z);
             MazePiece thisPiece = mazeGenerator._maze[xPos, zPos]; //Get the mazeCell in which the monster is
 
             List<MazePiece> adjacentPieces = new List<MazePiece>();
             //TODO: have possibility for monster to set a wander destination further than one piece
             foreach(MazePiece piece in thisPiece.nextPieces)
             {
-                adjacentPieces.Add(piece);
+                if(!piece.isEndpoint){ adjacentPieces.Add(piece);}
             }
             foreach(MazePiece piece in thisPiece.previousPieces)
             {
-                adjacentPieces.Add(piece);
+                if(!piece.isEndpoint){ adjacentPieces.Add(piece);}
             }
 
             var index = Random.Range(0, adjacentPieces.Count); 
@@ -122,7 +124,6 @@ public class MonsterMovement : MonoBehaviour
         if(collision.gameObject.tag == "distraction")
         {
             Destroy(collision.gameObject);
-            distractionDestroyed = true; //remove when better solution, only for test (or work with it when placing distractions at runtime idk)
         }
     }
 }

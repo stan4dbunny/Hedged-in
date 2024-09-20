@@ -120,10 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca23600bfffd6ee46a27743e86a74547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distraction: {fileID: 32173685048495003, guid: 5340ca383f2e2e740b8f09ea09f4ebd0,
-    type: 3}
-  mazeInfo: {fileID: 7973310174041070661, guid: b447b71095068cf438ed9b868715159e,
-    type: 3}
+  distraction: {fileID: 0}
+  mazeInfo: {fileID: 0}
+  player: {fileID: 0}
 --- !u!54 &5193890482466461886
 Rigidbody:
   m_ObjectHideFlags: 0
