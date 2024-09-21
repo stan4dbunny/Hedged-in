@@ -54,7 +54,7 @@ public class PlaceDistraction : MonoBehaviour
 
         if(currDistractionIndicator && currRangeIndicator) //if these gameobjects exist, track them to the mouseposition.
         {
-            TrackIndicatorsToMousePos();
+            TrackIndicatorsToMousePos(x, z);
         }
 
         clickedThisFrame = false;
@@ -92,9 +92,31 @@ public class PlaceDistraction : MonoBehaviour
         currRangeIndicator = Instantiate(rangeIndicator, new Vector3(mousePos.x, 0f, mousePos.z), Quaternion.identity);
     }
 
-    private void TrackIndicatorsToMousePos()
+    private void TrackIndicatorsToMousePos(int x, int z)
     {
+        //snaps to part of maze object will actually be placed at
+        currDistractionIndicator.transform.position = new Vector3(x, 0.2f, z);
+        currRangeIndicator.transform.position = new Vector3(x, 0, z);
+
+        //Tracks mouse continuously
+        /*
         currDistractionIndicator.transform.position = new Vector3(mousePos.x, 0.2f, mousePos.z);
         currRangeIndicator.transform.position = new Vector3(mousePos.x, 0, mousePos.z);
+        */
+
+        DetermineIndicatorColor(x, z);
+    }
+
+    private void DetermineIndicatorColor(int x, int z)
+    {
+        Material indicatorMaterial = currRangeIndicator.GetComponent<Renderer>().material;
+
+        if(!IsClickInBounds(x, z))
+        {
+            indicatorMaterial.SetColor("_Color", Color.red);
+            return;
+        }
+
+        indicatorMaterial.SetColor("_Color", Color.green); //new Color(1.0f, 0.6f, 1.0f, 0.6f)
     }
 }
