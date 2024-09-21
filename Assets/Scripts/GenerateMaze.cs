@@ -196,7 +196,7 @@ public class GenerateMaze : MonoBehaviour
         Instantiate(_endPoint, Endposition, Quaternion.identity);
     }
 
-    private void GenerateCollectibles()
+     private void GenerateCollectibles()
     {
         int currCollectibles = 0;
         do

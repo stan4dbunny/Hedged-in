@@ -15,10 +15,14 @@ public class MonsterMovement : MonoBehaviour
     private bool hasDestination = false;
     private bool seesPlayer;
 
+    private Animator animator; 
+
+
     void Start()
     {
         mazeGenerator = mazeInfo.GetComponent<GenerateMaze>();
         navMeshAgent = GetComponent<NavMeshAgent>(); //TODO: need to update the navMesh when a player clicks a wall, so that the monster understands that the maze has changed 
+        animator = GetComponent<Animator>(); 
     }
     void FixedUpdate()
     {
@@ -38,6 +42,8 @@ public class MonsterMovement : MonoBehaviour
         if(seesPlayer) //if we find the player, chase it
         {
             pathTo(player);
+            animator.SetBool("PlayerIsVisible", true);
+            navMeshAgent.speed = 1.2f; 
             return;
         }
 
@@ -88,7 +94,10 @@ public class MonsterMovement : MonoBehaviour
 
     private void wander() //if monster is not in range of distraction, or sees the player, wander around the maze
     {
-        if(!hasDestination)
+        animator.SetBool("PlayerIsVisible", false);
+        navMeshAgent.speed = 0.6f;
+
+        if (!hasDestination)
         {
             int xPos = Mathf.RoundToInt(transform.position.x);
             int zPos = Mathf.RoundToInt(transform.position.z);
