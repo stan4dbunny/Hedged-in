@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazeWidth: 10
   mazeHeight: 10
-  _mazePiece: {fileID: 8032588434237407153, guid: 81b56d81b3146244490d722c52b7f840,
+  _mazePiece: {fileID: 8032588434237407153, guid: f001425b1f278f1499198452886a25b3,
     type: 3}
   _collectible: {fileID: 2516521160115090937, guid: 694798edb9779864e9fbf826dcfe406d,
     type: 3}

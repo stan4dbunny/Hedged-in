@@ -40,7 +40,7 @@ public class GenerateMaze : MonoBehaviour
         //GenerateObstacles();
         ColorRandomWalls();
 
-        GetComponent<NavMeshSurface>().BuildNavMesh();
+        UpdateNavMesh();
         
     }
     private void InstantiateMazePieces()
@@ -356,8 +356,10 @@ public class GenerateMaze : MonoBehaviour
             //wallPlayer.SetLayerRecursively(LayerMask.NameToLayer("OnlyVR"));
             wallOperator.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
             wallOperator.AddComponent<WallController>();
+            wallOperator.GetComponent<Collider>().layerOverridePriority = 1;
+            Debug.Log(wallOperator.GetComponent<Collider>().layerOverridePriority);
 
-            ClearNeighboringWall(currentCell, direction); //doesnt clear wall under door correctly
+            ClearNeighboringWall(currentCell, direction);
         }
        
     }
@@ -399,5 +401,10 @@ public class GenerateMaze : MonoBehaviour
         }
 
         return 0;
+    }
+
+    public void UpdateNavMesh()
+    {
+        GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 }
