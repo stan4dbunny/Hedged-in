@@ -15,14 +15,40 @@ public class MonsterMovement : MonoBehaviour
     private bool hasDestination = false;
     private bool seesPlayer;
 
-    private Animator animator; 
+    private Animator animator;
+
+    // This is the sound that plays in the environment  
+    public AudioClip environmentClip;
+    private AudioSource audioSource;
+
+    // This is the sound that plays in the environment  
+    public AudioClip growlClip;
+    private AudioSource growlAudioSource;
 
 
     void Start()
     {
         mazeGenerator = mazeInfo.GetComponent<GenerateMaze>();
         navMeshAgent = GetComponent<NavMeshAgent>(); //TODO: need to update the navMesh when a player clicks a wall, so that the monster understands that the maze has changed 
-        animator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
+
+
+        // Initialize the AudioSource component
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        // Initialize the AudioSource component
+        growlAudioSource = GetComponent<AudioSource>();
+        if (growlAudioSource == null)
+        {
+            growlAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+
+        audioSource.PlayOneShot(environmentClip);
     }
     void FixedUpdate()
     {
@@ -43,6 +69,7 @@ public class MonsterMovement : MonoBehaviour
         {
             pathTo(player);
             animator.SetBool("PlayerIsVisible", true);
+            growlAudioSource.PlayOneShot(growlClip);
             navMeshAgent.speed = 1.2f; 
             return;
         }
@@ -79,8 +106,10 @@ public class MonsterMovement : MonoBehaviour
 
         if(vecAngle < fov) //if in the monsters field of view
         {
+            
+
             /*this sometimes seesplayer through walls???*/
-            if(Physics.Raycast(transform.position, vecBetweenMonsterAndPlayer, out RaycastHit hit)) //shoot a ray towards the player
+            if (Physics.Raycast(transform.position, vecBetweenMonsterAndPlayer, out RaycastHit hit)) //shoot a ray towards the player
             {
                 if(hit.collider.gameObject.tag == "Player") //if the ray collides with the player, return true. We have found the player
                 {

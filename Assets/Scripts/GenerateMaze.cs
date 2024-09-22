@@ -22,6 +22,8 @@ public class GenerateMaze : MonoBehaviour
 
     
 
+
+
     public bool IsOuterWall(int x, int z, int mazeWidth, int mazeHeight)
     {
         return x == 0 || z == 0 || x == mazeWidth - 1 || z == mazeHeight - 1;

@@ -345,7 +345,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.9
+      value: 4.68
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
@@ -355,7 +355,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.73
+      value: 4.98
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
@@ -579,7 +579,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
       propertyPath: m_Name
-      value: character
+      value: Monster
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
@@ -977,6 +977,8 @@ MonoBehaviour:
     type: 3}
   mazeInfo: {fileID: 1847431009}
   player: {fileID: 1205877751}
+  environmentClip: {fileID: 8300000, guid: 17d6d0d1374410b42b33fa52357a9468, type: 3}
+  growlClip: {fileID: 8300000, guid: f3f93e7b0c497984c83c53d9e562001e, type: 3}
 --- !u!195 &736684031
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1043,6 +1045,8 @@ MonoBehaviour:
     type: 3}
   mazeInfo: {fileID: 1847431009}
   player: {fileID: 1205877751}
+  environmentClip: {fileID: 0}
+  growlClip: {fileID: 8300000, guid: f3f93e7b0c497984c83c53d9e562001e, type: 3}
 --- !u!95 &883907544
 Animator:
   serializedVersion: 5
@@ -1155,6 +1159,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1159930973372819624, guid: b6765c6054b63794c96781284937f8a9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.505
+      objectReference: {fileID: 0}
     - target: {fileID: 1438975730866478887, guid: b6765c6054b63794c96781284937f8a9,
         type: 3}
       propertyPath: m_Camera
@@ -1298,7 +1307,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.11
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
@@ -1532,7 +1541,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
       propertyPath: m_Name
-      value: character (1)
+      value: Monster_1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
@@ -1813,6 +1822,8 @@ MonoBehaviour:
     type: 3}
   mazeInfo: {fileID: 1847431009}
   player: {fileID: 1205877751}
+  environmentClip: {fileID: 0}
+  growlClip: {fileID: 8300000, guid: f3f93e7b0c497984c83c53d9e562001e, type: 3}
 --- !u!95 &1508513562
 Animator:
   serializedVersion: 5
@@ -2093,7 +2104,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.15
+      value: 8.28
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
@@ -2103,7 +2114,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.8
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
@@ -2327,7 +2338,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
       propertyPath: m_Name
-      value: character (2)
+      value: Monster_2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 64c6f05380483234fa50adb7a79076cc,
         type: 3}
