@@ -3,7 +3,8 @@ guid: 7cd297be78d781c4ebd47261ad541310
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - doorClip: {fileID: 8300000, guid: 5d4a7de37a1e05643a78e48b12bf0e94, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
