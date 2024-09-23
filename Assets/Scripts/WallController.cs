@@ -9,6 +9,14 @@ public class WallController : MonoBehaviour
     private float rotationSpeed = 500f;
     private float rotationAngle = 90f;
     private Quaternion targetRotation;
+    private GameObject mazeGenerator;
+    private GenerateMaze mazeInfo;
+
+    void Start()
+    {
+        mazeGenerator = GameObject.Find("MazeGenerator"); //important the the object generating the maze hsa this name (For now, maybe can get it some other way)
+        mazeInfo = mazeGenerator.GetComponent<GenerateMaze>();
+    }
 
     void Update()
     {
@@ -18,13 +26,13 @@ public class WallController : MonoBehaviour
             if (Quaternion.Angle(transform.rotation, targetRotation) < 0.01f)
             {
                 isRotating = false;
+                mazeInfo.UpdateNavMesh();
             }
         }
     }
 
     void OnMouseDown()
     {
-        Debug.Log("Wall clicked!");
         if (!isRotating)
         {
             float direction = rotateForward ? rotationAngle : -rotationAngle;
