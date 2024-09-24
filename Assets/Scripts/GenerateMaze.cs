@@ -46,7 +46,7 @@ public class GenerateMaze : MonoBehaviour
         //GenerateObstacles();
         ColorRandomWalls();
 
-        GetComponent<NavMeshSurface>().BuildNavMesh();
+        UpdateNavMesh();
         
     }
     private void InstantiateMazePieces()
@@ -321,6 +321,7 @@ public class GenerateMaze : MonoBehaviour
     private void GenerateStartAndEndPoint()
     {
         Vector3 Endposition = longestPath[longestPath.Count - 1].transform.position;
+        longestPath[longestPath.Count - 1].isEndpoint = true;
         Instantiate(_endPoint, Endposition, Quaternion.identity);
     }
 
@@ -472,18 +473,20 @@ public class GenerateMaze : MonoBehaviour
         // Shuffle the list and randomly select walls
         var randomWalls = selectableWalls.OrderBy(_ => Random.value).Take(movableDoorsCount).ToList();
 
-        foreach (var wallData in randomWalls)
+        foreach (var wallData in randomWalls) //can generate walls in the same spot, causes issues
         {
             MazePiece currentCell = wallData.Item1;
             GameObject wallOperator = wallData.Item2;
-            GameObject wallPlayer = Instantiate(wallData.Item2, wallData.Item2.transform.position, wallData.Item2.transform.rotation);
+            //GameObject wallPlayer = Instantiate(wallData.Item2, wallData.Item2.transform.position, wallData.Item2.transform.rotation);
             string direction = wallData.Item3;
-            wallOperator.layer = LayerMask.NameToLayer("NotVR");
-            wallOperator.GetComponentInChildren<MeshRenderer>().gameObject.layer = LayerMask.NameToLayer("NotVR");
-            wallPlayer.layer = LayerMask.NameToLayer("OnlyVR");
-            wallPlayer.SetLayerRecursively(LayerMask.NameToLayer("OnlyVR"));
+            //wallOperator.layer = LayerMask.NameToLayer("NotVR");
+            //wallOperator.GetComponentInChildren<MeshRenderer>().gameObject.layer = LayerMask.NameToLayer("NotVR");
+            //wallPlayer.layer = LayerMask.NameToLayer("OnlyVR");
+            //wallPlayer.SetLayerRecursively(LayerMask.NameToLayer("OnlyVR"));
             wallOperator.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
             wallOperator.AddComponent<WallController>();
+            wallOperator.GetComponent<Collider>().layerOverridePriority = 1;
+            Debug.Log(wallOperator.GetComponent<Collider>().layerOverridePriority);
 
             ClearNeighboringWall(currentCell, direction);
         }
@@ -527,5 +530,10 @@ public class GenerateMaze : MonoBehaviour
         }
 
         return 0;
+    }
+
+    public void UpdateNavMesh()
+    {
+        GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 }

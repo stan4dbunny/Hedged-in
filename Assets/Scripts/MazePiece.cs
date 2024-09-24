@@ -13,6 +13,7 @@ public class MazePiece : MonoBehaviour
     public bool forkHasBeenBacktracked = false;
     public bool suitableForObstacle = false;
     public bool isOccupied = false;
+    public bool isEndpoint = false;
     public List<MazePiece> nextPieces;
     public List<MazePiece> previousPieces;
 

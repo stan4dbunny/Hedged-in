@@ -47,14 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazeWidth: 10
   mazeHeight: 10
-  _mazePiece: {fileID: 8032588434237407153, guid: 81b56d81b3146244490d722c52b7f840,
+  _mazePiece: {fileID: 8032588434237407153, guid: f001425b1f278f1499198452886a25b3,
     type: 3}
   _collectible: {fileID: 2516521160115090937, guid: 694798edb9779864e9fbf826dcfe406d,
     type: 3}
   _door: {fileID: 3460646777897969568, guid: e0aba46469d569e48ab377cb26fa5ed9, type: 3}
   _endPoint: {fileID: 1398917910275966604, guid: 81978042bf331b342ad24b0358e7be76,
     type: 3}
-  collectibleCount: 15
+  collectibleCount: 5
   movableDoorsCount: 10
   longestPath: []
   moveableWallMaterial: {fileID: 2100000, guid: 37744667be56ffb46b32c93646e0420b,
