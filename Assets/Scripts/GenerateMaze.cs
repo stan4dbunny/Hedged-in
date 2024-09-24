@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using Unity.AI.Navigation;
+using Unity.VisualScripting;
 
 public class GenerateMaze : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class GenerateMaze : MonoBehaviour
     public List<MazePiece> longestPath;
     public Material moveableWallMaterial;
 
+    public Mesh hedgeNegXMissing;
+    public Mesh hedgePosXMissing;
+    public Mesh hedgeBothMissing;
+    public Mesh hedge;
     
 
     public bool IsOuterWall(int x, int z, int mazeWidth, int mazeHeight)
@@ -33,6 +38,7 @@ public class GenerateMaze : MonoBehaviour
         
         InstantiateMazePieces();
         Generate(null, _maze[0, 0]);
+        ChangeModels();
         SetMazePieceAttributes();
         GetLongestPath(_maze[0, 0], currLongestPath);
         GenerateStartAndEndPoint();
@@ -70,7 +76,6 @@ public class GenerateMaze : MonoBehaviour
         current.AddPreviousPiece(previous);
 
         MazePiece next;
-
         do
         {
             next = GetNextUnvisited(current);
@@ -82,6 +87,38 @@ public class GenerateMaze : MonoBehaviour
         } while (next != null);
     }
 
+    private MazePiece[] GetAdjacents(MazePiece piece)
+    {
+        int x = (int)piece.transform.position.x;
+        int z = (int)piece.transform.position.z;
+
+        MazePiece[] adjacents = new MazePiece[4];
+        if (x + 1 < mazeWidth)
+        {
+            var cellToRight = _maze[x + 1, z];
+            adjacents[0] = cellToRight;
+        }
+
+        if (x - 1 >= 0)
+        {
+            var cellToLeft = _maze[x - 1, z];
+            adjacents[1] = cellToLeft;
+        }
+
+        if (z + 1 < mazeHeight)
+        {
+            var cellInfront = _maze[x, z + 1];
+
+            adjacents[2] = cellInfront;
+        }
+
+        if (z - 1 >= 0)
+        {
+            var cellBehind = _maze[x, z - 1];
+            adjacents[3] = cellBehind;
+        }
+        return adjacents;
+    }
     private MazePiece GetNextUnvisited(MazePiece current)
     {
         var unvisited = GetUnvisited(current);
@@ -189,6 +226,98 @@ public class GenerateMaze : MonoBehaviour
         }
     }
 
+    /*
+    * Set correct models for the hedges
+    */
+    private void ChangeModels()
+    {
+        for (int x = 0; x < mazeWidth; x++)
+        {
+            for (int z = 0; z < mazeHeight; z++)
+            {
+                MazePiece curr = _maze[x, z];
+                bool eastWall = curr.CheckEastWallActive();
+                bool westWall = curr.CheckWestWallActive();
+                bool northWall = curr.CheckNorthWallActive();
+                bool southWall = curr.CheckSouthWallActive();
+
+                MazePiece[] adjacents = GetAdjacents(curr);
+
+                MazePiece cellToRight = adjacents[0];
+                MazePiece cellToLeft = adjacents[1];
+                MazePiece cellInFront = adjacents[2];
+                MazePiece cellBehind = adjacents[3];
+
+                
+                if (eastWall)
+                {
+                    bool xposE = false;
+                    bool xnegE = false;
+
+                    if (cellBehind != null && cellBehind.CheckEastWallActive())
+                        xnegE = true;
+
+                    if (cellInFront != null && cellInFront.CheckEastWallActive())
+                        xposE = true;
+
+                    if (xposE && !xnegE) curr.GetEastWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgePosXMissing;
+                    if (xnegE && !xposE) curr.GetEastWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgeNegXMissing;
+                    if (xnegE && xposE) curr.GetEastWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgeBothMissing;
+                }
+
+                if (westWall)
+                {
+                    bool xposW = false;
+                    bool xnegW = false;
+
+                    if (cellBehind != null && cellBehind.CheckWestWallActive())
+                        xnegW = true;
+
+                    if (cellInFront != null && cellInFront.CheckWestWallActive())
+                        xposW = true;
+
+                    if (xposW && !xnegW) curr.GetWestWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgePosXMissing;
+                    if (xnegW && !xposW) curr.GetWestWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgeNegXMissing;
+                    if (xnegW && xposW) curr.GetWestWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgeBothMissing;
+                }
+
+                if(northWall)
+                {
+                    bool xposN = false;
+                    bool xnegN = false;
+                    if (cellToLeft != null && cellToLeft.CheckNorthWallActive())
+                        xnegN = true;
+
+                    if (cellToRight != null && cellToRight.CheckNorthWallActive())
+                        xposN = true;
+
+                    if (xposN && !xnegN) curr.GetNorthWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgePosXMissing;
+                    if (xnegN && !xposN) curr.GetNorthWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgeNegXMissing;
+                    if (xnegN && xposN) curr.GetNorthWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgeBothMissing;
+                }
+
+                if (southWall)
+                {
+                    bool xposS = false;
+                    bool xnegS = false;
+                    if (cellToLeft != null && cellToLeft.CheckSouthWallActive())
+                        xnegS = true;
+
+                    if (cellToRight != null && cellToRight.CheckSouthWallActive())
+                        xposS = true;
+
+                    if (xposS && !xnegS) curr.GetSouthWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgePosXMissing;
+                    if (xnegS && !xposS) curr.GetSouthWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgeNegXMissing;
+                    if (xnegS && xposS) curr.GetSouthWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgeBothMissing;
+                }
+
+            }
+        }
+
+                
+
+        
+    }
     private void GenerateStartAndEndPoint()
     {
         Vector3 Endposition = longestPath[longestPath.Count - 1].transform.position;
