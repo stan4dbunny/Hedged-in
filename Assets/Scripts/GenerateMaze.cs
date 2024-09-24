@@ -87,7 +87,7 @@ public class GenerateMaze : MonoBehaviour
         } while (next != null);
     }
 
-    private MazePiece[] GetAdjacents(MazePiece piece)
+    public MazePiece[] GetAdjacents(MazePiece piece)
     {
         int x = (int)piece.transform.position.x;
         int z = (int)piece.transform.position.z;
@@ -313,9 +313,6 @@ public class GenerateMaze : MonoBehaviour
 
             }
         }
-
-                
-
         
     }
     private void GenerateStartAndEndPoint()
@@ -477,12 +474,7 @@ public class GenerateMaze : MonoBehaviour
         {
             MazePiece currentCell = wallData.Item1;
             GameObject wallOperator = wallData.Item2;
-            //GameObject wallPlayer = Instantiate(wallData.Item2, wallData.Item2.transform.position, wallData.Item2.transform.rotation);
             string direction = wallData.Item3;
-            //wallOperator.layer = LayerMask.NameToLayer("NotVR");
-            //wallOperator.GetComponentInChildren<MeshRenderer>().gameObject.layer = LayerMask.NameToLayer("NotVR");
-            //wallPlayer.layer = LayerMask.NameToLayer("OnlyVR");
-            //wallPlayer.SetLayerRecursively(LayerMask.NameToLayer("OnlyVR"));
             wallOperator.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
             wallOperator.AddComponent<WallController>();
             wallOperator.GetComponent<Collider>().layerOverridePriority = 1;
@@ -492,6 +484,7 @@ public class GenerateMaze : MonoBehaviour
         }
        
     }
+    
 
     private void ClearNeighboringWall(MazePiece currentCell, string direction)
     {
