@@ -350,8 +350,8 @@ public class GenerateMaze : MonoBehaviour
             GameObject wallOperator = wallData.Item2;
             //GameObject wallPlayer = Instantiate(wallData.Item2, wallData.Item2.transform.position, wallData.Item2.transform.rotation);
             string direction = wallData.Item3;
-            wallOperator.layer = LayerMask.NameToLayer("NotVR");
-            wallOperator.GetComponentInChildren<MeshRenderer>().gameObject.layer = LayerMask.NameToLayer("NotVR");
+            //wallOperator.layer = LayerMask.NameToLayer("NotVR");
+            //wallOperator.GetComponentInChildren<MeshRenderer>().gameObject.layer = LayerMask.NameToLayer("NotVR");
             //wallPlayer.layer = LayerMask.NameToLayer("OnlyVR");
             //wallPlayer.SetLayerRecursively(LayerMask.NameToLayer("OnlyVR"));
             wallOperator.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
