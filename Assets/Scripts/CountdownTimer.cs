@@ -16,12 +16,18 @@ public class CountdownTimer : MonoBehaviour
     public TMP_Text countdownText;
 
     public GameObject gameOverCanvas;
+    public GameObject gameOverCanvasVR;
     public GameObject gameplayCanvas;
+
+    public Camera vrUICamera;
 
     private void Start()
     {
         // Initialize the timer in seconds (convert minutes to seconds)
         timer = timeInMinutes * 60;
+
+        if (gameOverCanvas != null) gameOverCanvas.SetActive(false);
+        if (gameOverCanvasVR != null) gameOverCanvasVR.SetActive(false);
     }
 
     private void Update()
@@ -47,13 +53,16 @@ public class CountdownTimer : MonoBehaviour
     // Trigger Game Over
     private void GameOver()
     {
-        gameplayCanvas.SetActive(false);
-        // Display the Game Over UI
+        if (gameplayCanvas != null) gameplayCanvas.SetActive(false);
+
+        // Enable the VR UI camera so the VR player can see the Game Over screen
+        if (vrUICamera != null) vrUICamera.gameObject.SetActive(true);
+
+        // Display the Game Over UI for both desktop and VR players
+        if (gameOverCanvas != null) gameOverCanvas.SetActive(true);  // Show desktop Game Over Canvas
+        if (gameOverCanvasVR != null) gameOverCanvasVR.SetActive(true);  // Show VR Game Over Canvas
+
         Debug.Log("Game Over!");
-        if (gameOverCanvas != null)
-        {
-            gameOverCanvas.SetActive(true); // Show the Game Over Canvas
-        }
     }
 
     // This function will be called when the restart button is clicked

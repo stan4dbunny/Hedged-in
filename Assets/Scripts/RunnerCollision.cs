@@ -5,24 +5,23 @@ using UnityEngine.UI;
 
 public class RunnerCollision : MonoBehaviour
 {
-    // This count determines the Runner's lives. The Runner starts with 5 lives.
-    // Every time it encounters a monster it loses a life.
-    // When it encounters a collectable it gains a life. 
     private int count = 5;
 
-    // This is the sound that plays when the player picks up a collectable 
     public AudioClip collectableClip;
     private AudioSource audioSource;
 
-    // Reference to the HealthBar GameObject
     public GameObject healthBar;
 
-    // The Slider component from the HealthBar
     private Slider lifeSlider;
 
     public GameObject gameOverCanvas;
     public GameObject gameplayCanvas;
     public GameObject winCanvas;
+
+    public GameObject gameOverCanvasVR;
+    public GameObject winCanvasVR;
+
+    public Camera vrUICamera;
 
     private void Start()
     {
@@ -37,7 +36,6 @@ public class RunnerCollision : MonoBehaviour
         // Ensure the HealthBar GameObject is set
         if (healthBar != null)
         {
-            // Get the Slider component from the HealthBar
             lifeSlider = healthBar.GetComponent<Slider>();
             if (lifeSlider != null)
             {
@@ -45,19 +43,12 @@ public class RunnerCollision : MonoBehaviour
                 lifeSlider.value = count; // Initialize slider to the player's starting lives
             }
         }
-        else
-        {
-            Debug.LogError("HealthBar GameObject is not assigned.");
-        }
-        // Ensure the Win UI Canvas is hidden at the start
-        if (winCanvas != null)
-        {
-            winCanvas.SetActive(false);
-        }
-        else
-        {
-            Debug.LogError("Win Canvas GameObject is not assigned.");
-        }
+
+        // Hide all the canvases initially
+        if (winCanvas != null) winCanvas.SetActive(false);
+        if (winCanvasVR != null) winCanvasVR.SetActive(false);
+        if (gameOverCanvas != null) gameOverCanvas.SetActive(false);
+        if (gameOverCanvasVR != null) gameOverCanvasVR.SetActive(false);
     }
 
     // This function is called when the Runner collides with another collider
@@ -83,7 +74,6 @@ public class RunnerCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("EndPoint"))
         {
             WinGame(); // Call the WinGame function
-
         }
 
         // Check if the object collides with is tagged as "Collectable"
@@ -107,38 +97,29 @@ public class RunnerCollision : MonoBehaviour
     // Handle the game over logic
     private void GameOver()
     {
-        gameplayCanvas.SetActive(false);
-        // Display the Game Over UI
+        // Hide gameplay canvases
+        if (gameplayCanvas != null) gameplayCanvas.SetActive(false);
+
+        // Display the Game Over UI for both desktop and VR players
         Debug.Log("Game Over!");
-        if (gameOverCanvas != null)
-        {
-            gameOverCanvas.SetActive(true); // Show the Game Over Canvas
-        }
+
+        if (vrUICamera != null) vrUICamera.gameObject.SetActive(true);
+        if (gameOverCanvas != null) gameOverCanvas.SetActive(true);  // Show desktop Game Over Canvas
+        if (gameOverCanvasVR != null) gameOverCanvasVR.SetActive(true);  // Show VR Game Over Canvas
     }
 
     // Handle the win logic
     private void WinGame()
     {
-        // Show the Win UI Canvas and hide the main UI
-        if (winCanvas != null)
-        {
-            winCanvas.SetActive(true);
-        }
-
         // Hide other UI elements 
-        if (healthBar != null)
-        {
-            healthBar.SetActive(false);
-        }
+        if (gameplayCanvas != null) gameplayCanvas.SetActive(false);
 
-        // Stop game logic
-        //Time.timeScale = 0; // Pause the game
-    }
+        // Show the Win UI for both desktop and VR
+        if (vrUICamera != null) vrUICamera.gameObject.SetActive(true);
+        if (winCanvas != null) winCanvas.SetActive(true);
+        if (winCanvasVR != null) winCanvasVR.SetActive(true);
 
-    private void GameWon()
-    {
-        // MARITINA here you can display a Congratulations UI
-        Debug.Log("Congratulations, Game Won!");
+        Debug.Log("Game Won!");
     }
 
     // Update the slider UI element to reflect the current life count
