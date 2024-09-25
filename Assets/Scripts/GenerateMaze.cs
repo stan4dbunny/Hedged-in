@@ -27,6 +27,8 @@ public class GenerateMaze : MonoBehaviour
     public Mesh hedge;
     
 
+
+
     public bool IsOuterWall(int x, int z, int mazeWidth, int mazeHeight)
     {
         return x == 0 || z == 0 || x == mazeWidth - 1 || z == mazeHeight - 1;
@@ -322,7 +324,7 @@ public class GenerateMaze : MonoBehaviour
         Instantiate(_endPoint, Endposition, Quaternion.identity);
     }
 
-    private void GenerateCollectibles()
+     private void GenerateCollectibles()
     {
         int currCollectibles = 0;
         do
