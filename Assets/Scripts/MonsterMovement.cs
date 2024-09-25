@@ -39,10 +39,6 @@ public class MonsterMovement : MonoBehaviour
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = environmentClip;
-            audioSource.loop = true;
-            audioSource.Play();
-            audioSource.volume = 0.2f;
         }
 
         // Initialize the AudioSource component
@@ -52,7 +48,10 @@ public class MonsterMovement : MonoBehaviour
             growlAudioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        //audioSource.PlayOneShot(environmentClip, 0.5f);
+        audioSource.clip = environmentClip;
+        audioSource.loop = true;
+        audioSource.Play();
+        audioSource.volume = 0.2f;
     }
     void FixedUpdate()
     {
