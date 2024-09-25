@@ -11,18 +11,14 @@ public class WallController : MonoBehaviour
     private Quaternion targetRotation;
     private GameObject mazeGenerator;
     private GenerateMaze mazeInfo;
-
-    void Start()
-    {
-        mazeGenerator = GameObject.Find("MazeGenerator"); //important the the object generating the maze hsa this name (For now, maybe can get it some other way)
-        mazeInfo = mazeGenerator.GetComponent<GenerateMaze>();
-    }
-
     private AudioSource audioSource;
     public AudioClip doorClip;
 
     void Start()
     {
+        mazeGenerator = GameObject.Find("MazeGenerator"); //important the the object generating the maze hsa this name (For now, maybe can get it some other way)
+        mazeInfo = mazeGenerator.GetComponent<GenerateMaze>();
+
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
@@ -63,7 +59,10 @@ public class WallController : MonoBehaviour
         if (doorClip != null && !audioSource.isPlaying)
         {
             audioSource.pitch = 1.8f;
-            audioSource.PlayOneShot(doorClip); 
+            audioSource.PlayOneShot(doorClip);
+        }
+    }   
+   
     private void UpdateChildren(GameObject getWall)
     {
         MeshFilter[] meshes = getWall.GetComponentsInChildren<MeshFilter>();
@@ -87,28 +86,35 @@ public class WallController : MonoBehaviour
         switch (gameObject.name)
         {
             case "North Wall":
-                if (z + 1 < mazeInfo.mazeHeight)
-                    UpdateChildren(piece.GetNorthWall());
-                    UpdateChildren(cellToLeft.GetNorthWall());
-                    UpdateChildren(cellToRight.GetNorthWall());
+                        if (z + 1 < mazeInfo.mazeHeight)
+                        {
+                            UpdateChildren(piece.GetNorthWall());
+                            UpdateChildren(cellToLeft.GetNorthWall());
+                            UpdateChildren(cellToRight.GetNorthWall());
+                        }
                 break;
             case "South Wall":
-                if (z - 1 >= 0)
-                    UpdateChildren(piece.GetSouthWall());
-                    UpdateChildren(cellToLeft.GetSouthWall());
-                    UpdateChildren(cellToRight.GetSouthWall());
+                        if (z - 1 >= 0)
+                        {
+                            UpdateChildren(piece.GetSouthWall());
+                            UpdateChildren(cellToLeft.GetSouthWall());
+                            UpdateChildren(cellToRight.GetSouthWall());
+                        }
                 break;
             case "East Wall":
-                if (x + 1 < mazeInfo.mazeWidth)
-                    UpdateChildren(piece.GetEastWall());
-                    UpdateChildren(cellBehind.GetEastWall());
-                    UpdateChildren(cellInFront.GetEastWall());
-                break;
+                         if (x + 1 < mazeInfo.mazeWidth) { 
+                            UpdateChildren(piece.GetEastWall());
+                            UpdateChildren(cellBehind.GetEastWall());
+                            UpdateChildren(cellInFront.GetEastWall());
+                        }
+                 break;
             case "West Wall":
-                if (x - 1 >= 0)
-                    UpdateChildren(piece.GetWestWall());
-                    UpdateChildren(cellBehind.GetWestWall());
-                    UpdateChildren(cellInFront.GetWestWall());
+                        if (x - 1 >= 0)
+                        {
+                            UpdateChildren(piece.GetWestWall());
+                            UpdateChildren(cellBehind.GetWestWall());
+                            UpdateChildren(cellInFront.GetWestWall());
+                        }
                 break;
         }
     }

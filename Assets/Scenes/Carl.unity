@@ -189,7 +189,7 @@ PrefabInstance:
     - target: {fileID: 2303448147032632178, guid: 57c09716ed9ee9b4c91568098f9fa871,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 183
+      value: 191
       objectReference: {fileID: 0}
     - target: {fileID: 7725976934188121431, guid: 57c09716ed9ee9b4c91568098f9fa871,
         type: 3}
@@ -602,7 +602,7 @@ GameObject:
   - component: {fileID: 717632818}
   - component: {fileID: 717632820}
   - component: {fileID: 717632819}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5505,7 +5505,7 @@ PrefabInstance:
     - target: {fileID: 4043504694587220919, guid: 409590a7359a1b54e809f4fe9b5f2ccc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -472
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4043504694587220919, guid: 409590a7359a1b54e809f4fe9b5f2ccc,
         type: 3}
@@ -5515,7 +5515,7 @@ PrefabInstance:
     - target: {fileID: 4043504694587220919, guid: 409590a7359a1b54e809f4fe9b5f2ccc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -516
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4043504694587220919, guid: 409590a7359a1b54e809f4fe9b5f2ccc,
         type: 3}
@@ -6203,7 +6203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1399423850}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Volume Fog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
