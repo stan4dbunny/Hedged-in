@@ -1,4 +1,4 @@
-Shader "Unlit/FurShader"
+Shader "Unlit/FoliageShader"
 {
     Properties
     {
@@ -24,13 +24,8 @@ Shader "Unlit/FurShader"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_instancing
-
-            //#include "UnityCG.cginc"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            //#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            //#include "UnityLightingCommon.cginc"
-           
 
             struct MeshData
             {
@@ -115,11 +110,7 @@ Shader "Unlit/FurShader"
                 UNITY_SETUP_INSTANCE_ID(i);
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
                 float currLayerIndex = UNITY_ACCESS_INSTANCED_PROP(PerInstance, _CurrLayerIndex);
-                //return float4(currLayerIndex, currLayerIndex, currLayerIndex, currLayerIndex);
                 //generates random nr 0-1  
-                float PHI = 1.61803398874989484820459;
-                //float randFloat = frac(sin(dot(trunc(i.uv*_Resolution), float2(12.9898, 78.233))) * 43758.5453);
-                //float randFloat = frac(tan(distance(trunc(i.uv*_Resolution)*PHI, trunc(i.uv*_Resolution))*0.5)*trunc(i.uv.x*_Resolution));
                 float randFloat = hash12(trunc(i.uv*_Resolution));
                 float randHeight = lerp(_MinHeight, _Height, randFloat);
                 float4 pixelColor = float4(1,0,0,0);
@@ -140,7 +131,6 @@ Shader "Unlit/FurShader"
                 {
                     //float4 albedo = tex2D(_AlbedoTex, i.uv);
                     float4 albedo = float4(0.1,0.9,0.1,0);
-                    //_WorldSpaceLightPos0 built in variable, is a direction if directional light
                     float3 viewAngleDir = GetWorldSpaceNormalizeViewDir(i.worldPos);
                     float3 lightDir = GetMainLight().direction;
                     float4 lightColor = float4(GetMainLight().color, 0.0);
