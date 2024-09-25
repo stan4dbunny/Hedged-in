@@ -21,7 +21,7 @@ TagManager:
   - OnlyVR
   - Collectible
   - Monster
-  - 
+  - UIVR
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UIVR
+    uniqueID: 1730984507
     locked: 0

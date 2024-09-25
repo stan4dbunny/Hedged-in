@@ -16,8 +16,8 @@ public class RestartController : MonoBehaviour
     // This method will be triggered when the restart button is clicked
     public void RestartButton()
     {
-        // Load the scene named "Maritina2"
-        SceneManager.LoadScene("CarlTest");
+        // Load the scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
 
