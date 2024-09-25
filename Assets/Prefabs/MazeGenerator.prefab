@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazeWidth: 10
   mazeHeight: 10
-  _mazePiece: {fileID: 8032588434237407153, guid: 81b56d81b3146244490d722c52b7f840,
+  _mazePiece: {fileID: 8032588434237407153, guid: f001425b1f278f1499198452886a25b3,
     type: 3}
   _collectible: {fileID: 2516521160115090937, guid: 694798edb9779864e9fbf826dcfe406d,
     type: 3}
@@ -59,6 +59,13 @@ MonoBehaviour:
   longestPath: []
   moveableWallMaterial: {fileID: 2100000, guid: 37744667be56ffb46b32c93646e0420b,
     type: 2}
+  hedgeNegXMissing: {fileID: 7303463310896982818, guid: 51ac65ddfb8e4ed44af5ed90347d94ea,
+    type: 3}
+  hedgePosXMissing: {fileID: -5858939627530969359, guid: 7511517e4465b03489d195ba6cb0d754,
+    type: 3}
+  hedgeBothMissing: {fileID: -6692725354642486051, guid: 20a407c4ecf31c348a8730c0df34c7b5,
+    type: 3}
+  hedge: {fileID: 3138664507822682842, guid: 3df789af78ab5d24a86e1bc0febb350c, type: 3}
 --- !u!114 &6049193988872911773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,7 +93,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.06666667
+  m_VoxelSize: 0.083333336
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0

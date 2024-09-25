@@ -47,3 +47,9 @@ MonoBehaviour:
   topDownView: {fileID: 0}
   distraction: {fileID: 32173685048495003, guid: 5340ca383f2e2e740b8f09ea09f4ebd0,
     type: 3}
+  distractionIndicator: {fileID: 32173685048495003, guid: f837fd8d3937436448afbb86e6d2ccdc,
+    type: 3}
+  rangeIndicator: {fileID: 8687021140886929325, guid: f88bb3495369be646aebd76a51191a54,
+    type: 3}
+  distractionsLeftText: {fileID: 0}
+  distractionsAmount: 5
