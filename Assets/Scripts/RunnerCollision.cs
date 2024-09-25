@@ -31,6 +31,7 @@ public class RunnerCollision : MonoBehaviour
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
         }
 
         // Ensure the HealthBar GameObject is set

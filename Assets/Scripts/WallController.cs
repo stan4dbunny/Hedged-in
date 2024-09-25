@@ -6,7 +6,7 @@ public class WallController : MonoBehaviour
 {
     private bool isRotating = false;
     private bool rotateForward = true;
-    private float rotationSpeed = 500f;
+    private float rotationSpeed = 100f;
     private float rotationAngle = 90f;
     private Quaternion targetRotation;
     private GameObject mazeGenerator;
@@ -18,11 +18,25 @@ public class WallController : MonoBehaviour
         mazeInfo = mazeGenerator.GetComponent<GenerateMaze>();
     }
 
+    private AudioSource audioSource;
+    public AudioClip doorClip;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+        }
+    }
+
     void Update()
     {
         if (isRotating)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            PlayDoorSound();
             if (Quaternion.Angle(transform.rotation, targetRotation) < 0.01f)
             {
                 isRotating = false;
@@ -44,6 +58,12 @@ public class WallController : MonoBehaviour
         }
     }
 
+    private void PlayDoorSound()
+    {
+        if (doorClip != null && !audioSource.isPlaying)
+        {
+            audioSource.pitch = 1.8f;
+            audioSource.PlayOneShot(doorClip); 
     private void UpdateChildren(GameObject getWall)
     {
         MeshFilter[] meshes = getWall.GetComponentsInChildren<MeshFilter>();

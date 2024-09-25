@@ -22,6 +22,9 @@ public class VRMovement : MonoBehaviour
     private float _moveSpeed = 0.1f;
     private bool _forward = false;
 
+    private AudioSource audioSource;
+    public AudioClip stepsClip;
+
     void Start()
     {
         //This is here to set the initial rotation of the player, so they don't stare into a wall at the start.
@@ -29,6 +32,12 @@ public class VRMovement : MonoBehaviour
         float initialPlayerRot = mazeGenerator.GetInitialRotationOfPlayerFromStartBlock();
         vRCamObj.transform.eulerAngles = new Vector3(0, initialPlayerRot, 0);
         nonVREditorTestCameraObj.transform.eulerAngles = new Vector3(0, initialPlayerRot, 0);
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+        }
     }
 
     void Update() //only here so you can test the game in play-mode in the editor
@@ -89,6 +98,11 @@ public class VRMovement : MonoBehaviour
             if(_moveFactor > 0.1)
             {
                 MovePlayerVR();
+                PlayStepSound();
+            }
+            else
+            {
+                StopStepSound();
             }
         }
         else
@@ -96,6 +110,11 @@ public class VRMovement : MonoBehaviour
             if(_forward)
             {
                 MovePlayerNonVR();
+                PlayStepSound();
+            }
+            else
+            {
+                StopStepSound();
             }
         }
         
@@ -122,6 +141,7 @@ public class VRMovement : MonoBehaviour
                 {
                     transform.position = new Vector3(pos.x, 0, pos.z);
                 }
+                
             }
         }
     }
@@ -150,6 +170,25 @@ public class VRMovement : MonoBehaviour
         _nonVRMode = true;
         vRCamObj.SetActive(false);
         nonVREditorTestCameraObj.SetActive(true);
+    }
+
+    private void PlayStepSound()
+    {
+        if (stepsClip != null && !audioSource.isPlaying)
+        {
+            audioSource.pitch = 1.0f;  
+            audioSource.volume = 1.0f;
+            audioSource.PlayOneShot(stepsClip); 
+        }
+    }
+
+    
+    private void StopStepSound()
+    {
+        if (stepsClip != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();        // Stop the step sound when stationary
+        }
     }
 }
 
