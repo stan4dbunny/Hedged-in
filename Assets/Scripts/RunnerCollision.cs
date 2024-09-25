@@ -132,7 +132,7 @@ public class RunnerCollision : MonoBehaviour
         }
 
         // Stop game logic
-        Time.timeScale = 0; // Pause the game
+        //Time.timeScale = 0; // Pause the game
     }
 
     private void GameWon()

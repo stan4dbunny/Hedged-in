@@ -34,10 +34,12 @@ public class VRMovement : MonoBehaviour
         nonVREditorTestCameraObj.transform.eulerAngles = new Vector3(0, initialPlayerRot, 0);
 
         audioSource = GetComponent<AudioSource>();
-        if (audioSource != null)
+        if(audioSource == null)
         {
-            audioSource.Stop();
+            audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        audioSource.Stop();
     }
 
     void Update() //only here so you can test the game in play-mode in the editor

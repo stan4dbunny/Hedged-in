@@ -17,7 +17,7 @@ public class RestartController : MonoBehaviour
     public void RestartButton()
     {
         // Load the scene named "Maritina2"
-        SceneManager.LoadScene("Maritina2");
+        SceneManager.LoadScene("CarlTest");
     }
 }
 

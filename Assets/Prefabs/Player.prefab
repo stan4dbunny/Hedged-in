@@ -1228,6 +1228,7 @@ MonoBehaviour:
   mazeInfo: {fileID: 0}
   leftHandController: {fileID: 1134373680898139064}
   rightHandController: {fileID: 6497675802291178717}
+  stepsClip: {fileID: 8300000, guid: 03ef0808500c2f54196f947020dfc1fa, type: 3}
 --- !u!114 &7308127832499115003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1245,7 +1246,6 @@ MonoBehaviour:
   gameOverCanvas: {fileID: 0}
   gameplayCanvas: {fileID: 0}
   winCanvas: {fileID: 0}
-  vrMovement: {fileID: 0}
 --- !u!136 &8927473268851103820
 CapsuleCollider:
   m_ObjectHideFlags: 0

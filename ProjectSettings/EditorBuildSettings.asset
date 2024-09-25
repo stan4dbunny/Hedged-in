@@ -8,12 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Carl.unity
     guid: aeec0248188314663b83bed819d2fed0
   - enabled: 0
     path: Assets/Scenes/GameOver.unity
     guid: 45171ad4f3176044996691b4b4fab1b3
+  - enabled: 1
+    path: Assets/Scenes/CarlTest.unity
+    guid: 92af65dcf4d73be4b8456b223f2b9ce9
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 216f146a9619aef46b088c0841041c67,
       type: 2}
