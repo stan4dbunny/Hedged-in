@@ -31,6 +31,7 @@ public class MonsterMovement : MonoBehaviour
         mazeGenerator = mazeInfo.GetComponent<GenerateMaze>();
         navMeshAgent = GetComponent<NavMeshAgent>(); //TODO: need to update the navMesh when a player clicks a wall, so that the monster understands that the maze has changed 
         animator = GetComponent<Animator>();
+        
 
 
         // Initialize the AudioSource component
@@ -38,6 +39,10 @@ public class MonsterMovement : MonoBehaviour
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = environmentClip;
+            audioSource.loop = true;
+            audioSource.Play();
+            audioSource.volume = 0.2f;
         }
 
         // Initialize the AudioSource component
@@ -47,8 +52,7 @@ public class MonsterMovement : MonoBehaviour
             growlAudioSource = gameObject.AddComponent<AudioSource>();
         }
 
-
-        audioSource.PlayOneShot(environmentClip);
+        //audioSource.PlayOneShot(environmentClip, 0.5f);
     }
     void FixedUpdate()
     {
@@ -69,7 +73,7 @@ public class MonsterMovement : MonoBehaviour
         {
             pathTo(player);
             animator.SetBool("PlayerIsVisible", true);
-            growlAudioSource.PlayOneShot(growlClip);
+            growlAudioSource.PlayOneShot(growlClip, 0.2f);
             navMeshAgent.speed = 1.2f; 
             return;
         }

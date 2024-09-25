@@ -63,6 +63,12 @@ public class VRMovement : MonoBehaviour
             {
                 _forward = false;
             }
+
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                Cursor.visible = !Cursor.visible;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
     }
 
@@ -70,6 +76,7 @@ public class VRMovement : MonoBehaviour
     {
         if(!_nonVRMode)
         {
+            //transform.eulerAngles = new Vector3(0, vRCam.transform.eulerAngles.y, 0);
             //get hand controller positions in worldspace
             Vector3 leftHandPos = leftHandController.transform.position;
             Vector3 rightHandPos = rightHandController.transform.position;
@@ -165,8 +172,8 @@ public class VRMovement : MonoBehaviour
 
     private void SwapCameras()
     {
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         _nonVRMode = true;
         vRCamObj.SetActive(false);
         nonVREditorTestCameraObj.SetActive(true);
