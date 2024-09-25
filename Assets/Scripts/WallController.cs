@@ -38,7 +38,58 @@ public class WallController : MonoBehaviour
             float direction = rotateForward ? rotationAngle : -rotationAngle;
             targetRotation = Quaternion.Euler(transform.eulerAngles + new Vector3(0, direction, 0));
             rotateForward = !rotateForward;
+
+            UpdateMoveableWallModel();
             isRotating = true;
+        }
+    }
+
+    private void UpdateChildren(GameObject getWall)
+    {
+        MeshFilter[] meshes = getWall.GetComponentsInChildren<MeshFilter>();
+        foreach (MeshFilter mesh in meshes)
+        {
+            mesh.sharedMesh = mazeInfo.hedge;
+        }
+    }
+    private void UpdateMoveableWallModel()
+    {
+        int x = (int)GetComponentInParent<Transform>().position.x;
+        int z = (int)GetComponentInParent<Transform>().position.z;
+        MazePiece piece = GetComponentInParent<MazePiece>();
+
+        MazePiece[] adjacents = mazeInfo.GetAdjacents(piece);
+        MazePiece cellToRight = adjacents[0];
+        MazePiece cellToLeft = adjacents[1];
+        MazePiece cellInFront = adjacents[2];
+        MazePiece cellBehind = adjacents[3];
+
+        switch (gameObject.name)
+        {
+            case "North Wall":
+                if (z + 1 < mazeInfo.mazeHeight)
+                    UpdateChildren(piece.GetNorthWall());
+                    UpdateChildren(cellToLeft.GetNorthWall());
+                    UpdateChildren(cellToRight.GetNorthWall());
+                break;
+            case "South Wall":
+                if (z - 1 >= 0)
+                    UpdateChildren(piece.GetSouthWall());
+                    UpdateChildren(cellToLeft.GetSouthWall());
+                    UpdateChildren(cellToRight.GetSouthWall());
+                break;
+            case "East Wall":
+                if (x + 1 < mazeInfo.mazeWidth)
+                    UpdateChildren(piece.GetEastWall());
+                    UpdateChildren(cellBehind.GetEastWall());
+                    UpdateChildren(cellInFront.GetEastWall());
+                break;
+            case "West Wall":
+                if (x - 1 >= 0)
+                    UpdateChildren(piece.GetWestWall());
+                    UpdateChildren(cellBehind.GetWestWall());
+                    UpdateChildren(cellInFront.GetWestWall());
+                break;
         }
     }
 }
