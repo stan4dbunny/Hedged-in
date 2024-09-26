@@ -106,7 +106,7 @@ public class WallController : MonoBehaviour
                             UpdateChildren(piece.GetEastWall());
                             UpdateChildren(cellBehind.GetEastWall());
                             UpdateChildren(cellInFront.GetEastWall());
-                        }
+                         }
                  break;
             case "West Wall":
                         if (x - 1 >= 0)
