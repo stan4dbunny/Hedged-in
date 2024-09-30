@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
-    path: Assets/Scenes/Carl.unity
+    path: Assets/Scenes/Main.unity
     guid: aeec0248188314663b83bed819d2fed0
   - enabled: 0
     path: Assets/Scenes/GameOver.unity

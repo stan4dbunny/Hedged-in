@@ -49,7 +49,7 @@ MonoBehaviour:
   mazeHeight: 10
   _mazePiece: {fileID: 8032588434237407153, guid: f001425b1f278f1499198452886a25b3,
     type: 3}
-  _collectible: {fileID: 2516521160115090937, guid: 694798edb9779864e9fbf826dcfe406d,
+  _collectible: {fileID: 4891209067527716143, guid: 683f6df50deaa0c4a9a408ca7c56f7c4,
     type: 3}
   _door: {fileID: 3460646777897969568, guid: e0aba46469d569e48ab377cb26fa5ed9, type: 3}
   _endPoint: {fileID: 1398917910275966604, guid: 81978042bf331b342ad24b0358e7be76,
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.083333336
+  m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
