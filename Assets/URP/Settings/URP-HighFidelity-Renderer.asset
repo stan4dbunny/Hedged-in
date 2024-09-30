@@ -53,7 +53,8 @@ MonoBehaviour:
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
-  m_RendererFeatureMap: adc0de57c6d2eee5
+  - {fileID: 1887495054823344744}
+  m_RendererFeatureMap: adc0de57c6d2eee5684a0d82c0ba311a
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -96,3 +97,37 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &1887495054823344744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbb730a70fcb2454eb0e3d187378c458, type: 3}
+  m_Name: Volumetric Cloud
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    material: {fileID: 2100000, guid: 4d7b031b043f5a34cb93a87c229cdad1, type: 2}
+    CloudShapeTexture: {fileID: 11700000, guid: b4fa346610228ef44a6d6e6ddb714a3b,
+      type: 2}
+    CloudDetailTexture: {fileID: 11700000, guid: 40c8ef9dce7b16641896b7cc5863f0b9,
+      type: 2}
+    BlueNoise: {fileID: 2800000, guid: ee3bc9dce5cc3d94e84ab39518ff6a89, type: 3}
+    renderPassEvent: 550
+    CloudOffset: {x: 0, y: 0, z: 0}
+    ShapeNoiseWeights: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
+    DetailNoiseWeights: {x: 26.12, y: 0.5, z: 0.5}
+    PhaseParams: {x: 0.26, y: 0.5}
+    PhaseWeight: 0.5
+    CloudsScale: 1.1
+    DensityMultiplier: 1.1
+    LightAbsorptionTowardSun: 0.197
+    LightAbsorptionThroughClouds: 1
+    DarknessThreshold: 0.1
+    TransmittanceCutoff: 0
+    NumSteps: 50
+    NumStepsLight: 10
