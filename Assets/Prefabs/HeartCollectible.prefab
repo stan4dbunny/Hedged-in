@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4351034866027961447}
   - component: {fileID: 8658278452161488192}
   - component: {fileID: -1737431284812406284}
-  - component: {fileID: 3329706284706065184}
   - component: {fileID: 1909476722652784544}
+  - component: {fileID: 7405441998812002200}
   m_Layer: 8
   m_Name: HeartCollectible
   m_TagString: Collectable
@@ -107,27 +107,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!135 &3329706284706065184
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4891209067527716143}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.4995931
-  m_Center: {x: -0.08908442, y: 0.49716225, z: -0.49959305}
 --- !u!114 &1909476722652784544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,3 +126,24 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!65 &7405441998812002200
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4891209067527716143}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.6188676, y: 3.8690646, z: 3.8333614}
+  m_Center: {x: -0.37239924, y: 0.9345325, z: -0.78630537}

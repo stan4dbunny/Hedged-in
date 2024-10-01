@@ -51,7 +51,7 @@ public class MonsterMovement : MonoBehaviour
         audioSource.clip = environmentClip;
         audioSource.loop = true;
         audioSource.Play();
-        audioSource.volume = 0.2f;
+        audioSource.volume = 0.6f;
     }
     void FixedUpdate()
     {
@@ -72,7 +72,7 @@ public class MonsterMovement : MonoBehaviour
         {
             pathTo(player);
             animator.SetBool("PlayerIsVisible", true);
-            growlAudioSource.PlayOneShot(growlClip, 0.2f);
+            growlAudioSource.PlayOneShot(growlClip, 0.6f);
             navMeshAgent.speed = 1.2f; 
             return;
         }
