@@ -71,6 +71,13 @@ Shader "Unlit/Wall"
                 return o;
             }
 
+            float hash12(float2 p)
+            {
+	            float3 p3  = frac(float3(p.xyx) * 0.1031);
+                p3 += dot(p3, p3.yzx + 33.33);
+                return frac((p3.x + p3.y) * p3.z);
+            }
+
             float4 frag (Interpolators i) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(i);
@@ -81,6 +88,10 @@ Shader "Unlit/Wall"
                 
                 //float4 albedo = tex2D(_AlbedoTex, i.uv);
                 float4 albedo = float4(0.1,0.9,0.1,0);
+
+                albedo.r = hash12(float2(0.0, 0.08));
+                albedo.g = hash12(float2(0.8, 1.0));
+                albedo.b = hash12(float2(0.0, 0.08));
                 float3 viewAngleDir = GetWorldSpaceNormalizeViewDir(i.worldPos);
                 float3 lightDir = GetMainLight().direction;
                 float4 lightColor = float4(GetMainLight().color, 0.0);

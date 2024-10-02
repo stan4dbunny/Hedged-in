@@ -131,6 +131,11 @@ Shader "Unlit/FoliageShader"
                 {
                     //float4 albedo = tex2D(_AlbedoTex, i.uv);
                     float4 albedo = float4(0.1,0.9,0.1,0);
+
+                    albedo.r = hash12(float2(0.0, 0.08));
+                    albedo.g = hash12(float2(0.8, 1.0));
+                    albedo.b = hash12(float2(0.0, 0.08));
+                    albedo.a = 1.0;
                     float3 viewAngleDir = GetWorldSpaceNormalizeViewDir(i.worldPos);
                     float3 lightDir = GetMainLight().direction;
                     float4 lightColor = float4(GetMainLight().color, 0.0);
