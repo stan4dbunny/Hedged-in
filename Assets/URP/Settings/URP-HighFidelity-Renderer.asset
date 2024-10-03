@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb730a70fcb2454eb0e3d187378c458, type: 3}
   m_Name: Volumetric Cloud
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     material: {fileID: 2100000, guid: 4d7b031b043f5a34cb93a87c229cdad1, type: 2}
     CloudShapeTexture: {fileID: 11700000, guid: b4fa346610228ef44a6d6e6ddb714a3b,
@@ -117,7 +117,7 @@ MonoBehaviour:
     CloudDetailTexture: {fileID: 11700000, guid: 40c8ef9dce7b16641896b7cc5863f0b9,
       type: 2}
     BlueNoise: {fileID: 2800000, guid: ee3bc9dce5cc3d94e84ab39518ff6a89, type: 3}
-    renderPassEvent: 550
+    renderPassEvent: 400
     CloudOffset: {x: 0, y: 0, z: 0}
     ShapeNoiseWeights: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
     DetailNoiseWeights: {x: 26.12, y: 0.5, z: 0.5}
