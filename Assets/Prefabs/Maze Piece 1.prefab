@@ -736,7 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213ce2fc3efe428418c1d3ffd8f33cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layers: 20
+  layers: 100
   material: {fileID: 2100000, guid: e182dce726c11c84dba687bd51649651, type: 2}
 --- !u!4 &6668398151866864654 stripped
 Transform:
@@ -875,7 +875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213ce2fc3efe428418c1d3ffd8f33cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layers: 20
+  layers: 100
   material: {fileID: 2100000, guid: e182dce726c11c84dba687bd51649651, type: 2}
 --- !u!1001 &7759978427471243980
 PrefabInstance:
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213ce2fc3efe428418c1d3ffd8f33cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layers: 20
+  layers: 100
   material: {fileID: 2100000, guid: e182dce726c11c84dba687bd51649651, type: 2}
 --- !u!4 &7798618519417081127 stripped
 Transform:
@@ -1141,5 +1141,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213ce2fc3efe428418c1d3ffd8f33cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layers: 20
+  layers: 100
   material: {fileID: 2100000, guid: e182dce726c11c84dba687bd51649651, type: 2}
