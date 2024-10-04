@@ -34,7 +34,7 @@ Shader "Unlit/cloudShader"
                 output.uv = v.uv;
                 // Camera space matches OpenGL convention where cam forward is -z. In unity forward is positive z.
                 // (https://docs.unity3d.com/ScriptReference/Camera-cameraToWorldMatrix.html)
-                float3 viewVector = mul(unity_CameraInvProjection, float4(v.uv * 2 - 1, 0, -1));
+                float3 viewVector = mul(unity_CameraInvProjection, float4(v.uv * 2 - 1, 1, -1));
                 output.viewVector = mul(unity_CameraToWorld, float4(viewVector,0));
                 return output;
             }
