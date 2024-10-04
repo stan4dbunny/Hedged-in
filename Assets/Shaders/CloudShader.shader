@@ -56,12 +56,11 @@ Shader "Unlit/cloudShader"
             float3 BoundsMax;
             float3 CloudOffset;
             float4 ShapeNoiseWeights;
-            float3 DetailNoiseWeights;
+            float4 DetailNoiseWeights;
             float2 PhaseParams;
             float CloudScale;
             float DensityMultiplier;
             float LightAbsorptionTowardSun;
-            float DarknessThreshold;
             float LightAbsorptionThroughClouds;
             float TransmittanceCutoff;
             float PhaseWeight;
@@ -134,7 +133,8 @@ Shader "Unlit/cloudShader"
                 float dstFromEdgeY = min(45, min(position.y - BoundsMin.y, BoundsMax.y - position.y));
                 float dstFromEdgeZ = min(45, min(position.z - BoundsMin.z, BoundsMax.z - position.z));
                 float edgeWeight = min(dstFromEdgeZ,dstFromEdgeX)/45;
-
+                
+                //https://www.diva-portal.org/smash/get/diva2:1223894/FULLTEXT01.pdf
                 float heightPercent = (position.y - BoundsMin.y) / size.y;
                 float heightGradient = saturate(reMap(heightPercent, 0.0, 0.2, 0, 1)) * saturate(reMap(heightPercent, 1, 0.7, 0, 1));
                 heightGradient *= edgeWeight;
@@ -146,7 +146,7 @@ Shader "Unlit/cloudShader"
 
                 if(shapeFBM > 0){
                     float4 detail = DetailNoise.SampleLevel(samplerDetailNoise, detailuvw, 0);
-                    float3 normalizedDetailWeights = normalize(DetailNoiseWeights);
+                    float4 normalizedDetailWeights = normalize(DetailNoiseWeights);
                     float detailFBM = dot(detail, normalizedDetailWeights);
 
                     float oneMinusShape = 1 - shapeFBM;
@@ -172,7 +172,7 @@ Shader "Unlit/cloudShader"
                 }
 
                 float transmittance = exp(-(totDensity * LightAbsorptionTowardSun)); //Beer's law
-                return DarknessThreshold + transmittance * (1 - DarknessThreshold);
+                return transmittance;
             }
         
             float4 frag (v2f input) : SV_Target
@@ -194,7 +194,7 @@ Shader "Unlit/cloudShader"
                 float phaseVal = phaseFunction(cosAngle);
                 
                 //allows us to raymarch less steps and still get nice results by making lower resolution results noisy instead of jagged
-                float offset = BlueNoise.SampleLevel(samplerBlueNoise, squareUV(input.uv * 3), 0);
+                float offset = BlueNoise.SampleLevel(samplerBlueNoise, squareUV(input.uv * 3), 0); //put weight/something for blue noise, play around with preventing banding
                 float dstTravelled = offset;
 
                 float transmittance = 1;
@@ -205,7 +205,7 @@ Shader "Unlit/cloudShader"
                 // March through volume:
                 float totalDensity = 0;
                 while (dstTravelled < dstLimit) {
-                    float3 rayPos = rayOrigin + rayDir * (dstToBox + dstTravelled);
+                    float3 rayPos = rayOrigin + rayDir * (dstToBox + dstTravelled); //at the edge of box at start
                     float density = sampleDensity(rayPos);
 
                     if(density > 0){

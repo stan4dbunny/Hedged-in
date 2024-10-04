@@ -119,15 +119,14 @@ MonoBehaviour:
     BlueNoise: {fileID: 2800000, guid: ee3bc9dce5cc3d94e84ab39518ff6a89, type: 3}
     renderPassEvent: 550
     CloudOffset: {x: 0, y: 0, z: 0}
-    ShapeNoiseWeights: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-    DetailNoiseWeights: {x: 26.12, y: 0.5, z: 0.5}
+    ShapeNoiseWeights: {x: 2.04, y: 1.11, z: 0.33, w: 0.89}
+    DetailNoiseWeights: {x: 26.12, y: 0.5, z: 0.5, w: 0.5}
     PhaseParams: {x: 0.26, y: 0.5}
     PhaseWeight: 0.5
     CloudsScale: 1.1
     DensityMultiplier: 1.1
     LightAbsorptionTowardSun: 0.197
-    LightAbsorptionThroughClouds: 1
-    DarknessThreshold: 0.1
+    LightAbsorptionThroughClouds: 0.085
     TransmittanceCutoff: 0
-    NumSteps: 50
+    NumSteps: 30
     NumStepsLight: 10
