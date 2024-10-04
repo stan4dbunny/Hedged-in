@@ -46,6 +46,7 @@ public class GenerateMaze : MonoBehaviour
         GenerateStartAndEndPoint();
         GenerateCollectibles();
         //GenerateObstacles();
+        RemoveDuplicateWalls();
         ColorRandomWalls();
 
         UpdateNavMesh();
@@ -224,6 +225,49 @@ public class GenerateMaze : MonoBehaviour
                 {
                     _maze[x,z].suitableForObstacle = true;
                 }
+            }
+        }
+    }
+
+    private void RemoveDuplicateWalls()
+    {
+        for(int x = 0; x < mazeWidth; x++)
+        {
+            for (int z = 0; z < mazeHeight; z++)
+            {
+                MazePiece currCell = _maze[x,z];
+                if(x + 1 < mazeWidth) //Cell to the right/east
+                {
+                    MazePiece eastCell = _maze[x + 1, z];
+                    if(currCell.CheckEastWallActive() && eastCell.CheckWestWallActive())
+                        {
+                            eastCell.ClearWestWall();
+                        }     
+                } 
+                if(x - 1 >= 0) //Cell to the left/west
+                {
+                    MazePiece westCell = _maze[x - 1, z];
+                    if(currCell.CheckWestWallActive() && westCell.CheckEastWallActive())
+                    {
+                        westCell.ClearEastWall();
+                    }
+                } 
+                if(z + 1 < mazeHeight) //Cell above/north
+                {
+                    MazePiece northCell = _maze[x, z + 1];
+                    if(currCell.CheckNorthWallActive() && northCell.CheckSouthWallActive())
+                    {
+                        northCell.ClearSouthWall();
+                    } 
+                } 
+                if(z - 1 >= 0) //Cell below/south
+                {
+                    MazePiece southCell = _maze[x, z - 1];
+                    if(currCell.CheckSouthWallActive() && southCell.CheckNorthWallActive())
+                    {
+                        southCell.ClearNorthWall();
+                    }
+                } 
             }
         }
     }
@@ -480,7 +524,8 @@ public class GenerateMaze : MonoBehaviour
             wallOperator.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
             wallOperator.AddComponent<WallController>();
             wallOperator.GetComponent<Collider>().layerOverridePriority = 1;
-            Debug.Log(wallOperator.GetComponent<Collider>().layerOverridePriority);
+            wallOperator.GetComponent<BoxCollider>().size = new Vector3(0.3f, 5.1f, 1.0f); //Stupid solutions for stupid problems
+            wallOperator.transform.localScale = new Vector3(1.0f, 1.001f, 1.0f); //Stupid solutions for stupid problems
 
             ClearNeighboringWall(currentCell, direction);
         }

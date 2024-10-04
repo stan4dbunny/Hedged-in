@@ -17,14 +17,14 @@ public class VolumetricRenderPassFeature : ScriptableRendererFeature
         //public Vector3 BoundsMax = new Vector3(1000, 2000, 1000);
         public Vector3 CloudOffset = new Vector3(0, 0, 0);
         public Vector4 ShapeNoiseWeights = new Vector4(0.5f, 0.5f, 0.5f, 0.5f);
-        public Vector3 DetailNoiseWeights = new Vector3(0.5f, 0.5f, 0.5f);
+        public Vector4 DetailNoiseWeights = new Vector4(0.5f, 0.5f, 0.5f, 0.5f);
         public Vector2 PhaseParams = new Vector2(0.5f ,0.5f);
         [Range(0,1)] public float PhaseWeight = 0.5f;
         [Range(0,50)] public float CloudsScale = 1;
         [Range(0,5)] public float DensityMultiplier = 0.4f;
         [Range(0,1)] public float LightAbsorptionTowardSun = 0.25f;
         [Range(0,1)] public float LightAbsorptionThroughClouds = 0.15f;
-        [Range(0,1)] public float DarknessThreshold = 0.1f;
+        //[Range(0,1)] public float DarknessThreshold = 0.1f;
         [Range(0,1)] public float TransmittanceCutoff = 0.01f;
         [Range(0,100)] public int NumSteps = 15;
         [Range(0,100)] public int NumStepsLight = 10;
@@ -85,7 +85,7 @@ public class VolumetricRenderPassFeature : ScriptableRendererFeature
                 settings.material.SetFloat("DensityMultiplier", settings.DensityMultiplier);
                 settings.material.SetFloat("LightAbsorptionTowardSun", settings.LightAbsorptionTowardSun);
                 settings.material.SetFloat("LightAbsorptionThroughClouds", settings.LightAbsorptionThroughClouds);
-                settings.material.SetFloat("DarknessThreshold", settings.DarknessThreshold);
+                //settings.material.SetFloat("DarknessThreshold", settings.DarknessThreshold);
                 settings.material.SetFloat("TransmittanceCutoff", settings.TransmittanceCutoff);
                 settings.material.SetInt("NumSteps", settings.NumSteps);
                 settings.material.SetInt("NumStepsLight", settings.NumStepsLight);
