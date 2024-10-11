@@ -131,9 +131,15 @@ public class MonsterMovement : MonoBehaviour
 
         if (!hasDestination)
         {
-            int xPos = Mathf.RoundToInt(transform.position.x);
-            int zPos = Mathf.RoundToInt(transform.position.z);
-            MazePiece thisPiece = mazeGenerator._maze[xPos, zPos]; //Get the mazeCell in which the monster is
+            /*
+            ---------------------------------------------------------
+            Below is old wander logic, see and feel which one is best
+            ---------------------------------------------------------
+            */
+            //int xPos = Mathf.RoundToInt(transform.position.x);
+            //int zPos = Mathf.RoundToInt(transform.position.z);
+            
+            /*MazePiece thisPiece = mazeGenerator._maze[xPos, zPos]; //Get the mazeCell in which the monster is
 
             List<MazePiece> adjacentPieces = new List<MazePiece>();
             //TODO: have possibility for monster to set a wander destination further than one piece
@@ -147,9 +153,33 @@ public class MonsterMovement : MonoBehaviour
             }
 
             var index = Random.Range(0, adjacentPieces.Count); 
-            MazePiece randomPiece = adjacentPieces[index]; //randomly pick adjacent meze cell to navigate to
-            currentDestination = randomPiece.transform.position;
-            hasDestination = true;
+            MazePiece randomPiece = adjacentPieces[index]; //randomly pick adjacent meze cell to navigate to*/
+
+            /*
+            ---------------------------------------------------------
+                                Old wander logic end
+            ---------------------------------------------------------
+            Below is new wander logic, see and feel which one is best
+            ---------------------------------------------------------
+            */
+            int newPosX = Random.Range(0, mazeGenerator.mazeWidth - 1);
+            int newPosZ = Random.Range(0, mazeGenerator.mazeHeight - 1);
+            MazePiece randomPiece = mazeGenerator.GetMazePieceAtPosition(newPosX, newPosZ);
+            if(!randomPiece.isEndpoint)
+            {
+                currentDestination = randomPiece.transform.position;
+                hasDestination = true;
+            }
+            else
+            {
+                wander();
+            }
+            /*
+            ---------------------------------------------------------
+                                Old wander logic end
+            ---------------------------------------------------------
+            */
+            
         }
 
         navMeshAgent.destination = currentDestination;
