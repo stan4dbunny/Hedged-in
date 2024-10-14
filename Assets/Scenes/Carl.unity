@@ -507,6 +507,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8238714122098189047, guid: 2e2f9a13643ddb847ae30d31ecdf5bde,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 32
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -701,6 +706,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BlockingObjects
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075063332072483803, guid: 9fec41aa5e360ba4990e2b301182ea8a,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 8992292474074710121, guid: 9fec41aa5e360ba4990e2b301182ea8a,
         type: 3}
@@ -8159,6 +8169,11 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.28627452
       objectReference: {fileID: 0}
+    - target: {fileID: 983166934432699542, guid: 0c25dc32a75d2c94d8b94fc0cd9e90f7,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 32
+      objectReference: {fileID: 0}
     - target: {fileID: 3660026955096287177, guid: 0c25dc32a75d2c94d8b94fc0cd9e90f7,
         type: 3}
       propertyPath: m_Name
@@ -9013,7 +9028,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2820344830816390221, guid: 634e2e253cfaca54496d8f8eff75f906,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1563723481}
   m_SourcePrefab: {fileID: 100100000, guid: 634e2e253cfaca54496d8f8eff75f906, type: 3}
 --- !u!1 &1563723479 stripped
 GameObject:
@@ -9027,6 +9046,22 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 1563723478}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1563723481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563723479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_MaxRayIntersections: 0
 --- !u!1001 &1609810503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9216,6 +9251,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BlockingObjects
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075063332072483803, guid: 9fec41aa5e360ba4990e2b301182ea8a,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 8992292474074710121, guid: 9fec41aa5e360ba4990e2b301182ea8a,
         type: 3}
@@ -9416,6 +9456,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EventSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 3694484432049806944, guid: 8356196c76f891e4c9775dbb8270572f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9442,6 +9487,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432192288004107617, guid: 0df1114885b6ea64b838bcc044a34645,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 5953559975274837150, guid: 0df1114885b6ea64b838bcc044a34645,
         type: 3}
@@ -9758,6 +9808,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BlockingObjects
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075063332072483803, guid: 9fec41aa5e360ba4990e2b301182ea8a,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 7814993707821675567, guid: 9fec41aa5e360ba4990e2b301182ea8a,
         type: 3}
@@ -10159,6 +10214,11 @@ PrefabInstance:
         Open the doors to rescue your friend
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703112770943097378, guid: 345fa542082820f45abe0977db7ed7b1,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 8767926053529080576, guid: 345fa542082820f45abe0977db7ed7b1,
         type: 3}
