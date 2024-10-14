@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5779618465656205137}
   - component: {fileID: 437305373638848154}
   - component: {fileID: 7273813307794095618}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: distractionTest
   m_TagString: distraction
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ public class GenerateMaze : MonoBehaviour
     [SerializeField] public int mazeWidth = 10;
     [SerializeField] public int mazeHeight = 10;
     [SerializeField] private MazePiece _mazePiece;
-    public MazePiece[,] _maze; 
+    private MazePiece[,] _maze; 
     [SerializeField] private GameObject _collectible;
     [SerializeField] private GameObject _door;
     [SerializeField] private GameObject _endPoint;
@@ -26,7 +26,10 @@ public class GenerateMaze : MonoBehaviour
     public Mesh hedgeBothMissing;
     public Mesh hedge;
     
-
+    public MazePiece GetMazePieceAtPosition(int x, int z)
+    {
+        return _maze[x, z];
+    }
 
 
     public bool IsOuterWall(int x, int z, int mazeWidth, int mazeHeight)
@@ -524,7 +527,7 @@ public class GenerateMaze : MonoBehaviour
             wallOperator.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
             wallOperator.AddComponent<WallController>();
             wallOperator.GetComponent<Collider>().layerOverridePriority = 1;
-            wallOperator.GetComponent<BoxCollider>().size = new Vector3(0.3f, 5.1f, 1.0f); //Stupid solutions for stupid problems
+            wallOperator.GetComponent<BoxCollider>().size = new Vector3(0.3f, 0.2f, 1.0f); //Stupid solutions for stupid problems
             wallOperator.transform.localScale = new Vector3(1.0f, 1.001f, 1.0f); //Stupid solutions for stupid problems
 
             ClearNeighboringWall(currentCell, direction);

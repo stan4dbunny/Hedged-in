@@ -1246,6 +1246,9 @@ MonoBehaviour:
   gameOverCanvas: {fileID: 0}
   gameplayCanvas: {fileID: 0}
   winCanvas: {fileID: 0}
+  gameOverCanvasVR: {fileID: 0}
+  winCanvasVR: {fileID: 0}
+  vrUICamera: {fileID: 0}
 --- !u!136 &8927473268851103820
 CapsuleCollider:
   m_ObjectHideFlags: 0
