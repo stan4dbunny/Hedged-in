@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - distraction
   - FadeToBlack
+  - playerModel
   layers:
   - Default
   - TransparentFX
