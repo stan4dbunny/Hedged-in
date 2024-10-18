@@ -16,7 +16,14 @@ public class PlaceDistraction : MonoBehaviour
     public int distractionsAmount = 5;
     private bool holdingDistraction = false;
     private bool clickedThisFrame = false;
+    private GameObject mazeGenerator;
+    private GenerateMaze mazeInfo;
 
+    void Start()
+    {
+        mazeGenerator = GameObject.Find("MazeGenerator");
+        mazeInfo = mazeGenerator.GetComponent<GenerateMaze>();
+    }
     void Update()
     {
         //Get mouse position and it's respective maze index.
@@ -62,7 +69,7 @@ public class PlaceDistraction : MonoBehaviour
 
     private bool IsClickInBounds(int x, int z)
     {
-        if(x >= 0 && z >= 0 && x < 10 && z < 10){return true;}
+        if(x >= 0 && z >= 0 && x < mazeInfo.mazeWidth * mazeInfo.scaleFactor && z < mazeInfo.mazeHeight * mazeInfo.scaleFactor){return true;}
 
         return false;
     }
@@ -90,6 +97,7 @@ public class PlaceDistraction : MonoBehaviour
     {
         currDistractionIndicator = Instantiate(distractionIndicator, new Vector3(mousePos.x, 0.2f, mousePos.z), Quaternion.identity);
         currRangeIndicator = Instantiate(rangeIndicator, new Vector3(mousePos.x, 0f, mousePos.z), Quaternion.identity);
+        currRangeIndicator.transform.localScale = new Vector3(currRangeIndicator.transform.localScale.x * mazeInfo.scaleFactor, 1, currRangeIndicator.transform.localScale.z * mazeInfo.scaleFactor);
     }
 
     private void TrackIndicatorsToMousePos(int x, int z)

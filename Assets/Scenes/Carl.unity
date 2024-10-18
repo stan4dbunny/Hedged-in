@@ -4445,7 +4445,7 @@ PrefabInstance:
     - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
         type: 3}
       propertyPath: mazeScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
         type: 3}
@@ -4472,11 +4472,23 @@ PrefabInstance:
     - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
         type: 3}
       propertyPath: _mazePieces.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
         type: 3}
       propertyPath: _mazePieces.Array.data[0]
+      value: 
+      objectReference: {fileID: 8032588434237407153, guid: f001425b1f278f1499198452886a25b3,
+        type: 3}
+    - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
+        type: 3}
+      propertyPath: _mazePieces.Array.data[1]
+      value: 
+      objectReference: {fileID: 8032588434237407153, guid: f001425b1f278f1499198452886a25b3,
+        type: 3}
+    - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
+        type: 3}
+      propertyPath: _mazePieces.Array.data[2]
       value: 
       objectReference: {fileID: 8032588434237407153, guid: f001425b1f278f1499198452886a25b3,
         type: 3}

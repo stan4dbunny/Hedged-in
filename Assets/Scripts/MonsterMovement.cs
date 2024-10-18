@@ -82,7 +82,7 @@ public class MonsterMovement : MonoBehaviour
 
     private bool isInRange(GameObject target) //Check if certain gameObject in in range of the monster
     {
-        if(Vector3.Distance(target.transform.position, transform.position) < 3f)
+        if(Vector3.Distance(target.transform.position, transform.position) < 3f * mazeGenerator.scaleFactor)
         {
             return true;
         }
