@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb730a70fcb2454eb0e3d187378c458, type: 3}
   m_Name: Volumetric Cloud
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     material: {fileID: 2100000, guid: 4d7b031b043f5a34cb93a87c229cdad1, type: 2}
     CloudShapeTexture: {fileID: 11700000, guid: b4fa346610228ef44a6d6e6ddb714a3b,
