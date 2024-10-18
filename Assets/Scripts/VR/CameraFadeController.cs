@@ -11,6 +11,7 @@ public class CameraFadeController : MonoBehaviour
     private Material material;
     private bool fadeToBlack = false;
     private bool isInWall = false;
+    private Color color = Color.black;
 
     void Start()
     {
@@ -35,14 +36,25 @@ public class CameraFadeController : MonoBehaviour
 
     void FixedUpdate() 
     {
-        if(fadeToBlack && alpha < 1)
+        if(fadeToBlack)
         {
-            alpha += fadeSpeed;
+            if (isInWall && alpha < 1) //if we're in a wall, completely fade to black
+            {
+                color = Color.black;
+                alpha += fadeSpeed;
+            }
+            else if(!isInWall && alpha < 0.5f) //keep it somewhat seethrough if we're not in a wall
+            {
+                color = Color.red;
+                alpha += fadeSpeed;
+            }
+            
         }
         else if(!fadeToBlack && alpha > 0)
         {
             alpha -= fadeSpeed;
         }
+        material.SetColor("_Color", color);
         material.SetFloat("_Alpha", alpha);
     }
 
