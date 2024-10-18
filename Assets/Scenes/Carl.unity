@@ -5169,6 +5169,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
         type: 3}
+      propertyPath: _endPoint
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: ad2b1ec2a51ccca429be40af6e3c2d40,
+        type: 3}
+    - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
+        type: 3}
       propertyPath: _collectible
       value: 
       objectReference: {fileID: 4891209067527716143, guid: 683f6df50deaa0c4a9a408ca7c56f7c4,
