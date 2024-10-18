@@ -20,16 +20,25 @@ Shader "Unlit/cloudShader"
             struct appdata {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+
+                //UNITY_VERTEX_INPUT_INSTANCE_ID //Insert
             };
 
             struct v2f {
                 float4 pos : SV_POSITION;
                 float2 uv : TEXCOORD0;
                 float3 viewVector : TEXCOORD1;
+
+                //UNITY_VERTEX_OUTPUT_STEREO //Insert
             };
             
             v2f vert (appdata v) {
                 v2f output;
+
+                //UNITY_SETUP_INSTANCE_ID(v); //Insert
+                //UNITY_INITIALIZE_OUTPUT(v2f, output); //Insert
+                //UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output); //Insert
+
                 output.pos = UnityObjectToClipPos(v.vertex);
                 output.uv = v.uv;
                 // Camera space matches OpenGL convention where cam forward is -z. In unity forward is positive z.
@@ -41,7 +50,7 @@ Shader "Unlit/cloudShader"
 
             float4 params;
 
-
+            //UNITY_DECLARE_SCREENSPACE_TEXTURE(_MainTex); //Insert
             sampler2D _MainTex;
             sampler2D _CameraDepthTexture;
 
@@ -174,10 +183,11 @@ Shader "Unlit/cloudShader"
                 float transmittance = exp(-(totDensity * LightAbsorptionTowardSun)); //Beer's law
                 return transmittance;
             }
-        
+
             float4 frag (v2f input) : SV_Target
             {
                 float4 col = tex2D(_MainTex, input.uv);
+                //fixed4 col = UNITY_SAMPLE_SCREENSPACE_TEXTURE(_MainTex, input.uv); //Insert
                 float3 rayOrigin = _WorldSpaceCameraPos;
                 float3 rayDir = normalize(input.viewVector);
                 
