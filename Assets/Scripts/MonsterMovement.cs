@@ -6,8 +6,8 @@ using UnityEngine.AI;
 public class MonsterMovement : MonoBehaviour
 {
     public GameObject distraction; //object operator can use to distract the monster
-    [SerializeField] public GameObject mazeInfo; //object that generates the maze
-    [SerializeField] public GameObject player; //player object
+    private GameObject mazeInfo; //object that generates the maze
+    private GameObject player; //player object
     private GenerateMaze mazeGenerator; //used for accessing actual maze
     private NavMeshAgent navMeshAgent; //navigation mesh object https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.html
     private int fov = 90; //monster field-of-view
@@ -28,11 +28,11 @@ public class MonsterMovement : MonoBehaviour
 
     void Start()
     {
+        mazeInfo = GameObject.Find("MazeGenerator");
+        player = GameObject.Find("Player");
         mazeGenerator = mazeInfo.GetComponent<GenerateMaze>();
-        navMeshAgent = GetComponent<NavMeshAgent>(); //TODO: need to update the navMesh when a player clicks a wall, so that the monster understands that the maze has changed 
+        navMeshAgent = GetComponent<NavMeshAgent>(); 
         animator = GetComponent<Animator>();
-        
-
 
         // Initialize the AudioSource component
         audioSource = GetComponent<AudioSource>();

@@ -10,11 +10,22 @@ public class GenerateMaze : MonoBehaviour
 {
     [SerializeField] public int mazeWidth = 10;
     [SerializeField] public int mazeHeight = 10;
-    [SerializeField] private MazePiece _mazePiece;
+    private MazePiece _mazePiece;
+    private float scaleFactor;
+    [SerializeField] private List<MazePiece> _mazePieces;
+    public enum MazeScale
+    {
+        Scale1X,
+        Scale1_5X,
+        Scale2X,
+    }
+    [SerializeField] private MazeScale mazeScale = new MazeScale();
     private MazePiece[,] _maze; 
     [SerializeField] private GameObject _collectible;
     [SerializeField] private GameObject _door;
     [SerializeField] private GameObject _endPoint;
+    [SerializeField] private GameObject _monster;
+    private Vector2 monsterSpawnCell = new Vector2(5, 5);
     [SerializeField] public int collectibleCount = 5;
 
     [SerializeField] public int movableDoorsCount = 10;
@@ -39,6 +50,22 @@ public class GenerateMaze : MonoBehaviour
 
     void Awake()
     {
+        switch(mazeScale)
+        {
+            case MazeScale.Scale1X:
+                _mazePiece = _mazePieces[0];
+                scaleFactor = 1.0f;
+                break;
+            case MazeScale.Scale1_5X:
+                _mazePiece = _mazePieces[1];
+                scaleFactor = 1.5f;
+                break;
+            case MazeScale.Scale2X:
+                _mazePiece = _mazePieces[2];
+                scaleFactor = 2.0f;
+                break;
+        }
+
         var currLongestPath = new List<MazePiece>();
         
         InstantiateMazePieces();
@@ -47,6 +74,7 @@ public class GenerateMaze : MonoBehaviour
         SetMazePieceAttributes();
         GetLongestPath(_maze[0, 0], currLongestPath);
         GenerateStartAndEndPoint();
+        GenerateMonster();
         GenerateCollectibles();
         //GenerateObstacles();
         RemoveDuplicateWalls();
@@ -63,7 +91,7 @@ public class GenerateMaze : MonoBehaviour
         {
             for (int z = 0; z < mazeHeight; z++)
             {
-                _maze[x, z] = Instantiate(_mazePiece, new Vector3(x, 0, z), Quaternion.identity);
+                _maze[x, z] = Instantiate(_mazePiece, new Vector3(x * scaleFactor, 0, z * scaleFactor), Quaternion.identity);
             }
         }
     }
@@ -369,7 +397,7 @@ public class GenerateMaze : MonoBehaviour
         Vector3 Endposition = longestPath[longestPath.Count - 1].transform.position;
         MazePiece currCell = longestPath[longestPath.Count - 1];
         longestPath[longestPath.Count - 1].isEndpoint = true;
-        GameObject endObj = Instantiate(_endPoint, Endposition, Quaternion.identity);
+        GameObject endObj = Instantiate(_endPoint, new Vector3(Endposition.x * scaleFactor, Endposition.y, Endposition.z * scaleFactor), Quaternion.identity);
         endObj.transform.localScale = new Vector3(0.05f, 0.1f, 0.05f);
         //north is default, 90 is east, 180 is south, 270 is west
         if(!currCell.CheckEastWallActive())
@@ -386,6 +414,11 @@ public class GenerateMaze : MonoBehaviour
         }
     }
 
+    private void GenerateMonster()
+    {
+        Instantiate(_monster, new Vector3(monsterSpawnCell.x * scaleFactor, 0, monsterSpawnCell.y * scaleFactor), Quaternion.identity);
+    }
+
      private void GenerateCollectibles()
     {
         int currCollectibles = 0;
@@ -397,7 +430,7 @@ public class GenerateMaze : MonoBehaviour
             if(_maze[randX,randZ].isOccupied == false && (randX != 0 && randZ != 0))
             {
                 _maze[randX,randZ].isOccupied = true;
-                Instantiate(_collectible, new Vector3(randX, 0.2f, randZ), Quaternion.identity);
+                Instantiate(_collectible, new Vector3(randX * scaleFactor, 0.2f, randZ * scaleFactor), Quaternion.identity);
                 currCollectibles++;
             }
         } while (currCollectibles < collectibleCount);
