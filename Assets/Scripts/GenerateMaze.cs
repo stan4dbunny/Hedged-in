@@ -367,8 +367,23 @@ public class GenerateMaze : MonoBehaviour
     private void GenerateStartAndEndPoint()
     {
         Vector3 Endposition = longestPath[longestPath.Count - 1].transform.position;
+        MazePiece currCell = longestPath[longestPath.Count - 1];
         longestPath[longestPath.Count - 1].isEndpoint = true;
-        Instantiate(_endPoint, Endposition, Quaternion.identity);
+        GameObject endObj = Instantiate(_endPoint, Endposition, Quaternion.identity);
+        endObj.transform.localScale = new Vector3(0.05f, 0.1f, 0.05f);
+        //north is default, 90 is east, 180 is south, 270 is west
+        if(!currCell.CheckEastWallActive())
+        {
+            endObj.transform.localEulerAngles = new Vector3(0, 90f, 0);
+        }
+        else if (!currCell.CheckSouthWallActive())
+        {
+            endObj.transform.localEulerAngles = new Vector3(0, 180f, 0);
+        }
+        else if (!currCell.CheckWestWallActive())
+        {
+            endObj.transform.localEulerAngles = new Vector3(0, -90f, 0);
+        }
     }
 
      private void GenerateCollectibles()
