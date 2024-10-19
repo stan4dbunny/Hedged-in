@@ -131,7 +131,8 @@ public class VRMovement : MonoBehaviour
 
     private void MovePlayerVR()
     {
-        Ray ray = vRCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //shoot ray, both to figure out move direction and closest object(if any)
+        //Ray ray = vRCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //shoot ray, both to figure out move direction and closest object(if any)
+        Ray ray = new Ray(vRCamObj.transform.position, vRCamObj.transform.forward);
         Vector3 moveDir = ray.direction * 10; //direction to move in is the direction of the ray
         Vector3 pos = transform.position;
 
@@ -157,7 +158,8 @@ public class VRMovement : MonoBehaviour
 
     private void MovePlayerNonVR()
     {
-        Ray ray = nonVREditorTestCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        //Ray ray = nonVREditorTestCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = new Ray(nonVREditorTestCameraObj.transform.position, nonVREditorTestCameraObj.transform.forward);
 
         if(Physics.Raycast(ray, out RaycastHit hit, 20) /*&& hit.transform.CompareTag("Wall")*/)
         {

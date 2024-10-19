@@ -4445,7 +4445,7 @@ PrefabInstance:
     - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
         type: 3}
       propertyPath: mazeScale
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
         type: 3}
