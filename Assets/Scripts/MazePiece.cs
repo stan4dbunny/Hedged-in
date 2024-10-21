@@ -16,6 +16,7 @@ public class MazePiece : MonoBehaviour
     public bool isEndpoint = false;
     public List<MazePiece> nextPieces;
     public List<MazePiece> previousPieces;
+    public Vector2 cellPos;
 
     // Getter methods to access the private walls
     public GameObject GetNorthWall() { return _northWall; }
@@ -77,5 +78,29 @@ public class MazePiece : MonoBehaviour
     public bool CheckSouthWallActive()
     {
         return _southWall.activeSelf;
+    }
+    public void SetWallScales(float scaleFactor)
+    {
+        _eastWall.transform.localScale = new Vector3(1, 1, scaleFactor);
+        _northWall.transform.localScale = new Vector3(1, 1, scaleFactor);
+        _southWall.transform.localScale = new Vector3(1, 1, scaleFactor);
+        _westWall.transform.localScale = new Vector3(1, 1, scaleFactor);
+    }
+
+    public void SetLocalPositions(float scaleFactor)
+    {
+        switch(scaleFactor)
+        {
+            case 1:
+                break;
+            case 1.5f:
+                _eastWall.transform.localPosition = new Vector3(1, 0, -0.5f);
+                _northWall.transform.localPosition = new Vector3(-0.5f, 0, 1);
+                break;
+            case 2:
+                _eastWall.transform.localPosition = new Vector3(1.5f, 0, -0.5f);
+                _northWall.transform.localPosition = new Vector3(-0.5f, 0, 1.5f);
+                break;
+        }
     }
 }

@@ -10,11 +10,22 @@ public class GenerateMaze : MonoBehaviour
 {
     [SerializeField] public int mazeWidth = 10;
     [SerializeField] public int mazeHeight = 10;
-    [SerializeField] private MazePiece _mazePiece;
+    private MazePiece _mazePiece;
+    public float scaleFactor;
+    public float centerObjInCellVal;
+    [SerializeField] private List<MazePiece> _mazePieces;
+    public enum MazeScale
+    {
+        Scale1X,
+        Scale1_5X,
+        Scale2X,
+    }
+    [SerializeField] private MazeScale mazeScale = new MazeScale();
     private MazePiece[,] _maze; 
     [SerializeField] private GameObject _collectible;
-    [SerializeField] private GameObject _door;
     [SerializeField] private GameObject _endPoint;
+    [SerializeField] private GameObject _monster;
+    private Vector2 monsterSpawnCell = new Vector2(5, 5);
     [SerializeField] public int collectibleCount = 5;
 
     [SerializeField] public int movableDoorsCount = 10;
@@ -39,6 +50,25 @@ public class GenerateMaze : MonoBehaviour
 
     void Awake()
     {
+        switch(mazeScale)
+        {
+            case MazeScale.Scale1X:
+                _mazePiece = _mazePieces[0];
+                scaleFactor = 1.0f;
+                break;
+            case MazeScale.Scale1_5X:
+                _mazePiece = _mazePieces[1];
+                scaleFactor = 1.5f;
+                centerObjInCellVal = 0.25f;
+                break;
+            case MazeScale.Scale2X:
+                _mazePiece = _mazePieces[2];
+                scaleFactor = 2.0f;
+                centerObjInCellVal = 0.5f;
+                break;
+        }
+        _mazePiece.SetWallScales(scaleFactor);
+        _mazePiece.SetLocalPositions(scaleFactor);
         var currLongestPath = new List<MazePiece>();
         
         InstantiateMazePieces();
@@ -47,8 +77,8 @@ public class GenerateMaze : MonoBehaviour
         SetMazePieceAttributes();
         GetLongestPath(_maze[0, 0], currLongestPath);
         GenerateStartAndEndPoint();
+        GenerateMonster();
         GenerateCollectibles();
-        //GenerateObstacles();
         RemoveDuplicateWalls();
         ColorRandomWalls();
 
@@ -63,7 +93,8 @@ public class GenerateMaze : MonoBehaviour
         {
             for (int z = 0; z < mazeHeight; z++)
             {
-                _maze[x, z] = Instantiate(_mazePiece, new Vector3(x, 0, z), Quaternion.identity);
+                _maze[x, z] = Instantiate(_mazePiece, new Vector3(x * scaleFactor, 0, z * scaleFactor), Quaternion.identity);
+                _maze[x, z].cellPos = new Vector2(x, z);
             }
         }
     }
@@ -76,7 +107,6 @@ public class GenerateMaze : MonoBehaviour
         if(previous != null)
         {
             previous.AddNextPiece(current);
-            //PrintConnectedPieces(previous);
         }
         
         current.AddPreviousPiece(previous);
@@ -95,8 +125,8 @@ public class GenerateMaze : MonoBehaviour
 
     public MazePiece[] GetAdjacents(MazePiece piece)
     {
-        int x = (int)piece.transform.position.x;
-        int z = (int)piece.transform.position.z;
+        int x = (int)piece.cellPos.x;
+        int z = (int)piece.cellPos.y;
 
         MazePiece[] adjacents = new MazePiece[4];
         if (x + 1 < mazeWidth)
@@ -134,8 +164,8 @@ public class GenerateMaze : MonoBehaviour
 
     private IEnumerable<MazePiece> GetUnvisited(MazePiece current)
     {
-        int x = (int)current.transform.position.x;
-        int z = (int)current.transform.position.z;
+        int x = (int)current.cellPos.x;
+        int z = (int)current.cellPos.y;
 
         if(x + 1 < mazeWidth)
         {
@@ -276,7 +306,7 @@ public class GenerateMaze : MonoBehaviour
     }
 
     /*
-    * Set correct models for the hedges
+    Set correct models for the hedges
     */
     private void ChangeModels()
     {
@@ -359,17 +389,16 @@ public class GenerateMaze : MonoBehaviour
                     if (xnegS && !xposS) curr.GetSouthWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgeNegXMissing;
                     if (xnegS && xposS) curr.GetSouthWall().GetComponentInChildren<MeshFilter>().sharedMesh = hedgeBothMissing;
                 }
-
             }
         }
         
     }
     private void GenerateStartAndEndPoint()
     {
-        Vector3 Endposition = longestPath[longestPath.Count - 1].transform.position;
+        Vector2 Endposition = longestPath[longestPath.Count - 1].cellPos;
         MazePiece currCell = longestPath[longestPath.Count - 1];
         longestPath[longestPath.Count - 1].isEndpoint = true;
-        GameObject endObj = Instantiate(_endPoint, Endposition, Quaternion.identity);
+        GameObject endObj = Instantiate(_endPoint, new Vector3(Endposition.x * scaleFactor + centerObjInCellVal, 0, Endposition.y * scaleFactor + centerObjInCellVal), Quaternion.identity);
         endObj.transform.localScale = new Vector3(0.05f, 0.1f, 0.05f);
         //north is default, 90 is east, 180 is south, 270 is west
         if(!currCell.CheckEastWallActive())
@@ -386,6 +415,11 @@ public class GenerateMaze : MonoBehaviour
         }
     }
 
+    private void GenerateMonster()
+    {
+        Instantiate(_monster, new Vector3(monsterSpawnCell.x * scaleFactor, 0, monsterSpawnCell.y * scaleFactor), Quaternion.identity);
+    }
+
      private void GenerateCollectibles()
     {
         int currCollectibles = 0;
@@ -397,34 +431,10 @@ public class GenerateMaze : MonoBehaviour
             if(_maze[randX,randZ].isOccupied == false && (randX != 0 && randZ != 0))
             {
                 _maze[randX,randZ].isOccupied = true;
-                Instantiate(_collectible, new Vector3(randX, 0.2f, randZ), Quaternion.identity);
+                Instantiate(_collectible, new Vector3(randX * scaleFactor + centerObjInCellVal, 0.2f, randZ * scaleFactor + centerObjInCellVal), Quaternion.identity);
                 currCollectibles++;
             }
         } while (currCollectibles < collectibleCount);
-    }
-
-    private void GenerateObstacles()
-    {
-        int lenPath = longestPath.Count;
-        int spawnObstacleTries = 10;
-
-        for(int i = 0; i < spawnObstacleTries; i++)
-        {
-            int randIndex = Random.Range(10, lenPath - 1);
-            Vector3 obstaclePos = longestPath[randIndex].transform.position;
-            int x = (int)obstaclePos.x;
-            int z = (int)obstaclePos.z;
-
-            if(_maze[x,z].suitableForObstacle == true && _maze[x,z].isOccupied == false)
-            {
-                _maze[x,z].isOccupied = true;
-                obstaclePos.y += 0.5f;
-                Vector3 doorRotation = CalculateDoorRotationAndCellPosition(longestPath[randIndex]);
-                GameObject door = Instantiate(_door, obstaclePos, Quaternion.identity);
-                door.transform.eulerAngles = doorRotation;
-                break;
-            }
-        }
     }
 
     private Vector3 CalculateDoorRotationAndCellPosition(MazePiece mazePiece)
@@ -481,23 +491,6 @@ public class GenerateMaze : MonoBehaviour
         }
     }
 
-    private void PrintnextPieces(MazePiece mazePiece) //function for printing stuff for debug purposes
-    {
-        Debug.Log("Connected for : " + mazePiece.transform.position.ToString());
-        foreach(var next in mazePiece.nextPieces)
-        {
-            Debug.Log(next.transform.position.ToString());
-        }
-    }
-
-    private void PrintPathList(List<MazePiece> pathList) //function for printing stuff for debug purposes
-    {
-        foreach(var piece in pathList)
-        {
-            Debug.Log(piece.transform.position.ToString());
-        }
-    }
-
     private List<MazePiece> GetInternalCells()
     {
         List<MazePiece> internalCells = new List<MazePiece>();
@@ -543,19 +536,17 @@ public class GenerateMaze : MonoBehaviour
             wallOperator.AddComponent<WallController>();
             wallOperator.GetComponent<Collider>().layerOverridePriority = 1;
             wallOperator.GetComponent<BoxCollider>().size = new Vector3(0.3f, 0.2f, 1.0f); //Stupid solutions for stupid problems
-            wallOperator.transform.localScale = new Vector3(1.0f, 1.001f, 1.0f); //Stupid solutions for stupid problems
+            wallOperator.transform.localScale = new Vector3(1.0f, 1.001f, 1.0f * scaleFactor); //Stupid solutions for stupid problems
 
             ClearNeighboringWall(currentCell, direction);
         }
        
     }
     
-
     private void ClearNeighboringWall(MazePiece currentCell, string direction)
     {
-        Vector3 currentPos = currentCell.transform.position;
-        int x = (int)currentPos.x;
-        int z = (int)currentPos.z;
+        int x = (int)currentCell.cellPos.x;
+        int z = (int)currentCell.cellPos.y;
 
         switch (direction)
         {

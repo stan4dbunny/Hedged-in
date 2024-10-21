@@ -16,26 +16,33 @@ public class PlaceDistraction : MonoBehaviour
     public int distractionsAmount = 5;
     private bool holdingDistraction = false;
     private bool clickedThisFrame = false;
+    private GameObject mazeGenerator;
+    private GenerateMaze mazeInfo;
 
+    void Start()
+    {
+        mazeGenerator = GameObject.Find("MazeGenerator");
+        mazeInfo = mazeGenerator.GetComponent<GenerateMaze>();
+    }
     void Update()
     {
         //Get mouse position and it's respective maze index.
         mousePos = Input.mousePosition;
         mousePos = topDownView.ScreenToWorldPoint(mousePos);
-        int x = Mathf.RoundToInt(mousePos.x);
-        int z = Mathf.RoundToInt(mousePos.z);
+        int xIndex = (int)Mathf.Floor(mousePos.x / mazeInfo.scaleFactor);
+        int zIndex = (int)Mathf.Floor(mousePos.z / mazeInfo.scaleFactor);
 
         if(Input.GetKeyDown(KeyCode.Mouse1) && holdingDistraction) //if we press right-click and holding the indicator
         {
-            if(IsClickInBounds(x, z)) //if we click in bounds
+            if(IsClickInBounds(xIndex, zIndex)) //if we click in bounds
             {
                 holdingDistraction = false;
                 clickedThisFrame = true;
 
-                PlaceDistractionInMaze(x, z); //place monster distraction in maze
+                PlaceDistractionInMaze(xIndex, zIndex); //place monster distraction in maze
             }
 
-            if(!IsClickInBounds(x, z) && !clickedThisFrame) //click outside of maze bounds to get rid of potential distraction placement TODO: Bind to UI button click or something
+            if(!IsClickInBounds(xIndex, zIndex) && !clickedThisFrame) //click outside of maze bounds to get rid of potential distraction placement TODO: Bind to UI button click or something
             {
                 holdingDistraction = false;
                 clickedThisFrame = true;
@@ -54,7 +61,7 @@ public class PlaceDistraction : MonoBehaviour
 
         if(currDistractionIndicator && currRangeIndicator) //if these gameobjects exist, track them to the mouseposition.
         {
-            TrackIndicatorsToMousePos(x, z);
+            TrackIndicatorsToMousePos(xIndex, zIndex);
         }
 
         clickedThisFrame = false;
@@ -62,14 +69,15 @@ public class PlaceDistraction : MonoBehaviour
 
     private bool IsClickInBounds(int x, int z)
     {
-        if(x >= 0 && z >= 0 && x < 10 && z < 10){return true;}
+        Debug.Log(x + " " + z);
+        if(x >= 0 && z >= 0 && x < mazeInfo.mazeWidth&& z < mazeInfo.mazeHeight){return true;}
 
         return false;
     }
 
     private void PlaceDistractionInMaze(int x, int z)
     {
-        Instantiate(distraction, new Vector3(x, 0.2f, z), Quaternion.identity);
+        Instantiate(distraction, new Vector3(x * mazeInfo.scaleFactor + mazeInfo.centerObjInCellVal, 0.2f, z * mazeInfo.scaleFactor + mazeInfo.centerObjInCellVal), Quaternion.identity);
         ClearHoldingObject();
         UpdateUIText();
     }
@@ -90,13 +98,14 @@ public class PlaceDistraction : MonoBehaviour
     {
         currDistractionIndicator = Instantiate(distractionIndicator, new Vector3(mousePos.x, 0.2f, mousePos.z), Quaternion.identity);
         currRangeIndicator = Instantiate(rangeIndicator, new Vector3(mousePos.x, 0f, mousePos.z), Quaternion.identity);
+        currRangeIndicator.transform.localScale = new Vector3(currRangeIndicator.transform.localScale.x * mazeInfo.scaleFactor, 1, currRangeIndicator.transform.localScale.z * mazeInfo.scaleFactor);
     }
 
     private void TrackIndicatorsToMousePos(int x, int z)
     {
         //snaps to part of maze object will actually be placed at
-        currDistractionIndicator.transform.position = new Vector3(x, 0.2f, z);
-        currRangeIndicator.transform.position = new Vector3(x, 0, z);
+        currDistractionIndicator.transform.position = new Vector3(x * mazeInfo.scaleFactor + mazeInfo.centerObjInCellVal, 0.2f, z * mazeInfo.scaleFactor + mazeInfo.centerObjInCellVal);
+        currRangeIndicator.transform.position = new Vector3(x * mazeInfo.scaleFactor + mazeInfo.centerObjInCellVal, 0, z * mazeInfo.scaleFactor + mazeInfo.centerObjInCellVal);
 
         //Tracks mouse continuously
         /*
