@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 301822994580874794}
   - component: {fileID: 4678151957257815495}
   - component: {fileID: 6049193988872911773}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MazeGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,13 +47,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazeWidth: 10
   mazeHeight: 10
-  _mazePiece: {fileID: 8032588434237407153, guid: f001425b1f278f1499198452886a25b3,
-    type: 3}
+  scaleFactor: 0
+  centerObjInCellVal: 0
+  _mazePieces: []
+  mazeScale: 0
   _collectible: {fileID: 4891209067527716143, guid: 683f6df50deaa0c4a9a408ca7c56f7c4,
     type: 3}
-  _door: {fileID: 3460646777897969568, guid: e0aba46469d569e48ab377cb26fa5ed9, type: 3}
   _endPoint: {fileID: 1398917910275966604, guid: 81978042bf331b342ad24b0358e7be76,
     type: 3}
+  _monster: {fileID: 0}
   collectibleCount: 5
   movableDoorsCount: 10
   longestPath: []
