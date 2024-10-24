@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topDownView: {fileID: 0}
-  distraction: {fileID: 32173685048495003, guid: 5340ca383f2e2e740b8f09ea09f4ebd0,
+  distraction: {fileID: 4854808849359791932, guid: 359f6d157f296c74a83e76212c5ae58b,
     type: 3}
-  distractionIndicator: {fileID: 32173685048495003, guid: f837fd8d3937436448afbb86e6d2ccdc,
+  distractionIndicator: {fileID: 438305210037834045, guid: 034151e55cf2f7e418891773ccca9bf5,
     type: 3}
   rangeIndicator: {fileID: 8687021140886929325, guid: f88bb3495369be646aebd76a51191a54,
     type: 3}
