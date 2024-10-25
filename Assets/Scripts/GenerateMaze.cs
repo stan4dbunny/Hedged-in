@@ -93,7 +93,7 @@ public class GenerateMaze : MonoBehaviour
         {
             for (int z = 0; z < mazeHeight; z++)
             {
-                _maze[x, z] = Instantiate(_mazePiece, new Vector3(x * scaleFactor, 0, z * scaleFactor), Quaternion.identity);
+                _maze[x, z] = Instantiate(_mazePiece, new Vector3(x * scaleFactor, 0, z * scaleFactor), Quaternion.identity, transform);
                 _maze[x, z].cellPos = new Vector2(x, z);
             }
         }
@@ -399,7 +399,7 @@ public class GenerateMaze : MonoBehaviour
         MazePiece currCell = longestPath[longestPath.Count - 1];
         longestPath[longestPath.Count - 1].isEndpoint = true;
         GameObject endObj = Instantiate(_endPoint, new Vector3(Endposition.x * scaleFactor + centerObjInCellVal, 0, Endposition.y * scaleFactor + centerObjInCellVal), Quaternion.identity);
-        endObj.transform.localScale = new Vector3(0.05f, 0.1f, 0.05f);
+        //endObj.transform.localScale = new Vector3(0.05f, 0.1f, 0.05f);
         //north is default, 90 is east, 180 is south, 270 is west
         if(!currCell.CheckEastWallActive())
         {
@@ -431,7 +431,7 @@ public class GenerateMaze : MonoBehaviour
             if(_maze[randX,randZ].isOccupied == false && (randX != 0 && randZ != 0))
             {
                 _maze[randX,randZ].isOccupied = true;
-                Instantiate(_collectible, new Vector3(randX * scaleFactor + centerObjInCellVal, 0.2f, randZ * scaleFactor + centerObjInCellVal), Quaternion.identity);
+                Instantiate(_collectible, new Vector3(randX * scaleFactor + centerObjInCellVal, 0.2f, randZ * scaleFactor + centerObjInCellVal), Quaternion.identity, transform);
                 currCollectibles++;
             }
         } while (currCollectibles < collectibleCount);
