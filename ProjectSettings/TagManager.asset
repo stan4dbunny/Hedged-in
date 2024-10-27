@@ -10,6 +10,7 @@ TagManager:
   - Collectable
   - Wall
   - distraction
+  - VR Camera
   layers:
   - Default
   - TransparentFX
@@ -27,8 +28,8 @@ TagManager:
   - GlowLayer
   - MazeLayer
   - Terrain
-  - 
-  - 
+  - PostProcessing
+  - VRCam
   - 
   - 
   - 

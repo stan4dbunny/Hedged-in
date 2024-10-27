@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class MonsterMovement : MonoBehaviour
 {
@@ -25,12 +27,25 @@ public class MonsterMovement : MonoBehaviour
     public AudioClip growlClip;
     private AudioSource growlAudioSource;
 
+    public VREffectRenderPassFeature effectFeature;
+    public UniversalRendererData rendererData;
+
 
     void Start()
     {
         mazeGenerator = mazeInfo.GetComponent<GenerateMaze>();
         navMeshAgent = GetComponent<NavMeshAgent>(); //TODO: need to update the navMesh when a player clicks a wall, so that the monster understands that the maze has changed 
         animator = GetComponent<Animator>();
+
+        var renderer = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
+        foreach (var feature in rendererData.rendererFeatures)
+        {
+            if (feature is VREffectRenderPassFeature)
+            {
+                effectFeature = feature as VREffectRenderPassFeature;
+                break;
+            }
+        }
         
 
 
@@ -52,9 +67,11 @@ public class MonsterMovement : MonoBehaviour
         audioSource.loop = true;
         audioSource.Play();
         audioSource.volume = 0.6f;
+        
     }
     void FixedUpdate()
     {
+        
         //Debug.Log(currentDestination);
         if(GameObject.FindWithTag("distraction")) //Currently only handles one active distraction-object. If wewant to handle more: https://docs.unity3d.com/ScriptReference/GameObject.FindGameObjectsWithTag.html
         {
@@ -71,9 +88,10 @@ public class MonsterMovement : MonoBehaviour
         if(seesPlayer) //if we find the player, chase it
         {
             pathTo(player);
+            TriggerEffect();
             animator.SetBool("PlayerIsVisible", true);
             growlAudioSource.PlayOneShot(growlClip, 0.6f);
-            navMeshAgent.speed = 1.2f; 
+            navMeshAgent.speed = 1.2f;
             return;
         }
 
@@ -167,4 +185,25 @@ public class MonsterMovement : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
+    public void TriggerEffect()
+    {
+        if (effectFeature != null)
+        {
+            Debug.Log("Effect:" + effectFeature);
+            effectFeature.SetActive(true);
+
+            // Optional: Turn off effect after a delay
+            Invoke("TurnOffEffect", 2.0f); // Adjust delay as needed
+        }
+    }
+
+    private void TurnOffEffect()
+    {
+        if (effectFeature != null)
+        {
+            effectFeature.SetActive(false);
+        }
+    }
+
 }

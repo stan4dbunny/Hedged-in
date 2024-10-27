@@ -54,7 +54,8 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
   - {fileID: 1887495054823344744}
-  m_RendererFeatureMap: adc0de57c6d2eee5684a0d82c0ba311a
+  - {fileID: 2598470254137431901}
+  m_RendererFeatureMap: adc0de57c6d2eee5684a0d82c0ba311a5dd747c9ed9e0f24
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -130,3 +131,19 @@ MonoBehaviour:
     TransmittanceCutoff: 0
     NumSteps: 30
     NumStepsLight: 10
+--- !u!114 &2598470254137431901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf9a36378e8d2c43850da8f388f728a, type: 3}
+  m_Name: VR Effects
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 550
+    material: {fileID: 2100000, guid: 6527eaae1f897194bb67e9c6008e2b2c, type: 2}
