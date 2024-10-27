@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+<<<<<<< Updated upstream
   m_IndirectSpecularColor: {r: 0.008648451, g: 0.008884113, b: 0.019687377, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.0022873557, g: 0.003441448, b: 0.0059769023, a: 1}
+>>>>>>> Stashed changes
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1901,6 +1905,7 @@ ParticleSystem:
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
+<<<<<<< Updated upstream
     enabled: 1
     startLifetime:
       serializedVersion: 2
@@ -6545,6 +6550,75 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+=======
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 354329229159956662, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 354329229159956662, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 354329229159956662, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 354329229159956662, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 354329229159956662, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 354329229159956662, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 354329229159956662, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 354329229159956662, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 354329229159956662, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 354329229159956662, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321467751123721148, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_Name
+      value: NewFogParticleSystem (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321467751123721148, guid: 1caed024ee037494cb897b9b4480ac7b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1caed024ee037494cb897b9b4480ac7b, type: 3}
+>>>>>>> Stashed changes
 --- !u!1001 &735803805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9860,6 +9934,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
         type: 3}
+<<<<<<< Updated upstream
+=======
+      propertyPath: _monster
+      value: 
+      objectReference: {fileID: 1803854217874751313, guid: 99052e017f132af4787368e9a1333643,
+        type: 3}
+    - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
+        type: 3}
+      propertyPath: _endPoint
+      value: 
+      objectReference: {fileID: 7291779636281854485, guid: dc024012a8f4c5b44936e76858020346,
+        type: 3}
+    - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
+        type: 3}
+      propertyPath: mazeScale
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
+        type: 3}
+      propertyPath: _mazePieces
+      value: 
+      objectReference: {fileID: 8032588434237407153, guid: f001425b1f278f1499198452886a25b3,
+        type: 3}
+    - target: {fileID: 4678151957257815495, guid: b447b71095068cf438ed9b868715159e,
+        type: 3}
+>>>>>>> Stashed changes
       propertyPath: _collectible
       value: 
       objectReference: {fileID: 4891209067527716143, guid: 683f6df50deaa0c4a9a408ca7c56f7c4,

@@ -368,7 +368,43 @@ public class GenerateMaze : MonoBehaviour
     {
         Vector3 Endposition = longestPath[longestPath.Count - 1].transform.position;
         longestPath[longestPath.Count - 1].isEndpoint = true;
+<<<<<<< Updated upstream
         Instantiate(_endPoint, Endposition, Quaternion.identity);
+=======
+        float xOffset = 0.4f;
+        GameObject endObj = Instantiate(_endPoint, new Vector3(Endposition.x * scaleFactor + centerObjInCellVal, 0, Endposition.y * scaleFactor + centerObjInCellVal), Quaternion.identity);
+        endObj.transform.localScale = new Vector3(0.06f, 0.08f, 0.05f);
+        //north is default, 90 is east, 180 is south, 270 is west
+
+        // north 
+        // endObj.transform.position += new Vector3(-xOffset, 0, 0); // Move slightly to the right
+        // Adjust rotation and position based on open path direction
+        if (!currCell.CheckEastWallActive()) // Facing East
+        {
+            endObj.transform.localEulerAngles = new Vector3(0, 90f, 0);
+            endObj.transform.position += new Vector3(0, 0, -xOffset); // Move slightly to the right along the x-axis
+        }
+        else if (!currCell.CheckSouthWallActive()) // Facing South
+        {
+            endObj.transform.localEulerAngles = new Vector3(0, 180f, 0);
+            endObj.transform.position += new Vector3(-xOffset, 0, 0); // Move slightly back along the z-axis
+        }
+        else if (!currCell.CheckWestWallActive()) // Facing West
+        {
+            endObj.transform.localEulerAngles = new Vector3(0, -90f, 0);
+            endObj.transform.position += new Vector3(0, 0, xOffset); // Move slightly to the left along the x-axis
+        }
+        else if (!currCell.CheckNorthWallActive()) // Default Facing North
+        {
+            
+            endObj.transform.position += new Vector3(xOffset, 0, 0); // Move slightly forward along the z-axis if needed
+        }
+    }
+
+    private void GenerateMonster()
+    {
+        Instantiate(_monster, new Vector3(monsterSpawnCell.x * scaleFactor, 0, monsterSpawnCell.y * scaleFactor), Quaternion.identity);
+>>>>>>> Stashed changes
     }
 
      private void GenerateCollectibles()
