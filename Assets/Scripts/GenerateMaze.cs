@@ -399,19 +399,28 @@ public class GenerateMaze : MonoBehaviour
         MazePiece currCell = longestPath[longestPath.Count - 1];
         longestPath[longestPath.Count - 1].isEndpoint = true;
         GameObject endObj = Instantiate(_endPoint, new Vector3(Endposition.x * scaleFactor + centerObjInCellVal, 0, Endposition.y * scaleFactor + centerObjInCellVal), Quaternion.identity);
-        //endObj.transform.localScale = new Vector3(0.05f, 0.1f, 0.05f);
+        endObj.transform.localScale = new Vector3(0.06f, 0.08f, 0.05f);
+        float xOffset = 0.4f;
         //north is default, 90 is east, 180 is south, 270 is west
-        if(!currCell.CheckEastWallActive())
+        if (!currCell.CheckEastWallActive())
         {
             endObj.transform.localEulerAngles = new Vector3(0, 90f, 0);
+            endObj.transform.position += new Vector3(0, 0, -xOffset);
         }
         else if (!currCell.CheckSouthWallActive())
         {
             endObj.transform.localEulerAngles = new Vector3(0, 180f, 0);
+            endObj.transform.position += new Vector3(-xOffset, 0, 0);
         }
         else if (!currCell.CheckWestWallActive())
         {
             endObj.transform.localEulerAngles = new Vector3(0, -90f, 0);
+            endObj.transform.position += new Vector3(0, 0, xOffset);
+        }
+        else if (!currCell.CheckNorthWallActive()) // Default Facing North
+        {
+
+            endObj.transform.position += new Vector3(xOffset, 0, 0); 
         }
     }
 
