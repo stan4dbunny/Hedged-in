@@ -1249,6 +1249,10 @@ MonoBehaviour:
   gameOverCanvasVR: {fileID: 0}
   winCanvasVR: {fileID: 0}
   vrUICamera: {fileID: 0}
+  rightController: {fileID: 0}
+  leftController: {fileID: 0}
+  rightControllerUI: {fileID: 0}
+  leftControllerUI: {fileID: 0}
 --- !u!136 &8927473268851103820
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraFadeController : MonoBehaviour
 {
     public GameObject cameraObj;
-    public float startFadeDistCamWander = 0.2f;
+    public float startFadeDistCamWander = 0.5f;
     public float fadeSpeed = 0.05f;
     private float alpha = 0;
     private Material material;
