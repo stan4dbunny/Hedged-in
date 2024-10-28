@@ -3,6 +3,7 @@ Shader "Unlit/FoliageShader"
     Properties
     {
         _BaseColor("BaseColor", Color) = (0,0,0,0)
+        _FadeColor("FadeColor", Color) = (0,0,0,0)
         _Metallic("Metallic", Range(0, 1)) = 0.0
         _Smoothness("Smoothness", Range(0, 1)) = 0.0
 
@@ -41,6 +42,7 @@ Shader "Unlit/FoliageShader"
             #pragma multi_compile_fragment _ _LIGHT_COOKIES
             #pragma multi_compile _ _LIGHT_LAYERS
             #pragma multi_compile _ _FORWARD_PLUS
+            #pragma multi_compile_fog
             #include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
 
@@ -67,8 +69,10 @@ Shader "Unlit/FoliageShader"
                 float2 uv : TEXCOORD0;
                 float height : TEXCOORD1; 
                 float3 worldPos : TEXCOORD2;
-                float3 worldNormal : TEXCOORD3;
+                float3 worldNormal : NORMAL;
+                float4 worldTangent : TANGENT;
                 float4 pos : SV_POSITION;
+                float fogFactor : TEXCOORD5;
                 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
                     float4 shadowCoord : TEXCOORD6;
                 #endif
@@ -81,6 +85,7 @@ Shader "Unlit/FoliageShader"
             UNITY_INSTANCING_BUFFER_END(PerInstance)
 
             float4 _BaseColor;
+            float4 _FadeColor;
             float _Metallic;
             float _Smoothness;
 
@@ -110,7 +115,10 @@ Shader "Unlit/FoliageShader"
 
                 //set interpolator stuff used for lighting
                 o.worldPos = posInfo.positionWS;
-                o.worldNormal = GetVertexNormalInputs(v.normal, v.tangent).normalWS;
+                VertexNormalInputs vni = GetVertexNormalInputs(v.normal, v.tangent);
+                o.worldNormal = vni.normalWS;
+                real sign = v.tangent.w * GetOddNegativeScale();
+                o.worldTangent = float4(vni.tangentWS, sign);
 
                 //translate 
                 o.worldPos += o.worldNormal * trnsl;
@@ -126,6 +134,8 @@ Shader "Unlit/FoliageShader"
                 #endif
 
                 o.pos = TransformWorldToHClip(o.worldPos);
+                o.fogFactor = ComputeFogFactor(o.pos.z);
+
                 return o;
             }
 
@@ -140,6 +150,15 @@ Shader "Unlit/FoliageShader"
             {
                 UNITY_SETUP_INSTANCE_ID(i);
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+
+                float3 normal = normalize(i.worldNormal.xyz);
+                float3 tangent = normalize(i.worldTangent.xyz);
+
+                float sgn = i.worldTangent.w;      // should be either +1 or -1
+                float3 bitangent = sgn * cross(normal, tangent);
+                float3x3 tangentToWorld = float3x3(tangent, bitangent, normal);
+
+
                 float currLayerIndex = UNITY_ACCESS_INSTANCED_PROP(PerInstance, _CurrLayerIndex);
                 //generates random nr 0-1  
                 float randFloat = hash12(trunc(i.uv*_Resolution));
@@ -151,15 +170,22 @@ Shader "Unlit/FoliageShader"
                 //distance to center of pixel
                 float dist = length(cntrdPixlCoord);
 
-                float currLayerHeight = lerp(_MinHeight, _Height, currLayerIndex/_Layers);
+                normal = BlendNormalWorldspaceRNM(normal, TransformTangentToWorld(normalize(float3(cntrdPixlCoord.xy*0.07, 1)), tangentToWorld), normal);
+
+                //normal = TransformTangentToWorld(normalize(float3(cntrdPixlCoord.xy, 1)), tangentToWorld);
+
+                float currLayerHeight = lerp(0, _Height, currLayerIndex/_Layers);
                 
                 float4 color = float4(1,0,0,0);
 
+                bool isBase = currLayerIndex == 1;
+                isBase = false;
+
                 //discard pixels below height threshold, z
-                if (randHeight  < currLayerHeight) discard;
+                if (isBase == false && randHeight  < currLayerHeight) discard;
 
                 //discard pixels outside cylinder, x and y
-                if (dist > _Thickness * (randHeight - currLayerHeight)) discard; //the higher we get in the layers the thinner the strand should be
+                if (isBase == false && dist > _Thickness * max(randHeight - currLayerHeight, 0)) discard; //the higher we get in the layers the thinner the strand should be
                 else
                 {
                    //initialise inputdata
@@ -168,7 +194,7 @@ Shader "Unlit/FoliageShader"
                         inputData.positionWS = i.worldPos;
                     #endif
 
-                    inputData.normalWS = normalize(i.worldNormal);
+                    inputData.normalWS = normal;
                     inputData.viewDirectionWS = GetWorldSpaceNormalizeViewDir(i.worldPos);
 
                     #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
@@ -184,7 +210,7 @@ Shader "Unlit/FoliageShader"
                     //input surfaceData
                     SurfaceData surfaceData = (SurfaceData)0;
                     surfaceData.alpha = 1.0;
-                    surfaceData.albedo = _BaseColor.rgb * lerp(0.2, 1.0, (currLayerIndex/_Layers));
+                    surfaceData.albedo = lerp(_FadeColor.rgb, _BaseColor.rgb, (currLayerIndex/_Layers));
                     surfaceData.metallic = _Metallic;
                     surfaceData.specular = float3(0.0, 0.0, 0.0);
                     surfaceData.smoothness = _Smoothness;
@@ -194,7 +220,10 @@ Shader "Unlit/FoliageShader"
                     surfaceData.clearCoatMask = half(0.0);
                     surfaceData.clearCoatSmoothness = half(0.0);
 
+                   float fogFactorFrag = InitializeInputDataFog(float4(i.worldPos, 1.0), i.fogFactor);
                    color = UniversalFragmentPBR(inputData, surfaceData);
+                   color.rgb = MixFog(color.rgb, fogFactorFrag);
+                   //color.rgb = normal;
                 }
                 return color;
             }
