@@ -93,7 +93,7 @@ public class GenerateMaze : MonoBehaviour
         {
             for (int z = 0; z < mazeHeight; z++)
             {
-                _maze[x, z] = Instantiate(_mazePiece, new Vector3(x * scaleFactor, 0, z * scaleFactor), Quaternion.identity);
+                _maze[x, z] = Instantiate(_mazePiece, new Vector3(x * scaleFactor, 0, z * scaleFactor), Quaternion.identity, transform);
                 _maze[x, z].cellPos = new Vector2(x, z);
             }
         }
@@ -440,7 +440,7 @@ public class GenerateMaze : MonoBehaviour
             if(_maze[randX,randZ].isOccupied == false && (randX != 0 && randZ != 0))
             {
                 _maze[randX,randZ].isOccupied = true;
-                Instantiate(_collectible, new Vector3(randX * scaleFactor + centerObjInCellVal, 0.2f, randZ * scaleFactor + centerObjInCellVal), Quaternion.identity);
+                Instantiate(_collectible, new Vector3(randX * scaleFactor + centerObjInCellVal, 0.2f, randZ * scaleFactor + centerObjInCellVal), Quaternion.identity, transform);
                 currCollectibles++;
             }
         } while (currCollectibles < collectibleCount);

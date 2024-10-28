@@ -6,22 +6,20 @@ using UnityEngine.UI;
 public class RunnerCollision : MonoBehaviour
 {
     private int count = 5;
-
     public AudioClip collectableClip;
     private AudioSource audioSource;
-
     public GameObject healthBar;
-
     private Slider lifeSlider;
-
     public GameObject gameOverCanvas;
     public GameObject gameplayCanvas;
     public GameObject winCanvas;
-
     public GameObject gameOverCanvasVR;
     public GameObject winCanvasVR;
-
     public Camera vrUICamera;
+    public GameObject rightController;
+    public GameObject leftController;
+    public GameObject rightControllerUI;
+    public GameObject leftControllerUI;
 
     private void Start()
     {
@@ -101,11 +99,13 @@ public class RunnerCollision : MonoBehaviour
         if (gameplayCanvas != null) gameplayCanvas.SetActive(false);
 
         // Display the Game Over UI for both desktop and VR players
-        Debug.Log("Game Over!");
+        transform.position = new Vector3(vrUICamera.transform.position.x, 0, vrUICamera.transform.position.z); //moves player to where UI camera is
 
         if (vrUICamera != null) vrUICamera.gameObject.SetActive(true);
         if (gameOverCanvas != null) gameOverCanvas.SetActive(true);  // Show desktop Game Over Canvas
         if (gameOverCanvasVR != null) gameOverCanvasVR.SetActive(true);  // Show VR Game Over Canvas
+        EnableUIControllers();
+        Debug.Log("Game Over!");
     }
 
     // Handle the win logic
@@ -113,12 +113,13 @@ public class RunnerCollision : MonoBehaviour
     {
         // Hide other UI elements 
         if (gameplayCanvas != null) gameplayCanvas.SetActive(false);
+        transform.position = new Vector3(vrUICamera.transform.position.x, 0, vrUICamera.transform.position.z); //moves player to where UI camera is
 
         // Show the Win UI for both desktop and VR
         if (vrUICamera != null) vrUICamera.gameObject.SetActive(true);
         if (winCanvas != null) winCanvas.SetActive(true);
         if (winCanvasVR != null) winCanvasVR.SetActive(true);
-
+        EnableUIControllers();
         Debug.Log("Game Won!");
     }
 
@@ -136,5 +137,20 @@ public class RunnerCollision : MonoBehaviour
     {
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void EnableUIControllers()
+    {
+        if(rightController != null && rightControllerUI != null)
+        {
+            rightController.SetActive(false);
+            rightControllerUI.SetActive(true);
+        }
+
+        if(leftController != null && leftControllerUI != null)
+        {
+            leftController.SetActive(false);
+            leftControllerUI.SetActive(true);
+        }
     }
 }

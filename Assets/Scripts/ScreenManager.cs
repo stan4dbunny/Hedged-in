@@ -8,6 +8,10 @@ public class ScreenManager : MonoBehaviour
     public GameObject welcomeScreenCanvasVR;
     public Camera vrUICamera;
     public GameObject gameplayUICanvas;
+    public GameObject rightController;
+    public GameObject leftController;
+    public GameObject rightControllerUI;
+    public GameObject leftControllerUI;
 
     public static bool hasGameStarted = false;
 
@@ -56,6 +60,17 @@ public class ScreenManager : MonoBehaviour
         {
             vrUICamera.gameObject.SetActive(true); // Activate the VR UI Camera
         }
+        if(rightController != null && rightControllerUI != null)
+        {
+            rightController.SetActive(false);
+            rightControllerUI.SetActive(true);
+        }
+
+        if(leftController != null && leftControllerUI != null)
+        {
+            leftController.SetActive(false);
+            leftControllerUI.SetActive(true);
+        }
     }
 
     // Show the Gameplay UI and hide the Welcome Screen for both desktop and VR
@@ -79,6 +94,17 @@ public class ScreenManager : MonoBehaviour
         if (vrUICamera != null)
         {
             vrUICamera.gameObject.SetActive(false); // Deactivate the VR UI Camera
+        }
+        if(rightController != null && rightControllerUI != null)
+        {
+            rightController.SetActive(true);
+            rightControllerUI.SetActive(false);
+        }
+
+        if(leftController != null && leftControllerUI != null)
+        {
+            leftController.SetActive(true); 
+            leftControllerUI.SetActive(false);
         }
     }
 }
