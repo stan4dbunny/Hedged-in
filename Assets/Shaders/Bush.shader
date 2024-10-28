@@ -3,6 +3,7 @@ Shader "Unlit/FoliageShader"
     Properties
     {
         _BaseColor("BaseColor", Color) = (0,0,0,0)
+        _FadeColor("FadeColor", Color) = (0,0,0,0)
         _Metallic("Metallic", Range(0, 1)) = 0.0
         _Smoothness("Smoothness", Range(0, 1)) = 0.0
 
@@ -41,6 +42,7 @@ Shader "Unlit/FoliageShader"
             #pragma multi_compile_fragment _ _LIGHT_COOKIES
             #pragma multi_compile _ _LIGHT_LAYERS
             #pragma multi_compile _ _FORWARD_PLUS
+            #pragma multi_compile_fog
             #include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
 
@@ -69,6 +71,7 @@ Shader "Unlit/FoliageShader"
                 float3 worldPos : TEXCOORD2;
                 float3 worldNormal : TEXCOORD3;
                 float4 pos : SV_POSITION;
+                float fogFactor : TEXCOORD5;
                 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
                     float4 shadowCoord : TEXCOORD6;
                 #endif
@@ -81,6 +84,7 @@ Shader "Unlit/FoliageShader"
             UNITY_INSTANCING_BUFFER_END(PerInstance)
 
             float4 _BaseColor;
+            float4 _FadeColor;
             float _Metallic;
             float _Smoothness;
 
@@ -126,6 +130,8 @@ Shader "Unlit/FoliageShader"
                 #endif
 
                 o.pos = TransformWorldToHClip(o.worldPos);
+                o.fogFactor = ComputeFogFactor(o.pos.z);
+
                 return o;
             }
 
@@ -184,7 +190,7 @@ Shader "Unlit/FoliageShader"
                     //input surfaceData
                     SurfaceData surfaceData = (SurfaceData)0;
                     surfaceData.alpha = 1.0;
-                    surfaceData.albedo = _BaseColor.rgb * lerp(0.2, 1.0, (currLayerIndex/_Layers));
+                    surfaceData.albedo = lerp(_FadeColor.rgb, _BaseColor.rgb, (currLayerIndex/_Layers));
                     surfaceData.metallic = _Metallic;
                     surfaceData.specular = float3(0.0, 0.0, 0.0);
                     surfaceData.smoothness = _Smoothness;
@@ -194,7 +200,9 @@ Shader "Unlit/FoliageShader"
                     surfaceData.clearCoatMask = half(0.0);
                     surfaceData.clearCoatSmoothness = half(0.0);
 
+                   float fogFactorFrag = InitializeInputDataFog(float4(i.worldPos, 1.0), i.fogFactor);
                    color = UniversalFragmentPBR(inputData, surfaceData);
+                   color.rgb = MixFog(color.rgb, fogFactorFrag);
                 }
                 return color;
             }
