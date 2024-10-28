@@ -16,11 +16,13 @@ public class GenerateMaze : MonoBehaviour
     [SerializeField] private List<MazePiece> _mazePieces;
     public enum MazeScale
     {
+        [System.Obsolete("We only support 2x.")]
         Scale1X,
+        [System.Obsolete("We only support 2x.")]
         Scale1_5X,
         Scale2X,
     }
-    [SerializeField] private MazeScale mazeScale = new MazeScale();
+    [SerializeField] private MazeScale mazeScale = MazeScale.Scale2X;
     private MazePiece[,] _maze; 
     [SerializeField] private GameObject _collectible;
     [SerializeField] private GameObject _endPoint;
@@ -67,8 +69,10 @@ public class GenerateMaze : MonoBehaviour
                 centerObjInCellVal = 0.5f;
                 break;
         }
-        _mazePiece.SetWallScales(scaleFactor);
-        _mazePiece.SetLocalPositions(scaleFactor);
+        // The models can't be scaled, they need to be authored for the
+        // correct scale. Currently the meshes are made for 2x scale.
+        //_mazePiece.SetWallScales(scaleFactor);
+        //_mazePiece.SetLocalPositions(scaleFactor);
         var currLongestPath = new List<MazePiece>();
         
         InstantiateMazePieces();
@@ -544,8 +548,8 @@ public class GenerateMaze : MonoBehaviour
             wallOperator.GetComponentInChildren<Renderer>().material = moveableWallMaterial;
             wallOperator.AddComponent<WallController>();
             wallOperator.GetComponent<Collider>().layerOverridePriority = 1;
-            wallOperator.GetComponent<BoxCollider>().size = new Vector3(0.3f, 0.2f, 1.0f); //Stupid solutions for stupid problems
-            wallOperator.transform.localScale = new Vector3(1.0f, 1.001f, 1.0f * scaleFactor); //Stupid solutions for stupid problems
+            //wallOperator.GetComponent<BoxCollider>().size = new Vector3(0.3f, 0.2f, 1.0f); //Stupid solutions for stupid problems
+            //wallOperator.transform.localScale = new Vector3(1.0f, 1.001f, 1.0f * scaleFactor); //Stupid solutions for stupid problems
 
             ClearNeighboringWall(currentCell, direction);
         }

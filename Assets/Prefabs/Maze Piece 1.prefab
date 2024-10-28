@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.5, y: 0, z: -0.5}
-  m_LocalScale: {x: 1, y: 1, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7478835492159692863}
@@ -54,8 +54,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.1, z: 1}
-  m_Center: {x: 0, y: 2.53, z: 0.5}
+  m_Size: {x: 0.3, y: 0.1, z: 2}
+  m_Center: {x: 0, y: 2.53, z: 1}
 --- !u!1 &1052087017647188193
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.5, y: 0, z: -0.5}
-  m_LocalScale: {x: 1, y: 1, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7545380611949562361}
@@ -170,8 +170,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.1, z: 1}
-  m_Center: {x: 0, y: 2.53, z: 0.5}
+  m_Size: {x: 0.3, y: 0.1, z: 2}
+  m_Center: {x: 0, y: 2.53, z: 1}
 --- !u!1 &1850531479299029920
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +281,7 @@ Transform:
   m_GameObject: {fileID: 1999208104325342457}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -335,7 +335,7 @@ Transform:
   m_GameObject: {fileID: 4440542794786568184}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -389,7 +389,7 @@ Transform:
   m_GameObject: {fileID: 4643707653413023700}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -443,7 +443,7 @@ Transform:
   m_GameObject: {fileID: 5772656360790332121}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -664,7 +664,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0, z: -0.5}
-  m_LocalScale: {x: 1, y: 1, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5975141819272339668}
@@ -691,8 +691,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.1, z: 1}
-  m_Center: {x: 0, y: 2.53, z: 0.5}
+  m_Size: {x: 0.3, y: 0.1, z: 2}
+  m_Center: {x: 0, y: 2.53, z: 1}
 --- !u!1 &8851728352757104328
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,7 +720,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.5, y: 0, z: 1.5}
-  m_LocalScale: {x: 1, y: 1, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5888603920883078424}
@@ -747,8 +747,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.1, z: 1}
-  m_Center: {x: 0, y: 2.53, z: 0.5}
+  m_Size: {x: 0.3, y: 0.1, z: 2}
+  m_Center: {x: 0, y: 2.53, z: 1}
 --- !u!1 &9171829229056203200
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +868,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3df789af78ab5d24a86e1bc0febb350c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3df789af78ab5d24a86e1bc0febb350c,
         type: 3}
@@ -908,6 +908,11 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3df789af78ab5d24a86e1bc0febb350c,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3df789af78ab5d24a86e1bc0febb350c,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 3df789af78ab5d24a86e1bc0febb350c,
@@ -1006,7 +1011,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3df789af78ab5d24a86e1bc0febb350c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3df789af78ab5d24a86e1bc0febb350c,
         type: 3}
@@ -1046,6 +1051,11 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3df789af78ab5d24a86e1bc0febb350c,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3df789af78ab5d24a86e1bc0febb350c,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 3df789af78ab5d24a86e1bc0febb350c,
@@ -1144,7 +1154,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3df789af78ab5d24a86e1bc0febb350c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3df789af78ab5d24a86e1bc0febb350c,
         type: 3}
@@ -1282,7 +1292,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3df789af78ab5d24a86e1bc0febb350c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3df789af78ab5d24a86e1bc0febb350c,
         type: 3}
