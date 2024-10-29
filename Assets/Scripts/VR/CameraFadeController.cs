@@ -45,8 +45,8 @@ public class CameraFadeController : MonoBehaviour
             }
             else if(!isInWall && alpha < 0.5f) //keep it somewhat seethrough if we're not in a wall
             {
-                color = Color.red;
-                alpha += fadeSpeed;
+               // color = Color.red;
+                //alpha += fadeSpeed;
             }
             
         }
