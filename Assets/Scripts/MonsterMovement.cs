@@ -14,12 +14,12 @@ public class MonsterMovement : MonoBehaviour
     private Vector3 currentDestination; //current world position monster is trying to path towards
     private bool hasDestination = false;
     private bool seesPlayer;
-
+    public GameObject gameplayCanvas;
     private Animator animator;
 
     // This is the sound that plays in the environment  
-    public AudioClip environmentClip;
-    private AudioSource audioSource;
+    //public AudioClip environmentClip;
+    //private AudioSource audioSource;
 
     // This is the sound that plays in the environment  
     public AudioClip growlClip;
@@ -35,49 +35,58 @@ public class MonsterMovement : MonoBehaviour
         animator = GetComponent<Animator>();
 
         // Initialize the AudioSource component
-        audioSource = GetComponent<AudioSource>();
+        /*audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
-        }
+        }*/
 
         // Initialize the AudioSource component
         growlAudioSource = GetComponent<AudioSource>();
         if (growlAudioSource == null)
         {
+            Debug.Log("test");
             growlAudioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        audioSource.clip = environmentClip;
+        /*audioSource.clip = environmentClip;
         audioSource.loop = true;
         audioSource.Play();
-        audioSource.volume = 0.6f;
+        audioSource.volume = 0.6f;*/
     }
     void FixedUpdate()
     {
-        //Debug.Log(currentDestination);
-        if(GameObject.FindWithTag("distraction")) //Currently only handles one active distraction-object. If wewant to handle more: https://docs.unity3d.com/ScriptReference/GameObject.FindGameObjectsWithTag.html
+        if (gameplayCanvas.activeSelf == true)
         {
-            distraction = GameObject.FindWithTag("distraction");
-            if(isInRange(distraction)) //prioritize if a distraction is close to the monster
+            if (GameObject.FindWithTag("distraction")) //Currently only handles one active distraction-object. If wewant to handle more: https://docs.unity3d.com/ScriptReference/GameObject.FindGameObjectsWithTag.html
             {
-                pathTo(distraction);
+                distraction = GameObject.FindWithTag("distraction");
+                if (isInRange(distraction)) //prioritize if a distraction is close to the monster
+                {
+                    pathTo(distraction);
+                    return;
+                }
+            }
+
+            seesPlayer = lookForPlayer(); //if there is no distraction, look for the player
+
+            if (seesPlayer) //if we find the player, chase it
+            {
+                if (growlClip != null && !growlAudioSource.isPlaying)
+                {
+
+                    growlAudioSource.pitch = 1.0f;
+                    growlAudioSource.volume = 1.0f;
+                    growlAudioSource.PlayOneShot(growlClip);
+                }
+                animator.SetBool("PlayerIsVisible", true);
+                pathTo(player);
+                navMeshAgent.speed = 1.2f;
                 return;
             }
-        }
-        
-        seesPlayer = lookForPlayer(); //if there is no distraction, look for the player
 
-        if(seesPlayer) //if we find the player, chase it
-        {
-            pathTo(player);
-            animator.SetBool("PlayerIsVisible", true);
-            growlAudioSource.PlayOneShot(growlClip, 0.6f);
-            navMeshAgent.speed = 1.2f; 
-            return;
+            wander(); //if not any of the above is true, randomly wander around the maze
         }
-
-        wander(); //if not any of the above is true, randomly wander around the maze
     }
 
     private bool isInRange(GameObject target) //Check if certain gameObject in in range of the monster

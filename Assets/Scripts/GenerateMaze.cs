@@ -81,7 +81,7 @@ public class GenerateMaze : MonoBehaviour
         SetMazePieceAttributes();
         GetLongestPath(_maze[0, 0], currLongestPath);
         GenerateStartAndEndPoint();
-        GenerateMonster();
+        //GenerateMonster();
         GenerateCollectibles();
         RemoveDuplicateWalls();
         ColorRandomWalls();
@@ -441,7 +441,7 @@ public class GenerateMaze : MonoBehaviour
             int randX = Random.Range(0, mazeWidth - 1);
             int randZ = Random.Range(0, mazeHeight - 1);
 
-            if(_maze[randX,randZ].isOccupied == false && (randX != 0 && randZ != 0))
+            if(_maze[randX,randZ].isOccupied == false && (randX != 0 && randZ != 0) && _maze[randX, randZ].isEndpoint == false)
             {
                 _maze[randX,randZ].isOccupied = true;
                 Instantiate(_collectible, new Vector3(randX * scaleFactor + centerObjInCellVal, 0.2f, randZ * scaleFactor + centerObjInCellVal), Quaternion.identity, transform);

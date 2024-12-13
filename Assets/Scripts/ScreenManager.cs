@@ -12,6 +12,8 @@ public class ScreenManager : MonoBehaviour
     public GameObject leftController;
     public GameObject rightControllerUI;
     public GameObject leftControllerUI;
+    public GameObject player;
+    public GameObject monster;
 
     public static bool hasGameStarted = false;
 
@@ -106,5 +108,7 @@ public class ScreenManager : MonoBehaviour
             leftController.SetActive(true); 
             leftControllerUI.SetActive(false);
         }
+        player.transform.eulerAngles = new Vector3(0, 0, 0);
+        monster.transform.position = new Vector3(10, 0, 10);
     }
 }

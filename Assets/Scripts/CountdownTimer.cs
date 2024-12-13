@@ -20,6 +20,10 @@ public class CountdownTimer : MonoBehaviour
     public GameObject gameplayCanvas;
 
     public Camera vrUICamera;
+    public GameObject rightController;
+    public GameObject leftController;
+    public GameObject rightControllerUI;
+    public GameObject leftControllerUI;
 
     private void Start()
     {
@@ -61,7 +65,7 @@ public class CountdownTimer : MonoBehaviour
         // Display the Game Over UI for both desktop and VR players
         if (gameOverCanvas != null) gameOverCanvas.SetActive(true);  // Show desktop Game Over Canvas
         if (gameOverCanvasVR != null) gameOverCanvasVR.SetActive(true);  // Show VR Game Over Canvas
-
+        EnableUIControllers();
         Debug.Log("Game Over!");
     }
 
@@ -70,5 +74,20 @@ public class CountdownTimer : MonoBehaviour
     {
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void EnableUIControllers()
+    {
+        if (rightController != null && rightControllerUI != null)
+        {
+            rightController.SetActive(false);
+            rightControllerUI.SetActive(true);
+        }
+
+        if (leftController != null && leftControllerUI != null)
+        {
+            leftController.SetActive(false);
+            leftControllerUI.SetActive(true);
+        }
     }
 }

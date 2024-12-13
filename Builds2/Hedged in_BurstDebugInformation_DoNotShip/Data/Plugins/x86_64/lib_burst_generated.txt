@@ -10,6 +10,7 @@ Library: C:\Users\AGI_HedgedIn\Hedged-in\Temp\BurstOutput\Data\Plugins\x86_64\li
 --assembly-defines=UnityEngine;
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Unity.XR.Management;
+--assembly-defines=Unity.VisualEffectGraph.Runtime;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.XR.MockHMD;
 --assembly-defines=Unity.Postprocessing.Runtime;
@@ -200,6 +201,7 @@ Library: C:\Users\AGI_HedgedIn\Hedged-in\Temp\BurstOutput\Data\Plugins\x86_64\li
 --assembly-defines=UnityEngine;
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Unity.XR.Management;
+--assembly-defines=Unity.VisualEffectGraph.Runtime;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.XR.MockHMD;
 --assembly-defines=Unity.Postprocessing.Runtime;
@@ -392,6 +394,7 @@ Library: C:\Users\AGI_HedgedIn\Hedged-in\Temp\BurstOutput\Data\Plugins\x86_64\li
 --assembly-defines=UnityEngine;
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Unity.XR.Management;
+--assembly-defines=Unity.VisualEffectGraph.Runtime;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.XR.MockHMD;
 --assembly-defines=Unity.Postprocessing.Runtime;
@@ -486,6 +489,7 @@ Library: C:\Users\AGI_HedgedIn\Hedged-in\Temp\BurstOutput\Data\Plugins\x86_64\li
 --assembly-defines=UnityEngine;
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Unity.XR.Management;
+--assembly-defines=Unity.VisualEffectGraph.Runtime;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.XR.MockHMD;
 --assembly-defines=Unity.Postprocessing.Runtime;
@@ -578,6 +582,7 @@ Library: C:\Users\AGI_HedgedIn\Hedged-in\Temp\BurstOutput\Data\Plugins\x86_64\li
 --assembly-defines=UnityEngine;
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Unity.XR.Management;
+--assembly-defines=Unity.VisualEffectGraph.Runtime;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.XR.MockHMD;
 --assembly-defines=Unity.Postprocessing.Runtime;
@@ -702,6 +707,7 @@ Library: C:\Users\AGI_HedgedIn\Hedged-in\Temp\BurstOutput\Data\Plugins\x86_64\li
 --assembly-defines=UnityEngine;
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Unity.XR.Management;
+--assembly-defines=Unity.VisualEffectGraph.Runtime;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.XR.MockHMD;
 --assembly-defines=Unity.Postprocessing.Runtime;
